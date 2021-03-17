@@ -14,4 +14,12 @@ public class User extends Employee{
 		this.userName = userName;
 		this.password = password;
 	}
+	
+	public String getUsername() {
+		return userName;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
 }

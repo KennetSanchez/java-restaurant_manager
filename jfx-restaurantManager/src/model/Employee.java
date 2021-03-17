@@ -10,4 +10,16 @@ public class Employee {
 		this.lastname = lastname;
 		this.id = id;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getLastname() {
+		return lastname;
+	}
+	
+	public int getId() {
+		return id;
+	}
 }
