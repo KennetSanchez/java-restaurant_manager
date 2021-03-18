@@ -6,10 +6,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import java.time.LocalDateTime;
+
+
 
 public class RestaurantManagerGUI {
 
-	// Mainpane items.
+	//It's not sure that this keeps actualizated.
+	public String timeAndDate() {
+		LocalDateTime ldt = LocalDateTime.now();
+		String msg = ldt + "";
+		return msg;
+	}
+	
+	//Mainpane items.
 
 	@FXML
 	private Label companyLogo;
@@ -25,7 +35,14 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	private PasswordField passwordText;
-
+	
+	//Ingredients code.
+	
+	@FXML
+    private Pane ingredientsPane;
+	
+	
+	//Menu code.
 	@FXML
 	void gestionateClients(ActionEvent event) {
 
