@@ -6,4 +6,8 @@ public class FoodType {
 	public FoodType(String type) {
 		this.type = type;
 	}
+	
+	public String getType(){
+		return type;
+	}
 }

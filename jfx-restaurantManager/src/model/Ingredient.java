@@ -13,4 +13,11 @@ public class Ingredient {
 		this.allergen = allergen;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public boolean getAllergen() {
+		return allergen;
+	}
 }

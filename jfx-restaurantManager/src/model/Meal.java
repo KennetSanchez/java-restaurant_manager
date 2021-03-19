@@ -7,7 +7,6 @@ public class Meal {
 	FoodType type;
 	ArrayList<Ingredient> ingredients;
 	
-	
 	//This variables are for alert if the food may cause allergies 
 	boolean allergen;
 	String causes;
@@ -21,5 +20,29 @@ public class Meal {
 		this.ingredients = ingredients;
 		
 		//There will be a method to check if the food has an allergen ingredient and alert, or if isn't necessary.
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getSize() {
+		return size;
+	}
+	
+	public String getPrice() {
+		return price;
+	}
+	
+	public FoodType getType() {
+		return type;
+	}
+	
+	public ArrayList<Ingredient> getIngredients(){
+		return ingredients;
+	}
+	
+	public String getCauses() {
+		return causes;
 	}
 }

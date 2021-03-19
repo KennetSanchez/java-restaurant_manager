@@ -10,6 +10,9 @@ public class Order {
 	ArrayList<Meal> meals;
 	Date date;
 	
+	ArrayList<String> causes;
+	String temporal;
+	
 	//Code and date are not include. The program should generate the code, and take the date from the pc.
 	public Order(String status, String observations, Costumer owner, Employee employeeInCharge, ArrayList<Meal> meals) {
 		this.status = status;
@@ -17,5 +20,40 @@ public class Order {
 		this.owner = owner;
 		this.employeeInCharge = employeeInCharge;
 		this.meals = meals;
+	}
+	
+	public void allergenByFood() {
+		for(int i=0; i<meals.size() ;i++) {
+			temporal = meals.get(i).getCauses();
+			causes.add(temporal);
+		}
+	}
+	
+	public String getCode() {
+		return code;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public String getObservations() {
+		return observations;
+	}
+	
+	public Costumer getOwner() {
+		return owner;
+	}
+	
+	public Employee getEmployeeInCharge() {
+		return employeeInCharge;
+	}
+	
+	public ArrayList<Meal> getMeals() {
+		return meals;
+	}
+	
+	public Date getDate() {
+		return date;
 	}
 }
