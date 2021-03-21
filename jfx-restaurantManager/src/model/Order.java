@@ -24,6 +24,12 @@ public class Order {
 		code = generateCode();
 	}
 	
+	//This constructor it's only for testing.
+	public Order(String status, String observations) {
+		this.status = status;
+		this.observations = observations;
+	}
+	
 	public void allergenByFood() {
 		for(int i=0; i<meals.size() ;i++) {
 			temporal = meals.get(i).getCauses();

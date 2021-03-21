@@ -51,9 +51,9 @@
          </font>
       </Label>
       <TextField fx:id="txtSize" layoutX="126.0" layoutY="344.0" promptText="Personal, familiar, etc." />
-      <TableView layoutX="629.0" layoutY="266.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tvSize" layoutX="629.0" layoutY="266.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="199.0" text="Tamaño" />
+          <TableColumn fx:id="tcSize" prefWidth="199.0" text="Tamaño" />
         </columns>
       </TableView>
       <TextArea fx:id="areaIngredients" layoutX="124.0" layoutY="127.0" prefHeight="123.0" prefWidth="149.0" promptText="Ingredientes." />

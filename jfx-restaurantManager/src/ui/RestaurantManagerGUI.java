@@ -1,5 +1,7 @@
 package ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +13,21 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import model.*;
+
 public class RestaurantManagerGUI {
+
+	RestaurantManager rm;
+
+	public RestaurantManagerGUI() {
+		rm = new RestaurantManager();
+	}
 
 	// It's not sure that this keeps actualizated.
 	public String timeAndDate() {
@@ -51,7 +62,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void gestionateEmployees(ActionEvent event) {
-		
+
 	}
 
 	@FXML
@@ -99,18 +110,6 @@ public class RestaurantManagerGUI {
 	// Create meal code.
 
 	@FXML
-	private TableView<?> tvMeal;
-
-	@FXML
-	private TableColumn<?, ?> tcMeal;
-
-	@FXML
-	private TableView<?> tvType;
-
-	@FXML
-	private TableColumn<?, ?> tcType;
-
-	@FXML
 	private TextField txtMeal;
 
 	@FXML
@@ -126,14 +125,60 @@ public class RestaurantManagerGUI {
 	private TextArea areaIngredients;
 
 	@FXML
-	private TableView<?> tvIngredients;
+	private TableView<Meal> tvMeal;
 
 	@FXML
-	private TableColumn<?, ?> tcIngredients;
+	private TableColumn<Meal, String> tcMeal;
+
+	@FXML
+	private TableView<FoodType> tvType;
+
+	@FXML
+	private TableColumn<FoodType, String> tcType;
+
+	@FXML
+	private TableView<Ingredient> tvIngredients;
+
+	@FXML
+	private TableColumn<Ingredient, String> tcIngredients;
+
+	@FXML
+	private TableView<Size> tvSize;
+
+	@FXML
+	private TableColumn<Size, String> tcSize;
 
 	@FXML
 	void createMeal(ActionEvent event) {
+		String name, type, price, size;
+		String[] ingredients;
+		name = txtMeal.getText();
+		type = txtType.getText();
+		price = txtPrice.getText();
+		size = txtSize.getText();
+		ingredients = areaIngredients.getText().split(",");
+		String ingredientsTxt = ingredients.toString();
 
+		Meal newMeal = new Meal(name, size, price, type, ingredientsTxt);
+		rm.addMeal(newMeal);
+	}
+
+	private void initializateAllTableViews() {
+		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
+		tvMeal.setItems(tvMealObservableList);
+		tcMeal.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+
+		ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredients());
+		tvIngredients.setItems(tvIngredientObservableList);
+		tcIngredients.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
+
+		ObservableList<FoodType> tvFoodTypeObservableList = FXCollections.observableArrayList(rm.getFoodTypes());
+		tvType.setItems(tvFoodTypeObservableList);
+		tcType.setCellValueFactory(new PropertyValueFactory<FoodType, String>("type"));
+		
+		ObservableList<Size> tvSizeObservableList = FXCollections.observableArrayList(rm.getSizes());
+		tvSize.setItems(tvSizeObservableList);
+		tcSize.setCellValueFactory(new PropertyValueFactory<Size, String>("name"));
 	}
 
 	// Create costumer code.
@@ -206,6 +251,7 @@ public class RestaurantManagerGUI {
 		fxmlLoader.setController(this);
 		Parent addMeal = fxmlLoader.load();
 		mainPane.getChildren().setAll(addMeal);
+		initializateAllTableViews();
 	}
 
 	public void showCostumerWindow() throws IOException {
