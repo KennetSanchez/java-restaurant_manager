@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class Order {
 		this.owner = owner;
 		this.employeeInCharge = employeeInCharge;
 		this.meals = meals;
+		code = generateCode();
 	}
 	
 	public void allergenByFood() {
@@ -27,6 +29,12 @@ public class Order {
 			temporal = meals.get(i).getCauses();
 			causes.add(temporal);
 		}
+	}
+	
+	public String generateCode() {
+		LocalDateTime ldt = LocalDateTime.now();
+		String msg = owner.getName() + " - "+ ldt;
+		return msg;
 	}
 	
 	public String getCode() {

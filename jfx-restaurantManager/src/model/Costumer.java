@@ -26,4 +26,8 @@ public class Costumer {
 		this.phone = phone;
 		this.id = id;
 	}
+
+	public String getName() {
+		return name;
+	}
 }

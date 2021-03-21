@@ -40,7 +40,7 @@
       <TextField fx:id="txtMeal" layoutX="124.0" layoutY="71.0" promptText="Nombre" />
       <TextField fx:id="txtType" layoutX="124.0" layoutY="284.0" promptText="Plato principal, bebida, etc." />
       <TextField fx:id="txtPrice" layoutX="124.0" layoutY="398.0" promptText="\$" />
-      <Button layoutX="131.0" layoutY="457.0" mnemonicParsing="false" onAction="#createMeal" style="-fx-background-color: a2231d;" text="Crear comida." textFill="GOLD">
+      <Button layoutX="131.0" layoutY="457.0" mnemonicParsing="false" onAction="#createMeal" style="-fx-background-color: a2231d;" text="Añadir comida." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
