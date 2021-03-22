@@ -6,6 +6,15 @@ public class RestaurantManager {
 	
 	String name;
 	
+	Costumer costumer;
+	Employee employee;
+	FoodType foodType;
+	Ingredient ingredient;
+	Meal meal;
+	Order order;
+	Size size;
+	User user;
+	
 	//ArrayLists with the data. Without persistence.
 	ArrayList<Meal> allMeals;
 	ArrayList<Costumer> allCostumers;
@@ -45,11 +54,44 @@ public class RestaurantManager {
 		allMeals.add(newMealTestCase);
 		allIngredients.add(newIngredientsTestCase);
 		allFoodTypes.add(newFoodTypeTestCase);
+		//test
+		//allFoodTypes=createDataList("costumer");
+		
 		allSizes.add(newSize);
 	}
 	
 	public void addMeal(Meal newMeal) {
 		allMeals.add(newMeal);
+	}
+	
+	public String[] createDataList(String opt) {
+		String txt = null;
+		switch (opt){
+			case "costumer": txt = costumer.toString();
+			break;
+			case "employee": txt = employee.toString();
+			break;
+			case "foodType": txt = foodType.getType();
+			break;
+			case "ingredient": txt = ingredient.toString();
+			break;
+			case "meal": txt = meal.toString();
+			break;
+			case "order": txt = order.toString();
+			break;
+			case "size": txt = size.getName();
+			break;
+			case "user": txt = user.toString();
+			break;
+			default: System.out.println("There is an error"); //msg to the developers. Is for a while
+		}
+		
+		String[] stArray = null;
+		if(txt!=null) {
+			stArray= txt.split(",");
+		}
+		
+		return stArray;
 	}
 	
 	public ArrayList<Meal> getMeals() {		

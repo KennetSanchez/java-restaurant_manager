@@ -162,6 +162,14 @@ public class RestaurantManagerGUI {
 		Meal newMeal = new Meal(name, size, price, type, ingredientsTxt);
 		rm.addMeal(newMeal);
 	}
+	
+	/*@FXML
+	 void showDataList(ActionEvent event) {
+	 String opc;
+	 opc = txtOpc.getOpc();
+	 rm.createDataList(opc);
+	 }
+	 */
 
 	private void initializateAllTableViews() {
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
