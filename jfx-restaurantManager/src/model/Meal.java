@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Meal {
 	String name, size, price;

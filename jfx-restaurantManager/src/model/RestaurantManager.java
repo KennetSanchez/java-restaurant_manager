@@ -1,6 +1,11 @@
 package model;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class RestaurantManager {
@@ -106,7 +111,7 @@ public class RestaurantManager {
 		allUsers.add(newUser);
 	}
 
-	public String[] createDataList(String opt) {
+	public List<String> createDataList(String opt) {
 		String txt = null;
 		switch (opt) {
 		case "costumer":
@@ -137,14 +142,29 @@ public class RestaurantManager {
 			System.out.println("There is an error"); // msg to the developers. Is for a while
 		}
 
-		String[] stArray = null;
+		String[] stArray=null; 
 		if (txt != null) {
-			stArray = txt.split(",");
+			stArray = txt.split(txt);
 		}
-
-		return stArray;
+		
+		List<String> list = new ArrayList<String>();
+	    Collections.addAll(list, stArray);
+		return list;
 	}
-
+	/*public void serialize() {
+		try {
+	         FileOutputStream fileOut = new FileOutputStream("example.txt");
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(createDataList("order"));
+	         out.close();
+	         fileOut.close();
+	         System.out.printf("Serialized data is saved in /tmp/employee.ser");
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+	}*/ 
+	//jd
+	
 	public ArrayList<Meal> getMeals() {
 		return allMeals;
 	}

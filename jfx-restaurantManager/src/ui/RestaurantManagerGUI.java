@@ -168,7 +168,8 @@ public class RestaurantManagerGUI {
 	 opc = txtOpc.getOpc();
 	 rm.createDataList(opc);
 	 }
-	 */
+	 */ 
+	//jd
 
 	private void initializateAllTableViewsMealWindow() {
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
@@ -179,7 +180,7 @@ public class RestaurantManagerGUI {
 		tvIngredients.setItems(tvIngredientObservableList);
 		tcIngredients.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
 
-		ObservableList<FoodType> tvFoodTypeObservableList = FXCollections.observableArrayList(rm.getFoodTypes());
+	    ObservableList<FoodType> tvFoodTypeObservableList = FXCollections.observableArrayList(rm.getFoodTypes());
 		tvType.setItems(tvFoodTypeObservableList);
 		tcType.setCellValueFactory(new PropertyValueFactory<FoodType, String>("type"));
 		
