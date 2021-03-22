@@ -236,6 +236,44 @@ public class RestaurantManagerGUI {
 	void createOrder(ActionEvent event) {
 
 	}
+	
+	// Create employees code.
+	
+	@FXML
+    private Pane EmployeePane;
+
+    @FXML
+    private TextField createEmployeeName;
+
+    @FXML
+    private TextField createEmployeeId;
+
+    @FXML
+    private TextField createEmployeeLastname;
+
+    @FXML
+    void createEmployee(ActionEvent event) {
+
+    }
+    
+    //Create users code.
+    
+    @FXML
+    private Pane createUserPane;
+
+    @FXML
+    private TextField userTxtName;
+
+    @FXML
+    private TextField userTxtId;
+
+    @FXML
+    private PasswordField userTxtPassword;
+
+    @FXML
+    void createUser(ActionEvent event) {
+
+    }
 
 	// Show windows code.
 

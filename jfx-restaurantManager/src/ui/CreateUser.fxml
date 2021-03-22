@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane fx:id="createUserPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="62.0" layoutY="105.0" text="Nombre de usuario:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="119.0" layoutY="154.0" text="Contraseña:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="200.0" text="Identificación del usuario:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userTxtName" layoutX="238.0" layoutY="103.0" prefHeight="25.0" prefWidth="232.0" promptText="Nombre de usuario." />
+      <TextField fx:id="userTxtId" layoutX="238.0" layoutY="198.0" prefHeight="25.0" prefWidth="232.0" promptText="Identificación del empleado que lo usará." />
+      <PasswordField fx:id="userTxtPassword" layoutX="238.0" layoutY="152.0" prefHeight="25.0" prefWidth="232.0" promptText="Contraseña." />
+      <Button layoutX="230.0" layoutY="316.0" mnemonicParsing="false" onAction="#createUser" style="-fx-background-color: a2231d;" text="Añadir usuario." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="216.0" layoutY="21.0" text="Creación de usuarios." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
