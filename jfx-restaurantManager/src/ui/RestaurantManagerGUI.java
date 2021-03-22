@@ -159,8 +159,7 @@ public class RestaurantManagerGUI {
 		ingredients = areaIngredients.getText().split(",");
 		String ingredientsTxt = ingredients.toString();
 
-		Meal newMeal = new Meal(name, size, price, type, ingredientsTxt);
-		rm.addMeal(newMeal);
+		rm.addMeal(name, size, price, type, ingredientsTxt);	
 	}
 	
 	/*@FXML
@@ -171,7 +170,7 @@ public class RestaurantManagerGUI {
 	 }
 	 */
 
-	private void initializateAllTableViews() {
+	private void initializateAllTableViewsMealWindow() {
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
 		tvMeal.setItems(tvMealObservableList);
 		tcMeal.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
@@ -261,7 +260,11 @@ public class RestaurantManagerGUI {
 
     @FXML
     void createEmployee(ActionEvent event) {
-
+    	String employeeName = createEmployeeName.getText();
+    	long employeeId =	Long.parseLong(createEmployeeId.getText());
+    	String employeeLastname = createEmployeeLastname.getText();
+    	
+    	rm.addEmployee(employeeName, employeeLastname, employeeId);
     }
     
     //Create users code.
@@ -270,7 +273,7 @@ public class RestaurantManagerGUI {
     private Pane createUserPane;
 
     @FXML
-    private TextField userTxtName;
+    private TextField userTxtUsername;
 
     @FXML
     private TextField userTxtId;
@@ -279,8 +282,20 @@ public class RestaurantManagerGUI {
     private PasswordField userTxtPassword;
 
     @FXML
-    void createUser(ActionEvent event) {
+    private TextField userTxtName;
 
+    @FXML
+    private TextField userTxtLastname;
+
+    @FXML
+    void createUser(ActionEvent event) {
+    	String userName = userTxtUsername.getText();
+    	String userPass = userTxtPassword.getText();
+    	long userId = Long.parseLong(userTxtId.getText());
+    	String name = userTxtName.getText();
+    	String lastName = userTxtLastname.getText();
+    	
+    	rm.addUser(userName, userPass, name, lastName, userId);
     }
 
 	// Show windows code.
@@ -297,7 +312,7 @@ public class RestaurantManagerGUI {
 		fxmlLoader.setController(this);
 		Parent addMeal = fxmlLoader.load();
 		mainPane.getChildren().setAll(addMeal);
-		initializateAllTableViews();
+		initializateAllTableViewsMealWindow();
 	}
 
 	public void showCostumerWindow() throws IOException {

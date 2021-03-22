@@ -7,36 +7,47 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane fx:id="createUserPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="createUserPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="786.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="62.0" layoutY="105.0" text="Nombre de usuario:" textFill="GOLD">
+      <Label layoutX="62.0" layoutY="128.0" text="Nombre de usuario:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="119.0" layoutY="154.0" text="Contraseña:" textFill="GOLD">
+      <Label layoutX="118.0" layoutY="177.0" text="Contraseña:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="20.0" layoutY="200.0" text="Identificación del usuario:" textFill="GOLD">
+      <Label layoutX="20.0" layoutY="223.0" text="Identificación del usuario:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="userTxtName" layoutX="238.0" layoutY="103.0" prefHeight="25.0" prefWidth="232.0" promptText="Nombre de usuario." />
-      <TextField fx:id="userTxtId" layoutX="238.0" layoutY="198.0" prefHeight="25.0" prefWidth="232.0" promptText="Identificación del empleado que lo usará." />
-      <PasswordField fx:id="userTxtPassword" layoutX="238.0" layoutY="152.0" prefHeight="25.0" prefWidth="232.0" promptText="Contraseña." />
-      <Button layoutX="230.0" layoutY="316.0" mnemonicParsing="false" onAction="#createUser" style="-fx-background-color: a2231d;" text="Añadir usuario." textFill="GOLD">
+      <TextField fx:id="userTxtUsername" layoutX="277.0" layoutY="125.0" prefHeight="25.0" prefWidth="232.0" promptText="Nombre de usuario." />
+      <TextField fx:id="userTxtId" layoutX="277.0" layoutY="220.0" prefHeight="25.0" prefWidth="232.0" promptText="Identificación del empleado que lo usará." />
+      <PasswordField fx:id="userTxtPassword" layoutX="277.0" layoutY="174.0" prefHeight="25.0" prefWidth="232.0" promptText="Contraseña." />
+      <Button layoutX="323.0" layoutY="426.0" mnemonicParsing="false" onAction="#createUser" style="-fx-background-color: a2231d;" text="Añadir usuario." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Label layoutX="216.0" layoutY="21.0" text="Creación de usuarios." textFill="GOLD">
+      <Label layoutX="309.0" layoutY="32.0" text="Creación de usuarios." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
+      <Label layoutX="139.0" layoutY="277.0" text="Nombres:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="138.0" layoutY="324.0" text="Apellidos:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userTxtName" layoutX="277.0" layoutY="274.0" prefHeight="25.0" prefWidth="232.0" promptText="Nombre de usuario." />
+      <TextField fx:id="userTxtLastname" layoutX="277.0" layoutY="322.0" prefHeight="25.0" prefWidth="232.0" promptText="Nombre de usuario." />
    </children>
 </Pane>

@@ -1,11 +1,12 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RestaurantManager {
-	
+
 	String name;
-	
+
 	Costumer costumer;
 	Employee employee;
 	FoodType foodType;
@@ -14,107 +15,158 @@ public class RestaurantManager {
 	Order order;
 	Size size;
 	User user;
-	
-	//ArrayLists with the data. Without persistence.
+
+	// ArrayLists with the data. Without persistence.
 	ArrayList<Meal> allMeals;
 	ArrayList<Costumer> allCostumers;
 	ArrayList<FoodType> allFoodTypes;
 	ArrayList<Order> allOrders;
 	ArrayList<Ingredient> allIngredients;
 	ArrayList<Size> allSizes;
-	
-	//Test cases.
-	Meal newMealTestCase = new Meal("Coca-cola", "Big", "$10.000", "Drink", "Doesn't apply");	
-	FoodType newFoodTypeTestCase = new FoodType("Principal dish");	
+	ArrayList<Employee> allEmployees;
+	ArrayList<User> allUsers;
+
+	// Test cases.
+	Meal newMealTestCase = new Meal("Coca-cola", "Big", "$10.000", "Drink", "Doesn't apply");
+	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
 	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true);
-	Size newSize = new Size("Family");
-	
-	///Test cases not used yet.
+	Size newSizeTestCase = new Size("Family");
 	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L);
 	Order newOrderTestCase = new Order("Requested", "JD001");
-	
-	
-	
-	//Commented for test purposes.
-	/*	
-		allMeals.add(newMealTestCase);
-		allIngredients.add(newIngredientsTestCase);
-		allFoodTypes.add(newFoodTypeTestCase);
-	*/
-	
+	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L);
+
 	public RestaurantManager() {
-		
+
 		allMeals = new ArrayList<Meal>();
-		allCostumers  = new ArrayList<Costumer>();
+		allCostumers = new ArrayList<Costumer>();
 		allFoodTypes = new ArrayList<FoodType>();
 		allOrders = new ArrayList<Order>();
-		allIngredients = new ArrayList<Ingredient>();	
+		allIngredients = new ArrayList<Ingredient>();
 		allSizes = new ArrayList<Size>();
-		
+		allEmployees = new ArrayList<Employee>();
+		allUsers = new ArrayList<User>();
+
+		// Test cases.
 		allMeals.add(newMealTestCase);
 		allIngredients.add(newIngredientsTestCase);
 		allFoodTypes.add(newFoodTypeTestCase);
-		//test
-		//allFoodTypes=createDataList("costumer");
-		
-		allSizes.add(newSize);
+		allSizes.add(newSizeTestCase);
+		allEmployees.add(newEmployeeTestCase);
 	}
-	
-	public void addMeal(Meal newMeal) {
+
+	// Addition to the arrays from RestaurantManagerGUI:
+
+	// In the next versions this will be with the classes type, not Strings.
+	public void addMeal(String name, String size, String value, String type, String ingredients) {
+		Meal newMeal = new Meal(name, size, value, type, ingredients);
 		allMeals.add(newMeal);
 	}
-	
+
+	public void addEmployee(String name, String lastname, long id) {
+		Employee newEmployee = new Employee(name, lastname, id);
+		allEmployees.add(newEmployee);
+	}
+
+	public void addIngredients(String name, boolean allergen) {
+		Ingredient newIngredient = new Ingredient(name, allergen);
+		allIngredients.add(newIngredient);
+	}
+
+	public void addFoodType(String name) {
+		FoodType newFoodType = new FoodType(name);
+		allFoodTypes.add(newFoodType);
+	}
+
+	public void addSize(String name) {
+		Size newSize = new Size(name);
+		allSizes.add(newSize);
+	}
+
+	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) {
+
+		Costumer newCostumer = null;
+
+		if (!Objects.isNull(id)) {
+			newCostumer = new Costumer(name, lastname, address, observations, phone, id);
+		} else {
+			newCostumer = new Costumer(name, lastname, address, observations, phone);
+		}
+
+		allCostumers.add(newCostumer);
+
+	}
+
+	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	ArrayList<Meal> meals) {
+		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals);
+		allOrders.add(newOrder);
+	}
+
+	public void addUser(String userName, String userPass, String name, String lastName,  long userId) {
+		User newUser = new User(userName, userPass, name, lastName, userId);
+		allUsers.add(newUser);
+	}
+
 	public String[] createDataList(String opt) {
 		String txt = null;
-		switch (opt){
-			case "costumer": txt = costumer.toString();
+		switch (opt) {
+		case "costumer":
+			txt = costumer.toString();
 			break;
-			case "employee": txt = employee.toString();
+		case "employee":
+			txt = employee.toString();
 			break;
-			case "foodType": txt = foodType.getType();
+		case "foodType":
+			txt = foodType.getType();
 			break;
-			case "ingredient": txt = ingredient.toString();
+		case "ingredient":
+			txt = ingredient.toString();
 			break;
-			case "meal": txt = meal.toString();
+		case "meal":
+			txt = meal.toString();
 			break;
-			case "order": txt = order.toString();
+		case "order":
+			txt = order.toString();
 			break;
-			case "size": txt = size.getName();
+		case "size":
+			txt = size.getName();
 			break;
-			case "user": txt = user.toString();
+		case "user":
+			txt = user.toString();
 			break;
-			default: System.out.println("There is an error"); //msg to the developers. Is for a while
+		default:
+			System.out.println("There is an error"); // msg to the developers. Is for a while
 		}
-		
+
 		String[] stArray = null;
-		if(txt!=null) {
-			stArray= txt.split(",");
+		if (txt != null) {
+			stArray = txt.split(",");
 		}
-		
+
 		return stArray;
 	}
-	
-	public ArrayList<Meal> getMeals() {		
-		return allMeals;		
+
+	public ArrayList<Meal> getMeals() {
+		return allMeals;
 	}
-	
-	public ArrayList<Ingredient> getIngredients(){
+
+	public ArrayList<Ingredient> getIngredients() {
 		return allIngredients;
 	}
-	
-	public ArrayList<Costumer> getCostumers(){
+
+	public ArrayList<Costumer> getCostumers() {
 		return allCostumers;
 	}
 
-	public ArrayList<Order> getOrders(){
+	public ArrayList<Order> getOrders() {
 		return allOrders;
 	}
-	
-	public ArrayList<FoodType> getFoodTypes(){
+
+	public ArrayList<FoodType> getFoodTypes() {
 		return allFoodTypes;
 	}
-	
-	public ArrayList<Size> getSizes(){
+
+	public ArrayList<Size> getSizes() {
 		return allSizes;
 	}
+
 }

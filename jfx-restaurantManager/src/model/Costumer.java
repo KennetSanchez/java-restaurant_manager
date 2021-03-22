@@ -7,7 +7,7 @@ public class Costumer {
 	String sep=","; //separator
 	
 	//Optional.
-	int id;
+	long id;
 	
 	//Constructor whitout id.
 	public Costumer(String name, String lastname, String address, String observations, long phone) {
@@ -19,7 +19,7 @@ public class Costumer {
 	}
 	
 	//Constructor with id.
-	public Costumer(String name, String lastname, String address, String observations, long phone, int id) {
+	public Costumer(String name, String lastname, String address, String observations, long phone, long id) {
 		this.name = name;
 		this.lastname = lastname;
 		this.address = address;

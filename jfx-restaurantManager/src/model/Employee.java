@@ -3,10 +3,10 @@ package model;
 public class Employee {
 
 	String name, lastname;
-	int id;
+	long id;
 	String sep = ","; //separator
 	
-	public Employee(String name, String lastname, int id) {
+	public Employee(String name, String lastname, long id) {
 		this.name = name;
 		this.lastname = lastname;
 		this.id = id;
@@ -20,7 +20,7 @@ public class Employee {
 		return lastname;
 	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
