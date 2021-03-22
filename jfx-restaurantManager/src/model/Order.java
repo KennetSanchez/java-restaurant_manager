@@ -9,6 +9,7 @@ public class Order {
 	Costumer owner;
 	Employee employeeInCharge;
 	ArrayList<Meal> meals;
+	String sep=","; //separator
 	Date date;
 	
 	ArrayList<String> causes;
@@ -70,4 +71,9 @@ public class Order {
 	public Date getDate() {
 		return date;
 	}
+	
+	public String toString() {
+		return code +sep+ status +sep+ observations +sep+ owner +sep+ employeeInCharge +sep+ meals +sep+ date;
+	}
+	
 }

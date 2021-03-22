@@ -6,6 +6,7 @@ public class Meal {
 	String name, size, price;
 	String type;
 	String ingredientsTxt;
+	String sep=","; //separator
 	//ArrayList<Ingredient> ingredients;
 	
 	
@@ -50,5 +51,9 @@ public class Meal {
 	
 	public String getCauses() {
 		return causes;
+	}
+	
+	public String toString() {
+		return name +sep+ size +sep+ price +sep+ type +sep+ ingredientsTxt +sep+ causes;
 	}
 }

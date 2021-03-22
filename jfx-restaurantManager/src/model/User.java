@@ -8,6 +8,7 @@ public class User extends Employee{
 	//Employee variables.
 	String name, lastname;
 	int id;
+	String sep = ","; //separator
 	
 	public User(String userName, String password, String name, String lastname, int id) {
 		super(name, lastname, id);
@@ -21,5 +22,9 @@ public class User extends Employee{
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String toString() {
+		return name +sep+ lastname +sep+ id +sep+ userName +sep+ password;
 	}
 }

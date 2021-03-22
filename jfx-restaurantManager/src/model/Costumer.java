@@ -4,6 +4,7 @@ public class Costumer {
 
 	String name, lastname, address, observations;
 	long phone;
+	String sep=","; //separator
 	
 	//Optional.
 	int id;
@@ -29,5 +30,9 @@ public class Costumer {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String toString() {
+		return name +sep+ lastname +sep+ address +sep+ observations +sep+ phone;
 	}
 }

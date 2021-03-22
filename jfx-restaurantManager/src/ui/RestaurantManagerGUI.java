@@ -25,7 +25,7 @@ public class RestaurantManagerGUI {
 
 	RestaurantManager rm;
 
-	public RestaurantManagerGUI() {
+	public RestaurantManagerGUI() throws IOException{
 		rm = new RestaurantManager();
 	}
 

@@ -1,14 +1,10 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class RestaurantManager {
 	
 	String name;
-	public static BufferedReader br = null;
 	
 	//ArrayLists with the data. Without persistence.
 	ArrayList<Meal> allMeals;
@@ -17,8 +13,6 @@ public class RestaurantManager {
 	ArrayList<Order> allOrders;
 	ArrayList<Ingredient> allIngredients;
 	ArrayList<Size> allSizes;
-	
-	
 	
 	//Test cases.
 	Meal newMealTestCase = new Meal("Coca-cola", "Big", "$10.000", "Drink", "Doesn't apply");	
@@ -33,16 +27,14 @@ public class RestaurantManager {
 	
 	
 	//Commented for test purposes.
-	/*public RestaurantManager() throws FileNotFoundException {
-		br = new BufferedReader(new FileReader("input.txt.exampleeee"));
-		
+	/*	
 		allMeals.add(newMealTestCase);
 		allIngredients.add(newIngredientsTestCase);
 		allFoodTypes.add(newFoodTypeTestCase);
-	}
 	*/
 	
 	public RestaurantManager() {
+		
 		allMeals = new ArrayList<Meal>();
 		allCostumers  = new ArrayList<Costumer>();
 		allFoodTypes = new ArrayList<FoodType>();
