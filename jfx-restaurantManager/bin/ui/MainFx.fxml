@@ -11,22 +11,34 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="companyLogo" layoutX="859.0" layoutY="14.0" prefHeight="50.0" prefWidth="98.0" text="**Icon**" />
       <Label fx:id="date" layoutX="845.0" layoutY="683.0" prefHeight="17.0" prefWidth="109.0" text="**Date/hour**" />
       <MenuBar layoutY="2.0" prefHeight="57.0" prefWidth="832.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Manage">
+          <Menu mnemonicParsing="false" text="Añadir">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#gestionateProducts" text="Gestionate products" />
-                  <MenuItem mnemonicParsing="false" onAction="#gestionateClients" text="Gestionate clients" />
+                  <MenuItem mnemonicParsing="false" onAction="#createOrders" text="Crear orden" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#gestionateEmployees" text="Gestionate employees" />
-                  <MenuItem mnemonicParsing="false" onAction="#gestionateUsers" text="Gestionate users" />
+              <MenuItem mnemonicParsing="false" onAction="#createProducts" text="Añadir alimentos" />
+                  <MenuItem mnemonicParsing="false" onAction="#createCostumers" text="Añadir clientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#createIngredients" text="Añadir ingredientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#createEmployees" text="Añadir empleados" />
+                  <MenuItem mnemonicParsing="false" onAction="#createUsers" text="Añadir usuarios" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Gestionar">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#manageOrders" text="Gestionar ordenes" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageProducts" text="Gestionar alimentos" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageCostumers" text="Gestionar clientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageIngredients" text="Gestionar ingredientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageEmployees" text="Gestionar empleados" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageUsers" text="Gestionar usuarios" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="About">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Help" />
@@ -62,5 +74,7 @@
             </Button>
          </children>
       </Pane>
+      <Label layoutX="22.0" layoutY="692.0" prefHeight="17.0" prefWidth="54.0" text="Usuario:" />
+      <Label fx:id="userActive" layoutX="116.0" layoutY="692.0" prefHeight="17.0" prefWidth="223.0" text="--------------------------------" />
    </children>
 </Pane>

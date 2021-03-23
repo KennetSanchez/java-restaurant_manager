@@ -39,6 +39,9 @@ public class RestaurantManager {
 	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L);
 	Order newOrderTestCase = new Order("Requested", "JD001");
 	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L);
+	
+	// Admin user, used as a basic user.
+	User adminUser = new User("admin", "root", "manager", "owner", 000L);
 
 	public RestaurantManager() {
 
@@ -57,6 +60,9 @@ public class RestaurantManager {
 		allFoodTypes.add(newFoodTypeTestCase);
 		allSizes.add(newSizeTestCase);
 		allEmployees.add(newEmployeeTestCase);
+		
+		// Admin user
+		allUsers.add(adminUser);
 	}
 
 	// Addition to the arrays from RestaurantManagerGUI:
@@ -187,6 +193,25 @@ public class RestaurantManager {
 
 	public ArrayList<Size> getSizes() {
 		return allSizes;
+	}
+
+	public String login(String name, String password) {
+		boolean founded = false;
+		String userName = "";
+		String userPass = "";
+		String user = "";
+		
+		for(int i = 0 ; i < allUsers.size() && !founded; i++) {
+			userName = allUsers.get(i).getUsername();
+			userPass = allUsers.get(i).getPassword();
+			if(name.equals(userName) && password.equals(userPass)) {
+				user = allUsers.get(i).getName() + " " + allUsers.get(i).getLastname();
+				founded = true;
+			}
+		}
+		
+		return user;
+		
 	}
 
 }
