@@ -3,17 +3,18 @@ package model;
 public class User extends Employee{
 	
 	//User varaiables.
-	String userName, password;
+	String userName, password, enabledU;
 	
 	//Employee variables.
-	String name, lastname;
+	String name, lastname, enabledE;
 	long id;
 	String sep = ","; //separator
 	
-	public User(String userName, String password, String name, String lastname, long id) {
-		super(name, lastname, id);
+	public User(String userName, String password, String name, String lastname, long id, String enabledE, String enabledU) {
+		super(name, lastname, id, enabledE);
 		this.userName = userName;
 		this.password = password;
+		this.enabled = enabledU;
 	}
 	
 	public String getUsername() {
@@ -22,6 +23,14 @@ public class User extends Employee{
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getEnabledE() {
+		return enabledE;
+	}
+	
+	public String getEnabledU() {
+		return enabledU;
 	}
 	
 	public String toString() {

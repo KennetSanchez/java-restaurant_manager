@@ -19,8 +19,6 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Objects;
 
 import model.*;
 
@@ -129,33 +127,33 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-	void manageCostumers(ActionEvent event) {
-
+	void manageCostumers(ActionEvent event) throws IOException {
+		showManageCostumers();
 	}
 
 	@FXML
-	void manageEmployees(ActionEvent event) {
-
+	void manageEmployees(ActionEvent event) throws IOException {
+		showManageEmployees();
 	}
 
 	@FXML
-	void manageIngredients(ActionEvent event) {
-
+	void manageIngredients(ActionEvent event) throws IOException {
+		showManageIngredients();
 	}
 
 	@FXML
-	void manageOrders(ActionEvent event) {
-
+	void manageOrders(ActionEvent event) throws IOException {
+		showManageOrders();
 	}
 
 	@FXML
-	void manageProducts(ActionEvent event) {
-
+	void manageProducts(ActionEvent event) throws IOException {
+		showManageMeals();
 	}
 
 	@FXML
-	void manageUsers(ActionEvent event) {
-
+	void manageUsers(ActionEvent event) throws IOException {
+		showManageUsers();
 	}
 
 	@FXML
@@ -167,6 +165,7 @@ public class RestaurantManagerGUI {
 	void showHelp(ActionEvent event) {
 
 	}
+	
 	// Ingredients code.
 
 	@FXML
@@ -190,6 +189,9 @@ public class RestaurantManagerGUI {
 		boolean allergen = allergenCheckBox.isSelected();
 		if (name != "") {
 			rm.addIngredients(name, allergen);
+			initializeTableViewsIngredientWindow();
+			txtIngredient.clear();
+			allergenCheckBox.setSelected(false);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -323,12 +325,30 @@ public class RestaurantManagerGUI {
 		String lastname = costumerLastnames.getText();
 		String observations = costumerObservationsArea.getText();
 		String address = costumerAddress.getText();
-		long costumerIdLong = Long.parseLong(costumerId.getText());
-		long costumerPhoneLong = Long.parseLong(costumerPhone.getText()); 
+		
+		long costumerPhoneLong = 0L;
+		long costumerIdLong = 0L;
+		
+		if(!costumerPhone.getText().equals("")) {
+			costumerPhoneLong = Long.parseLong(costumerPhone.getText()); 
+		}else if(!costumerId.getText().equals("")){
+			costumerIdLong = Long.parseLong(costumerId.getText());
+		}else if(!costumerPhone.getText().equals("")) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+    	    alert.setHeaderText(null);
+    	    alert.setTitle("Error");
+    	    alert.setContentText("Por favor ingrese el número de télefono del cliente.");
+    	    alert.showAndWait();
+		}
 		
 		
-		if(name != "" && lastname != "" && address != "" && !Objects.isNull(costumerPhoneLong)) {
+		if(name != "" && lastname != "" && address != "" && costumerPhoneLong != 0L) {
 			rm.addCostumer(name, lastname, address, observations, costumerPhoneLong, costumerIdLong);
+			try {
+				showCreateCostumerWindow();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
     	    alert.setHeaderText(null);
@@ -458,10 +478,143 @@ public class RestaurantManagerGUI {
 		}
 		
 	}
+	
+	//Management code.
+	
+	//Manage costumers.
+	 
+	@FXML
+	    private TableView<Costumer> tvManageCostumers;
 
-	// Show windows code.
+	    @FXML
+	    private TableColumn<Costumer, String> tcManageCostumersName;
 
-	public void showCreateIngredientWindow() throws IOException {
+	    @FXML
+	    private TableColumn<Costumer, String> tcManageCostumersLastName;
+
+	    @FXML
+	    private TableColumn<Costumer, String> tcManageCostumersAddress;
+
+	    @FXML
+	    private TableColumn<Costumer, Long> tcManageCostumersPhone;
+
+	    @FXML
+	    private TableColumn<Costumer, Long> tcManageCostumersId;
+
+	    @FXML
+	    private TableColumn<Costumer, String> tcManageCostumersObservations;
+
+	    @FXML
+	    private TableColumn<Costumer, String> tcManageCostumersEnabled;
+
+	    @FXML
+	    void deleteCostumer(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void disableCostumer(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void enableCostumer(ActionEvent event) {
+
+	    }
+	    
+	    private void initializeManagerCostumerWindow() {
+	    	ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumers());
+	    	tvManageCostumers.setItems(tvCostumerObservableList);
+	    	tcManageCostumersName.setCellValueFactory(new PropertyValueFactory<Costumer, String>("name"));
+	    	tcManageCostumersLastName.setCellValueFactory(new PropertyValueFactory<Costumer, String>("lastname"));
+	    	tcManageCostumersAddress.setCellValueFactory(new PropertyValueFactory<Costumer, String>("address"));
+	    	tcManageCostumersObservations.setCellValueFactory(new PropertyValueFactory<Costumer, String>("observations"));
+	    	tcManageCostumersId.setCellValueFactory(new PropertyValueFactory<Costumer, Long>("phone"));
+	    	tcManageCostumersPhone.setCellValueFactory(new PropertyValueFactory<Costumer, Long>("id"));
+	    	tcManageCostumersEnabled.setCellValueFactory(new PropertyValueFactory<Costumer, String>("enabled"));
+	    }
+	    
+	    // Manage employees window code.
+	    
+	    @FXML
+	    private TableView<Employee> tvManageEmployees;
+
+	    @FXML
+	    private TableColumn<Employee, String> tcManageEmployeesName;
+
+	    @FXML
+	    private TableColumn<Employee, String> tcManageEmployeesLastName;
+
+	    @FXML
+	    private TableColumn<Employee, Long> tcManageEmployeesId;
+
+	    @FXML
+	    private TableColumn<Employee, String> tcManageEmployeesEnabled;
+
+	    @FXML
+	    void deleteEmployee(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void disableEmployee(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void enableEmployee(ActionEvent event) {
+
+	    }
+	    
+	    private void initializeManagerEmployeeWindow() {
+	    	ObservableList<Employee> tvEmployeeObservableList = FXCollections.observableArrayList(rm.getEmployees());
+	    	tvManageEmployees.setItems(tvEmployeeObservableList);
+	    	tcManageEmployeesName.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+	    	tcManageEmployeesLastName.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastname"));
+	    	tcManageEmployeesId.setCellValueFactory(new PropertyValueFactory<Employee, Long>("id"));
+	    	tcManageEmployeesEnabled.setCellValueFactory(new PropertyValueFactory<Employee, String>("enabled"));
+	    }	
+	    
+	    // Manage ingredients window code.
+	    
+	    @FXML
+	    private TableView<Ingredient> tvManageIngredients;
+
+	    @FXML
+	    private TableColumn<Ingredient, String> tcManageIngredientsName;
+
+	    @FXML
+	    private TableColumn<Ingredient, String> tcManageIngredientsAllergen;
+
+	    @FXML
+	    private TableColumn<Ingredient, String> tcManageIngredientsEnabled;
+
+	    @FXML
+	    void deleteIngredient(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void disableIngredient(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void enableIngredient(ActionEvent event) {
+
+	    }
+	    
+	    private void initializeManagerIngredientWindow() {
+	    	ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredients());
+	    	tvManageIngredients.setItems(tvIngredientObservableList);
+	    	tcManageIngredientsName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
+	    	tcManageIngredientsAllergen.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("allergen"));
+	    	tcManageIngredientsEnabled.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("enabled"));
+	    }	
+	    
+	// Show addition windows code.
+
+	private void showCreateIngredientWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Ingredients.fxml"));
 		fxmlLoader.setController(this);
 		Parent addIngredient = fxmlLoader.load();
@@ -470,7 +623,7 @@ public class RestaurantManagerGUI {
 
 	}
 
-	public void showCreateMealWindow() throws IOException {
+	private void showCreateMealWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateMeal.fxml"));
 		fxmlLoader.setController(this);
 		Parent addMeal = fxmlLoader.load();
@@ -478,39 +631,86 @@ public class RestaurantManagerGUI {
 		initializeTableViewsMealWindow();
 	}
 
-	public void showCreateCostumerWindow() throws IOException {
+	private void showCreateCostumerWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateCostumer.fxml"));
 		fxmlLoader.setController(this);
 		Parent addCostumer = fxmlLoader.load();
 		mainPane.getChildren().setAll(addCostumer);
 	}
 
-	public void showCreateUserWindow() throws IOException {
+	private void showCreateUserWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
 		fxmlLoader.setController(this);
 		Parent addUser = fxmlLoader.load();
 		mainPane.getChildren().setAll(addUser);
 	}
 
-	public void showCreateEmployee() throws IOException {
+	private void showCreateEmployee() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateEmployee.fxml"));
 		fxmlLoader.setController(this);
 		Parent addEmployee = fxmlLoader.load();
 		mainPane.getChildren().setAll(addEmployee);
 	}
 
-	public void showMainWindow() throws IOException {
+	private void showMainWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainFx.fxml"));
 		fxmlLoader.setController(this);
 		Parent addMain = fxmlLoader.load();
 		mainPane.getChildren().setAll(addMain);
 	}
 
-	public void showCreateOrderWindow() throws IOException {
+	private void showCreateOrderWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateOrder.fxml"));
 		fxmlLoader.setController(this);
 		Parent addOrder = fxmlLoader.load();
 		mainPane.getChildren().setAll(addOrder);
 		initializeTableViewsOrderWindow();
+	}
+	
+	//Show manage windows code.
+	
+	private void showManageCostumers() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageCostumers.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageCostumer = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageCostumer);
+		initializeManagerCostumerWindow();
+	}
+	
+	private void showManageEmployees() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageEmployees.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageEmployees = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageEmployees);
+		initializeManagerEmployeeWindow();
+	}
+	
+	private void showManageIngredients() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageIngredients.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageIngredients = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageIngredients);
+		initializeManagerIngredientWindow();
+	}
+	
+	private void showManageUsers() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageUsers.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageUsers = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageUsers);
+	}
+	
+	private void showManageMeals() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageMeals.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageMeals = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageMeals);
+	}
+	
+	private void showManageOrders() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageOrders.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageOrders = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageOrders);
 	}
 }

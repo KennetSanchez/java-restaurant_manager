@@ -34,14 +34,14 @@ public class RestaurantManager {
 	// Test cases.
 	Meal newMealTestCase = new Meal("Coca-cola", "Big", "$10.000", "Drink", "Doesn't apply");
 	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
-	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true);
+	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí.");
 	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L);
+	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L, "Sí.");
 	Order newOrderTestCase = new Order("Requested", "JD001");
-	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L);
+	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
 	
 	// Admin user, used as a basic user.
-	User adminUser = new User("admin", "root", "manager", "owner", 000L);
+	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
 
 	public RestaurantManager() {
 
@@ -60,6 +60,7 @@ public class RestaurantManager {
 		allFoodTypes.add(newFoodTypeTestCase);
 		allSizes.add(newSizeTestCase);
 		allEmployees.add(newEmployeeTestCase);
+		allCostumers.add(newCostumerTestCase);
 		
 		// Admin user
 		allUsers.add(adminUser);
@@ -74,12 +75,14 @@ public class RestaurantManager {
 	}
 
 	public void addEmployee(String name, String lastname, long id) {
-		Employee newEmployee = new Employee(name, lastname, id);
+		String enabled = "Sí";
+		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
 	}
 
 	public void addIngredients(String name, boolean allergen) {
-		Ingredient newIngredient = new Ingredient(name, allergen);
+		String enabled = "Sí";
+		Ingredient newIngredient = new Ingredient(name, allergen, enabled);
 		allIngredients.add(newIngredient);
 	}
 
@@ -96,11 +99,12 @@ public class RestaurantManager {
 	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) {
 
 		Costumer newCostumer = null;
-
-		if (!Objects.isNull(id)) {
-			newCostumer = new Costumer(name, lastname, address, observations, phone, id);
+		String enabled = "Sí";
+		
+		if (id != 0L) {
+			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled, id);
 		} else {
-			newCostumer = new Costumer(name, lastname, address, observations, phone);
+			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled);
 		}
 
 		allCostumers.add(newCostumer);
@@ -113,7 +117,10 @@ public class RestaurantManager {
 	}
 
 	public void addUser(String userName, String userPass, String name, String lastName,  long userId) {
-		User newUser = new User(userName, userPass, name, lastName, userId);
+		String enabledE = "Sí";
+		String enabledU = "Sí";
+		
+		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
 	}
 
@@ -194,6 +201,14 @@ public class RestaurantManager {
 	public ArrayList<Size> getSizes() {
 		return allSizes;
 	}
+	
+	public ArrayList<Employee> getEmployees(){
+		return allEmployees;
+	}
+	
+	public ArrayList<User> getUsers(){
+		return allUsers;
+	}
 
 	public String login(String name, String password) {
 		boolean founded = false;
@@ -213,5 +228,5 @@ public class RestaurantManager {
 		return user;
 		
 	}
-
+	
 }

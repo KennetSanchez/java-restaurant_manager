@@ -2,16 +2,17 @@ package model;
 
 public class Employee {
 
-	String name, lastname;
+	String name, lastname, enabled;
 	long id;
 	String sep = ","; //separator
 	
-	public Employee(String name, String lastname, long id) {
+	public Employee(String name, String lastname, long id, String enabled) {
 		this.name = name;
 		this.lastname = lastname;
 		this.id = id;
+		this.enabled = enabled;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -22,6 +23,10 @@ public class Employee {
 	
 	public long getId() {
 		return id;
+	}
+	
+	public String getEnabled() {
+		return enabled;
 	}
 	
 	public String toString() {
