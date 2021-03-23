@@ -19,6 +19,8 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import model.*;
 
@@ -59,112 +61,112 @@ public class RestaurantManagerGUI {
 	// Main items.
 
 	@FXML
-    private Label companyLogo;
+	private Label companyLogo;
 
-    @FXML
-    private Label date;
+	@FXML
+	private Label date;
 
-    @FXML
-    private Pane mainPane;
+	@FXML
+	private Pane mainPane;
 
-    @FXML
-    private TextField userText;
+	@FXML
+	private TextField userText;
 
-    @FXML
-    private PasswordField passwordText;  
-    
-    @FXML
-    private Label userActive;
+	@FXML
+	private PasswordField passwordText;
+
+	@FXML
+	private Label userActive;
 
 	// Menu code.
 
-    @FXML
-    void createCostumers(ActionEvent event) throws IOException {
-    	showCreateCostumerWindow();
-    }
+	@FXML
+	void createCostumers(ActionEvent event) throws IOException {
+		showCreateCostumerWindow();
+	}
 
-    @FXML
-    void createEmployees(ActionEvent event) throws IOException {
-    	showCreateEmployee();
-    }
+	@FXML
+	void createEmployees(ActionEvent event) throws IOException {
+		showCreateEmployee();
+	}
 
-    @FXML
-    void createIngredients(ActionEvent event) throws IOException {
-    	showCreateIngredientWindow();
-    }	
+	@FXML
+	void createIngredients(ActionEvent event) throws IOException {
+		showCreateIngredientWindow();
+	}
 
-    @FXML
-    void createOrders(ActionEvent event) throws IOException {
-    	showCreateOrderWindow();
-    }
+	@FXML
+	void createOrders(ActionEvent event) throws IOException {
+		showCreateOrderWindow();
+	}
 
-    @FXML
-    void createProducts(ActionEvent event) throws IOException {
-    	showCreateMealWindow();
-    }
+	@FXML
+	void createProducts(ActionEvent event) throws IOException {
+		showCreateMealWindow();
+	}
 
-    @FXML
-    void createUsers(ActionEvent event) throws IOException {
-    	showCreateUserWindow();
-    }
+	@FXML
+	void createUsers(ActionEvent event) throws IOException {
+		showCreateUserWindow();
+	}
 
-    @FXML
-    void login(ActionEvent event) {
-    	String name = userText.getText(); 
-    	String password = passwordText.getText();
-    	
-    	String user = rm.login(name, password);
-    	if(user != "") {
-    		userActive.setText(user); 	
-    	}else {
-    		Alert alert = new Alert(Alert.AlertType.ERROR);
-    	    alert.setHeaderText(null);
-    	    alert.setTitle("Error");
-    	    alert.setContentText("Usuario y/o contraseña inexistentes.");
-    	    alert.showAndWait();
-    	}
-    	
-    }
+	@FXML
+	void login(ActionEvent event) {
+		String name = userText.getText();
+		String password = passwordText.getText();
 
-    @FXML
-    void manageCostumers(ActionEvent event) {
+		String user = rm.login(name, password);
+		if (user != "") {
+			userActive.setText(user);
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Usuario y/o contraseña inexistentes.");
+			alert.showAndWait();
+		}
 
-    }
+	}
 
-    @FXML
-    void manageEmployees(ActionEvent event) {
+	@FXML
+	void manageCostumers(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void manageIngredients(ActionEvent event) {
+	@FXML
+	void manageEmployees(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void manageOrders(ActionEvent event) {
+	@FXML
+	void manageIngredients(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void manageProducts(ActionEvent event) {
+	@FXML
+	void manageOrders(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void manageUsers(ActionEvent event) {
+	@FXML
+	void manageProducts(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void showDevelopers(ActionEvent event) {
+	@FXML
+	void manageUsers(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void showHelp(ActionEvent event) {
+	@FXML
+	void showDevelopers(ActionEvent event) {
 
-    }
+	}
+
+	@FXML
+	void showHelp(ActionEvent event) {
+
+	}
 	// Ingredients code.
 
 	@FXML
@@ -181,8 +183,23 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	private TableColumn<Ingredient, String> tcIngredientsCreated;
-	
-	private void initializateTableViewsIngredientWindow() {
+
+	@FXML
+	void createIngredient(ActionEvent event) {
+		String name = txtIngredient.getText();
+		boolean allergen = allergenCheckBox.isSelected();
+		if (name != "") {
+			rm.addIngredients(name, allergen);
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("No ha ingresado el nombre del ingrediente.");
+			alert.showAndWait();
+		}
+	}
+
+	private void initializeTableViewsIngredientWindow() {
 		ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredients());
 		tvIngredientsCreated.setItems(tvIngredientObservableList);
 		tcIngredientsCreated.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
@@ -240,7 +257,16 @@ public class RestaurantManagerGUI {
 		ingredients = areaIngredients.getText().split(",");
 		String ingredientsTxt = ingredients.toString();
 
-		rm.addMeal(name, size, price, type, ingredientsTxt);
+		if (name != "" && type != "" && price != "" && size != "" && ingredientsTxt != "") {
+			rm.addMeal(name, size, price, type, ingredientsTxt);
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Por favor llene todos los campos.");
+			alert.showAndWait();
+		}
+
 	}
 
 	/*
@@ -249,7 +275,7 @@ public class RestaurantManagerGUI {
 	 */
 	// jd
 
-	private void initializateTableViewsMealWindow() {
+	private void initializeTableViewsMealWindow() {
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
 		tvMeal.setItems(tvMealObservableList);
 		tcMeal.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
@@ -292,7 +318,24 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void createCostumer(ActionEvent event) {
-
+		
+		String name = costumerNameTxt.getText(); 
+		String lastname = costumerLastnames.getText();
+		String observations = costumerObservationsArea.getText();
+		String address = costumerAddress.getText();
+		long costumerIdLong = Long.parseLong(costumerId.getText());
+		long costumerPhoneLong = Long.parseLong(costumerPhone.getText()); 
+		
+		
+		if(name != "" && lastname != "" && address != "" && !Objects.isNull(costumerPhoneLong)) {
+			rm.addCostumer(name, lastname, address, observations, costumerPhoneLong, costumerIdLong);
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+    	    alert.setHeaderText(null);
+    	    alert.setTitle("Error");
+    	    alert.setContentText("Por favor llene todos los campos.");
+    	    alert.showAndWait();
+		}
 	}
 
 	// Create order code.
@@ -307,31 +350,42 @@ public class RestaurantManagerGUI {
 	private TableView<Meal> tvOrderFoodAvaible;
 
 	@FXML
-	private TableColumn<Meal , String> tcOrderFoodAvaible;
+	private TableColumn<Meal, String> tcOrderFoodAvaible;
 
 	@FXML
 	private TableView<String> tvOrderFoodRequested;
 
 	@FXML
-	private TableColumn<Meal , String> tcOrderFoodRequested;
+	private TableColumn<Meal, String> tcOrderFoodRequested;
 
 	@FXML
 	private TextArea orderCostumerInfo;
 
 	@FXML
 	void createOrder(ActionEvent event) {
-
+		
+		ObservableList<String> orderFood = tvOrderFoodRequested.getItems();
+		String costumer = orderCostumerInfo.getText();
+		
+		if(orderFood != null && costumer != "") {
+			
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+    	    alert.setHeaderText(null);
+    	    alert.setTitle("Error");
+    	    alert.setContentText("Por favor llene todos los campos.");
+    	    alert.showAndWait();
+		}
 	}
-	
-	private void initializateTableViewsOrderWindow() {
+
+	private void initializeTableViewsOrderWindow() {
 		ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumers());
 		tvOrderCostumers.setItems(tvCostumerObservableList);
 		tcOrderCostumers.setCellValueFactory(new PropertyValueFactory<Costumer, String>("name"));
-		
+
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
 		tvOrderFoodAvaible.setItems(tvMealObservableList);
-		tcOrderFoodAvaible.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));		
-		
+		tcOrderFoodAvaible.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
 	}
 
 	// Create employees code.
@@ -354,7 +408,15 @@ public class RestaurantManagerGUI {
 		long employeeId = Long.parseLong(createEmployeeId.getText());
 		String employeeLastname = createEmployeeLastname.getText();
 
-		rm.addEmployee(employeeName, employeeLastname, employeeId);
+		if(employeeName != "" && createEmployeeId.getText() != "" && employeeLastname != "") {
+			rm.addEmployee(employeeName, employeeLastname, employeeId);
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+    	    alert.setHeaderText(null);
+    	    alert.setTitle("Error");
+    	    alert.setContentText("Por favor llene todos los campos.");
+    	    alert.showAndWait();
+		}
 	}
 
 	// Create users code.
@@ -385,7 +447,16 @@ public class RestaurantManagerGUI {
 		String name = userTxtName.getText();
 		String lastName = userTxtLastname.getText();
 
-		rm.addUser(userName, userPass, name, lastName, userId);
+		if(userName != "" && userPass != "" && name != "" && lastName != "" && userTxtId.getText() != "") {
+			rm.addUser(userName, userPass, name, lastName, userId);
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+    	    alert.setHeaderText(null);
+    	    alert.setTitle("Error");
+    	    alert.setContentText("Por favor llene todos los campos.");
+    	    alert.showAndWait();
+		}
+		
 	}
 
 	// Show windows code.
@@ -395,7 +466,7 @@ public class RestaurantManagerGUI {
 		fxmlLoader.setController(this);
 		Parent addIngredient = fxmlLoader.load();
 		mainPane.getChildren().setAll(addIngredient);
-		initializateTableViewsIngredientWindow();
+		initializeTableViewsIngredientWindow();
 
 	}
 
@@ -404,7 +475,7 @@ public class RestaurantManagerGUI {
 		fxmlLoader.setController(this);
 		Parent addMeal = fxmlLoader.load();
 		mainPane.getChildren().setAll(addMeal);
-		initializateTableViewsMealWindow();
+		initializeTableViewsMealWindow();
 	}
 
 	public void showCreateCostumerWindow() throws IOException {
@@ -413,14 +484,14 @@ public class RestaurantManagerGUI {
 		Parent addCostumer = fxmlLoader.load();
 		mainPane.getChildren().setAll(addCostumer);
 	}
-	
+
 	public void showCreateUserWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
 		fxmlLoader.setController(this);
 		Parent addUser = fxmlLoader.load();
 		mainPane.getChildren().setAll(addUser);
 	}
-	
+
 	public void showCreateEmployee() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateEmployee.fxml"));
 		fxmlLoader.setController(this);
@@ -440,6 +511,6 @@ public class RestaurantManagerGUI {
 		fxmlLoader.setController(this);
 		Parent addOrder = fxmlLoader.load();
 		mainPane.getChildren().setAll(addOrder);
-		initializateTableViewsOrderWindow();
+		initializeTableViewsOrderWindow();
 	}
 }

@@ -27,7 +27,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="238.0" layoutY="411.0" mnemonicParsing="false" style="-fx-background-color: a2231d;" text="Añadir ingrediente." textFill="GOLD">
+      <Button layoutX="238.0" layoutY="411.0" mnemonicParsing="false" onAction="#createIngredient" style="-fx-background-color: a2231d;" text="Añadir ingrediente." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
