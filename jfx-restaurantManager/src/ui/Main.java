@@ -15,12 +15,14 @@ public class Main extends Application {
 	
 	RestaurantManagerGUI restaurantManagerGUI;
 	
-	public Main() throws FileNotFoundException {
+	public Main() throws FileNotFoundException{
 		try {
 			restaurantManagerGUI = new RestaurantManagerGUI();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NumberFormatException i) {
+			System.out.println("Numero no valido");
+			i.printStackTrace();
 		}
 	}
 	

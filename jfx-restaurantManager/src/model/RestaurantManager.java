@@ -3,12 +3,10 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 //import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +41,7 @@ public class RestaurantManager {
 	FileWriter emList = null;
 
 	// Test cases.
-	Meal newMealTestCase = new Meal("Coca-cola", "Big", "$10.000", "Drink", "Doesn't apply");
+	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply");
 	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
 	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí.");
 	Size newSizeTestCase = new Size("Family");
@@ -143,9 +141,19 @@ public class RestaurantManager {
 	}
 	
 	public void createEmployeeList() throws IOException {
+		double cost=0;
+		
 		bw = new BufferedWriter(emList);
-		for(int i=0; i< allEmployees.size();i++) {
-			bw.write(allEmployees.get(i).getName());	
+		for(int i=0; i< allEmployees.size() && !allEmployees.isEmpty() ; i++) {
+			
+			if(allEmployees.get(0).getMeals()!=null) {
+				
+				for(int j=0; j<allEmployees.get(i).getMeals().size()  ; j++) {
+					cost += allEmployees.get(i).getMeals().get(j).getPrice();
+			    }
+			}
+			bw.write(allEmployees.get(i).getName()+":  Pedido(s): "+allEmployees.get(i).getOrdersToday()+". Valor: "+cost);
+			cost = 0;
 		}
 		bw.close();
 	}

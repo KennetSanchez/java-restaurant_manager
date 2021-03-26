@@ -568,8 +568,8 @@ public class RestaurantManagerGUI {
 	    }
 	    
 	    @FXML
-	    void createEmployeeList(ActionEvent event) {
-	    	//rm.createEmployeeList();
+	    void createEmployeeList(ActionEvent event) throws IOException {
+	    	rm.createEmployeeList();
 	    }
 	    
 	    private void initializeManagerEmployeeWindow() {

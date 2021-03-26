@@ -23,6 +23,7 @@ public class Order {
 		this.employeeInCharge = employeeInCharge;
 		this.meals = meals;
 		code = generateCode();
+		addMealsToEmp();
 	}
 	
 	//This constructor it's only for testing.
@@ -44,6 +45,12 @@ public class Order {
 		return msg;
 	}
 	
+	public void addMealsToEmp() {
+		employeeInCharge.addMeals(meals);
+		employeeInCharge.addOrder();
+	}
+	
+	//Getters
 	public String getCode() {
 		return code;
 	}

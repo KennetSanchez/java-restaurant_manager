@@ -3,9 +3,10 @@ package model;
 //import java.util.ArrayList;
 
 public class Meal {
-	String name, size, price;
+	String name, size;
 	String type;
 	String ingredientsTxt;
+	String price;
 	String sep=","; //separator
 	//ArrayList<Ingredient> ingredients;
 	
@@ -37,8 +38,8 @@ public class Meal {
 		return size;
 	}
 	
-	public String getPrice() {
-		return price;
+	public double getPrice() {
+		return Double.parseDouble(price);
 	}
 	
 	public String getType() {
