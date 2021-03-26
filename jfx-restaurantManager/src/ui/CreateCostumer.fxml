@@ -24,7 +24,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="costumerObservationsArea" layoutX="423.0" layoutY="244.0" text="Campo de observaciones:" textFill="GOLD">
+      <Label layoutX="423.0" layoutY="244.0" text="Campo de observaciones:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -49,7 +49,7 @@
       <TextField fx:id="costumerId" layoutX="165.0" layoutY="185.0" promptText="Opcional" />
       <TextField fx:id="costumerPhone" layoutX="523.0" layoutY="185.0" />
       <TextField fx:id="costumerAddress" layoutX="165.0" layoutY="241.0" />
-      <TextArea layoutX="420.0" layoutY="278.0" prefHeight="97.0" prefWidth="319.0" promptText="Alergias, u otra información." />
+      <TextArea fx:id="costumerObservationsArea" layoutX="420.0" layoutY="278.0" prefHeight="97.0" prefWidth="319.0" promptText="Alergias, u otra información." />
       <Button layoutX="175.0" layoutY="388.0" mnemonicParsing="false" onAction="#createCostumer" style="-fx-background-color: a2231d;" text="Añadir cliente" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />

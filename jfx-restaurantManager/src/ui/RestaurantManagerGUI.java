@@ -1,5 +1,6 @@
 package ui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +32,15 @@ public class RestaurantManagerGUI {
 		rm = new RestaurantManager();
 	}
 
+	
+	public void initialize() {
+		new Thread() {
+			public void run() {
+				showHour();				
+			}
+		}.start();
+	}
+	
 	// This method crash the program, and enter into a loop.
 	private void showHour() {
 		boolean finished = false;
@@ -39,7 +49,11 @@ public class RestaurantManagerGUI {
 		while (!finished) {
 			if (mainPane.isVisible()) {
 				try {
-					date.setText(timeAndDate());
+					Platform.runLater(new Thread() {
+						public void run() {
+							date.setText(timeAndDate());							
+						}
+					});
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -260,8 +274,19 @@ public class RestaurantManagerGUI {
 		ingredients = areaIngredients.getText().split(",");
 		String ingredientsTxt = ingredients.toString();
 
+	
+		
 		if (name != "" && type != "" && price != "" && size != "" && ingredientsTxt != "") {
 			rm.addMeal(name, size, price, type, ingredientsTxt);
+			txtMeal.clear();
+			txtType.clear();
+			txtPrice.clear();
+			txtSize.clear();
+			areaIngredients.clear();
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Creación completada.");
+			alert.setContentText("El producto ha sido añadido exitosamente.");
+			alert.showAndWait();				
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -681,6 +706,19 @@ public class RestaurantManagerGUI {
 	    @FXML
 	    private TableColumn<Order, String> tcManageOrdersState;
 
+	    private void initializeManagerOrdersWindow() {
+	    	ObservableList<Order> tvOrderObservableList = FXCollections.observableArrayList(rm.getOrders());
+	    	tvManageOrders.setItems(tvOrderObservableList);
+	    	tcManageOrdersCostumer.setCellValueFactory(new PropertyValueFactory<Order, String>("costumerName"));
+	    	tcManageOrdersEmployee.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeName"));
+	    	tcManageOrdersDate.setCellValueFactory(new PropertyValueFactory<Order, String>("date"));
+	    	tcManageOrdersCode.setCellValueFactory(new PropertyValueFactory<Order, String>("code"));
+	    	tcManageOrdersMeals.setCellValueFactory(new PropertyValueFactory<Order, String>("mealsTxt"));
+	    	tcManageOrdersObservations.setCellValueFactory(new PropertyValueFactory<Order, String>("observations"));
+	    	tcManageOrdersEnabled.setCellValueFactory(new PropertyValueFactory<Order, String>("enabled"));
+	    	tcManageOrdersState.setCellValueFactory(new PropertyValueFactory<Order, String>("status"));
+	    }	
+	    
 	    @FXML
 	    void deleteOrder(ActionEvent event) {
 
@@ -728,6 +766,8 @@ public class RestaurantManagerGUI {
 	    @FXML
 	    private TableColumn<Meal, String> tcManageMealsEnabled;
 
+	    
+	    
 	    @FXML
 	    void deleteMeal(ActionEvent event) {
 
@@ -843,6 +883,7 @@ public class RestaurantManagerGUI {
 		fxmlLoader.setController(this);
 		Parent manageOrders = fxmlLoader.load();
 		mainPane.getChildren().setAll(manageOrders);
+		initializeManagerOrdersWindow();
 	}
 	
 	

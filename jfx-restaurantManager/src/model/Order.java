@@ -32,8 +32,18 @@ public class Order {
 		this.observations = observations;
 	}
 	
+	public String getMealsTxt() {
+		String msg = "";
+		
+		for(int i = 0; i < meals.size() ; i++) {
+			msg+= meals.get(i).getName();
+		}
+		
+		return msg;
+	}
+	
 	public void allergenByFood() {
-		for(int i=0; i<meals.size() ;i++) {
+		for(int i=0; i < meals.size() ;i++) {
 			temporal = meals.get(i).getCauses();
 			causes.add(temporal);
 		}
@@ -63,12 +73,12 @@ public class Order {
 		return observations;
 	}
 	
-	public Costumer getOwner() {
-		return owner;
+	public String getOwner() {
+		return owner.getName();
 	}
 	
-	public Employee getEmployeeInCharge() {
-		return employeeInCharge;
+	public String getEmployeeInCharge() {
+		return employeeInCharge.getName();
 	}
 	
 	public ArrayList<Meal> getMeals() {
