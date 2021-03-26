@@ -612,6 +612,136 @@ public class RestaurantManagerGUI {
 	    	tcManageIngredientsEnabled.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("enabled"));
 	    }	
 	    
+	    // Manage users code.
+	    
+	    @FXML
+	    private TableView<User> tvManageUsers;
+
+	    @FXML
+	    private TableColumn<User, String> tcManageUsersUserName;
+
+	    @FXML
+	    private TableColumn<User, String> tcManageUsersName;
+
+	    @FXML
+	    private TableColumn<User, String> tcManageUsersLastName;
+
+	    @FXML
+	    private TableColumn<User, Long> tcManageUsersId;
+
+	    @FXML
+	    private TableColumn<User, String> tcManageUsersUserEnabled;
+
+	    @FXML
+	    private TableColumn<User, String> tcManageUsersEmployeeEnabled;
+
+	    @FXML
+	    void deleteUser(ActionEvent event) {
+	    	
+	    }
+
+	    @FXML
+	    void disableUser(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void enableUser(ActionEvent event) {
+
+	    }
+
+	    
+	    // Manage Orders code.
+	    
+	    @FXML
+	    private TableView<Order> tvManageOrders;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersCostumer;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersEmployee;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersDate;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersCode;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersMeals;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersObservations;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersEnabled;
+
+	    @FXML
+	    private TableColumn<Order, String> tcManageOrdersState;
+
+	    @FXML
+	    void deleteOrder(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void disableOrder(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void enableOrder(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void refreshState(ActionEvent event) {
+
+	    }
+
+	    
+	    //Manage Meals code.
+	    
+	    @FXML
+	    private TableView<Meal> tvManageMeals;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsName;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsSize;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsPrice;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsType;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsIngredients;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsAllergens;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcManageMealsEnabled;
+
+	    @FXML
+	    void deleteMeal(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void disableMeal(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void enableMeal(ActionEvent event) {
+
+	    }
+	    
 	// Show addition windows code.
 
 	private void showCreateIngredientWindow() throws IOException {

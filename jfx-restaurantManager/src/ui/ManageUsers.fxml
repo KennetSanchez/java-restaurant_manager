@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
-
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="906.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="349.0" layoutY="69.0" text="Administración de usuarios." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvManageUsers" layoutX="10.0" layoutY="129.0" prefHeight="408.0" prefWidth="893.0">
+        <columns>
+            <TableColumn fx:id="tcManageUsersUserName" prefWidth="164.0" text="Nombre de usuario" />
+          <TableColumn fx:id="tcManageUsersName" prefWidth="175.0" text="Nombres" />
+          <TableColumn fx:id="tcManageUsersLastName" prefWidth="112.0" text="Apellidos" />
+            <TableColumn fx:id="tcManageUsersId" prefWidth="165.0" text="Identificación" />
+            <TableColumn fx:id="tcManageUsersUserEnabled" prefWidth="131.0" text="Usuario habilitado" />
+            <TableColumn fx:id="tcManageUsersEmployeeEnabled" prefWidth="145.0" text="Empleado habilitado" />
+        </columns>
+      </TableView>
+      <Button layoutX="157.0" layoutY="564.0" mnemonicParsing="false" onAction="#deleteUser" style="-fx-background-color: a2231d;" text="Eliminar." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="399.0" layoutY="564.0" mnemonicParsing="false" onAction="#disableUser" style="-fx-background-color: a2231d;" text="Deshabilitar." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="704.0" layoutY="564.0" mnemonicParsing="false" onAction="#enableUser" style="-fx-background-color: a2231d;" text="Habilitar." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
