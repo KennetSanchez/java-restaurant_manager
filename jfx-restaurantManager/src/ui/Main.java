@@ -1,11 +1,7 @@
 package ui;
 	
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -15,19 +11,17 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 	
-	
 	String restaurantName = "La casa dorada.";
-	public BufferedReader br = null;
-	public BufferedWriter bw = null;
 	
 	RestaurantManagerGUI restaurantManagerGUI;
 	
-	public Main() throws IOException {
-		//br = new BufferedReader(new FileReader("input.txt.exampleeee"));
-		br = new BufferedReader(new InputStreamReader(System.in));
-		bw = new BufferedWriter(new OutputStreamWriter(System.out));
-				
-		restaurantManagerGUI = new RestaurantManagerGUI();
+	public Main() throws FileNotFoundException {
+		try {
+			restaurantManagerGUI = new RestaurantManagerGUI();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

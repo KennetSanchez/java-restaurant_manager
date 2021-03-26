@@ -1,12 +1,18 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.InputStreamReader;
+//import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+//import java.util.Objects;
 
 public class RestaurantManager {
 
@@ -30,6 +36,11 @@ public class RestaurantManager {
 	ArrayList<Size> allSizes;
 	ArrayList<Employee> allEmployees;
 	ArrayList<User> allUsers;
+	
+	//
+	BufferedReader br = null;
+	BufferedWriter bw = null;
+	FileWriter emList = null;
 
 	// Test cases.
 	Meal newMealTestCase = new Meal("Coca-cola", "Big", "$10.000", "Drink", "Doesn't apply");
@@ -42,8 +53,12 @@ public class RestaurantManager {
 	
 	// Admin user, used as a basic user.
 	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
-
-	public RestaurantManager() {
+	
+	public RestaurantManager() throws IOException, FileNotFoundException {
+		//br = new BufferedReader(new FileReader("input.txt.exampleeee"));
+		br = new BufferedReader(new InputStreamReader(System.in));
+		emList = new FileWriter("docs/em-List.txt");
+		//bw = new BufferedWriter(emList);
 
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
@@ -64,6 +79,9 @@ public class RestaurantManager {
 		
 		// Admin user
 		allUsers.add(adminUser);
+		
+		// TEST -------
+		//createEmployeeList();
 	}
 
 	// Addition to the arrays from RestaurantManagerGUI:
@@ -123,7 +141,15 @@ public class RestaurantManager {
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
 	}
-
+	
+	public void createEmployeeList() throws IOException {
+		bw = new BufferedWriter(emList);
+		for(int i=0; i< allEmployees.size();i++) {
+			bw.write(allEmployees.get(i).getName());	
+		}
+		bw.close();
+	}
+	
 	public List<String> createDataList(String opt) {
 		String txt = null;
 		switch (opt) {
@@ -164,19 +190,6 @@ public class RestaurantManager {
 	    Collections.addAll(list, stArray);
 		return list;
 	}
-	/*public void serialize() {
-		try {
-	         FileOutputStream fileOut = new FileOutputStream("example.txt");
-	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(createDataList("order"));
-	         out.close();
-	         fileOut.close();
-	         System.out.printf("Serialized data is saved in /tmp/employee.ser");
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      }
-	}*/ 
-	//jd
 	
 	public ArrayList<Meal> getMeals() {
 		return allMeals;

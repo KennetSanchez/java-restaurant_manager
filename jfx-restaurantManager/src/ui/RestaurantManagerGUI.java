@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -26,7 +27,7 @@ public class RestaurantManagerGUI {
 
 	RestaurantManager rm;
 
-	public RestaurantManagerGUI() throws IOException {
+	public RestaurantManagerGUI() throws IOException, FileNotFoundException {
 		rm = new RestaurantManager();
 	}
 
@@ -566,6 +567,11 @@ public class RestaurantManagerGUI {
 
 	    }
 	    
+	    @FXML
+	    void createEmployeeList(ActionEvent event) {
+	    	//rm.createEmployeeList();
+	    }
+	    
 	    private void initializeManagerEmployeeWindow() {
 	    	ObservableList<Employee> tvEmployeeObservableList = FXCollections.observableArrayList(rm.getEmployees());
 	    	tvManageEmployees.setItems(tvEmployeeObservableList);
@@ -843,4 +849,6 @@ public class RestaurantManagerGUI {
 		Parent manageOrders = fxmlLoader.load();
 		mainPane.getChildren().setAll(manageOrders);
 	}
+	
+	
 }
