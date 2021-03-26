@@ -22,26 +22,20 @@
             <TableColumn fx:id="tcManageEmployeesEnabled" prefWidth="183.0" text="Habilitado" />
         </columns>
       </TableView>
-      <Button layoutX="157.0" layoutY="564.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: a2231d;" text="Eliminar." textFill="GOLD">
+      <Button layoutX="130.0" layoutY="564.0" mnemonicParsing="false" onAction="#deleteEmployee" style="-fx-background-color: a2231d;" text="Eliminar." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="349.0" layoutY="564.0" mnemonicParsing="false" onAction="#disableEmployee" style="-fx-background-color: a2231d;" text="Deshabilitar." textFill="GOLD">
+      <Button layoutX="397.0" layoutY="564.0" mnemonicParsing="false" onAction="#disableEmployee" style="-fx-background-color: a2231d;" text="Deshabilitar." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="552.0" layoutY="564.0" mnemonicParsing="false" onAction="#enableEmployee" style="-fx-background-color: a2231d;" text="Habilitar." textFill="GOLD">
+      <Button layoutX="704.0" layoutY="564.0" mnemonicParsing="false" onAction="#enableEmployee" style="-fx-background-color: a2231d;" text="Habilitar." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="737.0" layoutY="585.0" mnemonicParsing="false" onAction="#createEmployeeList" text="Generar">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-      </Button>
-      <Label layoutX="662.0" layoutY="547.0" text="Generar listado de empleados con N° pedidos" />
    </children>
 </Pane>

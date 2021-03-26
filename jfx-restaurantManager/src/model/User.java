@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class User extends Employee{
 	
 	//User varaiables.
@@ -8,6 +10,8 @@ public class User extends Employee{
 	//Employee variables.
 	String name, lastname, enabledE;
 	long id;
+	ArrayList<Meal> mealsOrdered = null;
+	int ordersToday = 0;
 	String sep = ","; //separator
 	
 	public User(String userName, String password, String name, String lastname, long id, String enabledE, String enabledU) {
@@ -31,6 +35,11 @@ public class User extends Employee{
 	
 	public String getEnabledU() {
 		return enabledU;
+	}
+	
+	@Override
+	public long getId() {
+		return super.getId();
 	}
 	
 	public String toString() {

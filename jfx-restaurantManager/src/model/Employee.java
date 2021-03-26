@@ -6,8 +6,8 @@ public class Employee {
 
 	String name, lastname, enabled;
 	long id;
-	ArrayList<Meal> mealsOrdered = null;
-	int ordersToday=0;
+	ArrayList<Meal> mealsOrdered;
+	int ordersToday;
 	String sep = ","; //separator
 	
 	public Employee(String name, String lastname, long id, String enabled) {
@@ -15,7 +15,8 @@ public class Employee {
 		this.lastname = lastname;
 		this.id = id;
 		this.enabled = enabled;
-		mealsOrdered=null;
+		mealsOrdered = null;
+		ordersToday=0;
 	}
 	
 	public void addMeals(ArrayList<Meal> meals) {
@@ -48,7 +49,7 @@ public class Employee {
 		return mealsOrdered;
 	}
 	
-	public String getEnabled() {
+	public String getEnabledE() {
 		return enabled;
 	}
 	

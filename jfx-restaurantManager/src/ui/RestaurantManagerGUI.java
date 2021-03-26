@@ -250,7 +250,7 @@ public class RestaurantManagerGUI {
 	private TableColumn<Size, String> tcSize;
 
 	@FXML
-	void createMeal(ActionEvent event) {
+	void createMeal(ActionEvent event){
 		String name, type, price, size;
 		String[] ingredients;
 		name = txtMeal.getText();
@@ -383,13 +383,13 @@ public class RestaurantManagerGUI {
 	private TextArea orderCostumerInfo;
 
 	@FXML
-	void createOrder(ActionEvent event) {
+	void createOrder(ActionEvent event) throws IOException {
 		
 		ObservableList<String> orderFood = tvOrderFoodRequested.getItems();
 		String costumer = orderCostumerInfo.getText();
 		
 		if(orderFood != null && costumer != "") {
-			
+			rm.createEmployeeList();
 		}else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
     	    alert.setHeaderText(null);
@@ -565,11 +565,6 @@ public class RestaurantManagerGUI {
 	    @FXML
 	    void enableEmployee(ActionEvent event) {
 
-	    }
-	    
-	    @FXML
-	    void createEmployeeList(ActionEvent event) throws IOException {
-	    	rm.createEmployeeList();
 	    }
 	    
 	    private void initializeManagerEmployeeWindow() {

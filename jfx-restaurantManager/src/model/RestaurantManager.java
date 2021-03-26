@@ -56,7 +56,6 @@ public class RestaurantManager {
 		//br = new BufferedReader(new FileReader("input.txt.exampleeee"));
 		br = new BufferedReader(new InputStreamReader(System.in));
 		emList = new FileWriter("docs/em-List.txt");
-		//bw = new BufferedWriter(emList);
 
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
@@ -124,7 +123,6 @@ public class RestaurantManager {
 		}
 
 		allCostumers.add(newCostumer);
-
 	}
 
 	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	ArrayList<Meal> meals) {
