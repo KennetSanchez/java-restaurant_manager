@@ -34,28 +34,16 @@ public class RestaurantManager {
 	ArrayList<Size> allSizes;
 	ArrayList<Employee> allEmployees;
 	ArrayList<User> allUsers;
-	
+
 	//
 	BufferedReader br = null;
 	BufferedWriter bw = null;
 	FileWriter emList = null;
 
-	// Test cases.
-	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply");
-	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
-	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí.");
-	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L, "Sí.");
-	Order newOrderTestCase = new Order("Requested", "JD001");
-	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
-	
-	// Admin user, used as a basic user.
-	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
-	
 	public RestaurantManager() throws IOException, FileNotFoundException {
-		//br = new BufferedReader(new FileReader("input.txt.exampleeee"));
-		br = new BufferedReader(new InputStreamReader(System.in));
-		emList = new FileWriter("docs/em-List.txt");
+		// br = new BufferedReader(new FileReader("input.txt.exampleeee"));
+		 br = new BufferedReader(new InputStreamReader(System.in));
+		 emList = new FileWriter("docs/em-List.txt");
 
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
@@ -73,12 +61,108 @@ public class RestaurantManager {
 		allSizes.add(newSizeTestCase);
 		allEmployees.add(newEmployeeTestCase);
 		allCostumers.add(newCostumerTestCase);
-		
+
 		// Admin user
 		allUsers.add(adminUser);
-		
+
 		// TEST -------
-		//createEmployeeList();
+		// createEmployeeList();
+	}
+
+	// Delete objects methods.
+
+	public boolean deleteIngredient(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allIngredients.size() >= index && index >= 0) {
+			posible = true;
+		}
+
+		if (posible) {
+			allIngredients.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+
+	public boolean deleteMeal(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allMeals.size() >= index && index >= 0) {
+			posible = true;
+		}
+		if (posible) {
+			allMeals.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+
+	public boolean deleteEmployee(int index) {
+		boolean founded = false;
+		boolean posible = false;
+		
+		if(allEmployees.size() >= index && index >= 0) {
+			posible = true;
+		}
+		if (posible) {
+			allEmployees.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+
+	public boolean deleteUser(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allUsers.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allUsers.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+
+	public boolean deleteCostumer(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allCostumers.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allCostumers.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+
+	public boolean deleteOrder(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allOrders.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allOrders.remove(index);
+			founded = true;
+		}
+
+		return founded;
 	}
 
 	// Addition to the arrays from RestaurantManagerGUI:
@@ -115,7 +199,7 @@ public class RestaurantManager {
 
 		Costumer newCostumer = null;
 		String enabled = "Sí";
-		
+
 		if (id != 0L) {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled, id);
 		} else {
@@ -125,37 +209,39 @@ public class RestaurantManager {
 		allCostumers.add(newCostumer);
 	}
 
-	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	ArrayList<Meal> meals) {
+	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,
+			ArrayList<Meal> meals) {
 		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals);
 		allOrders.add(newOrder);
 	}
 
-	public void addUser(String userName, String userPass, String name, String lastName,  long userId) {
+	public void addUser(String userName, String userPass, String name, String lastName, long userId) {
 		String enabledE = "Sí";
 		String enabledU = "Sí";
-		
+
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
 	}
-	
+
 	public void createEmployeeList() throws IOException {
-		double cost=0;
-		
+		double cost = 0;
+
 		bw = new BufferedWriter(emList);
-		for(int i=0; i< allEmployees.size() && !allEmployees.isEmpty() ; i++) {
-			
-			if(allEmployees.get(0).getMeals()!=null) {
-				
-				for(int j=0; j<allEmployees.get(i).getMeals().size()  ; j++) {
+		for (int i = 0; i < allEmployees.size() && !allEmployees.isEmpty(); i++) {
+
+			if (allEmployees.get(0).getMeals() != null) {
+
+				for (int j = 0; j < allEmployees.get(i).getMeals().size(); j++) {
 					cost += allEmployees.get(i).getMeals().get(j).getPrice();
-			    }
+				}
 			}
-			bw.write(allEmployees.get(i).getName()+":  Pedido(s): "+allEmployees.get(i).getOrdersToday()+". Valor: "+cost);
+			bw.write(allEmployees.get(i).getName() + ":  Pedido(s): " + allEmployees.get(i).getOrdersToday()
+					+ ". Valor: " + cost);
 			cost = 0;
 		}
 		bw.close();
 	}
-	
+
 	public List<String> createDataList(String opt) {
 		String txt = null;
 		switch (opt) {
@@ -187,16 +273,16 @@ public class RestaurantManager {
 			System.out.println("There is an error"); // msg to the developers. Is for a while
 		}
 
-		String[] stArray=null; 
+		String[] stArray = null;
 		if (txt != null) {
 			stArray = txt.split(txt);
 		}
-		
+
 		List<String> list = new ArrayList<String>();
-	    Collections.addAll(list, stArray);
+		Collections.addAll(list, stArray);
 		return list;
 	}
-	
+
 	public ArrayList<Meal> getMeals() {
 		return allMeals;
 	}
@@ -220,12 +306,12 @@ public class RestaurantManager {
 	public ArrayList<Size> getSizes() {
 		return allSizes;
 	}
-	
-	public ArrayList<Employee> getEmployees(){
+
+	public ArrayList<Employee> getEmployees() {
 		return allEmployees;
 	}
-	
-	public ArrayList<User> getUsers(){
+
+	public ArrayList<User> getUsers() {
 		return allUsers;
 	}
 
@@ -234,18 +320,31 @@ public class RestaurantManager {
 		String userName = "";
 		String userPass = "";
 		String user = "";
-		
-		for(int i = 0 ; i < allUsers.size() && !founded; i++) {
+
+		for (int i = 0; i < allUsers.size() && !founded; i++) {
 			userName = allUsers.get(i).getUsername();
 			userPass = allUsers.get(i).getPassword();
-			if(name.equals(userName) && password.equals(userPass)) {
+			if (name.equals(userName) && password.equals(userPass)) {
 				user = allUsers.get(i).getName() + " " + allUsers.get(i).getLastname();
 				founded = true;
 			}
 		}
-		
+
 		return user;
-		
+
 	}
-	
+
+	// Test cases.
+	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply");
+	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
+	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí.");
+	Size newSizeTestCase = new Size("Family");
+	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,
+			"Sí.");
+	Order newOrderTestCase = new Order("Requested", "JD001");
+	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
+
+	// Admin user, used as a basic user.
+	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
+
 }

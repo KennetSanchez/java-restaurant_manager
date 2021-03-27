@@ -7,52 +7,52 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="createCostumerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="839.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="createCostumerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="57.0" layoutY="129.0" text="Nombres:" textFill="GOLD">
+      <Label layoutX="73.0" layoutY="166.0" text="Nombres:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="430.0" layoutY="187.0" text="Teléfono:" textFill="GOLD">
+      <Label layoutX="692.0" layoutY="289.0" text="Teléfono:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="53.0" layoutY="244.0" prefHeight="20.0" prefWidth="92.0" text="Dirección:" textFill="GOLD">
+      <Label layoutX="63.0" layoutY="445.0" prefHeight="23.0" prefWidth="104.0" text="Dirección:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="423.0" layoutY="244.0" text="Campo de observaciones:" textFill="GOLD">
+      <Label layoutX="545.0" layoutY="445.0" text="Campo de observaciones:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="99.0" layoutY="65.0" text="Información del cliente." textFill="GOLD">
+      <Label layoutX="455.0" layoutY="48.0" text="Información del cliente." textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="427.0" layoutY="129.0" text="Apellidos:" textFill="GOLD">
+      <Label layoutX="688.0" layoutY="166.0" text="Apellidos:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="45.0" layoutY="187.0" text="Identificación:" textFill="GOLD">
+      <Label layoutX="31.0" layoutY="289.0" text="Identificación:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="costumerNameTxt" layoutX="165.0" layoutY="127.0" />
-      <TextField fx:id="costumerLastnames" layoutX="523.0" layoutY="127.0" />
-      <TextField fx:id="costumerId" layoutX="165.0" layoutY="185.0" promptText="Opcional" />
-      <TextField fx:id="costumerPhone" layoutX="523.0" layoutY="185.0" />
-      <TextField fx:id="costumerAddress" layoutX="165.0" layoutY="241.0" />
-      <TextArea fx:id="costumerObservationsArea" layoutX="420.0" layoutY="278.0" prefHeight="97.0" prefWidth="319.0" promptText="Alergias, u otra información." />
-      <Button layoutX="175.0" layoutY="388.0" mnemonicParsing="false" onAction="#createCostumer" style="-fx-background-color: a2231d;" text="Añadir cliente" textFill="GOLD">
+      <TextField fx:id="costumerNameTxt" layoutX="204.0" layoutY="165.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextField fx:id="costumerLastnames" layoutX="822.0" layoutY="165.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextField fx:id="costumerId" layoutX="204.0" layoutY="288.0" prefHeight="25.0" prefWidth="230.0" promptText="Opcional" />
+      <TextField fx:id="costumerPhone" layoutX="822.0" layoutY="288.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextField fx:id="costumerAddress" layoutX="204.0" layoutY="444.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextArea fx:id="costumerObservationsArea" layoutX="815.0" layoutY="445.0" prefHeight="97.0" prefWidth="319.0" promptText="Alergias, u otra información." />
+      <Button layoutX="523.0" layoutY="626.0" mnemonicParsing="false" onAction="#createCostumer" style="-fx-background-color: a2231d;" text="Añadir cliente" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Button>
    </children>

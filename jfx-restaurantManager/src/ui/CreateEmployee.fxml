@@ -6,34 +6,34 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="EmployeePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="EmployeePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="115.0" layoutY="118.0" text="Nombres:" textFill="GOLD">
+      <Label layoutX="351.0" layoutY="202.0" text="Nombres:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="114.0" layoutY="166.0" text="Apellidos:" textFill="GOLD">
+      <Label layoutX="347.0" layoutY="304.0" text="Apellidos:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="117.0" layoutY="225.0" text="Identificación:" textFill="GOLD">
+      <Label layoutX="308.0" layoutY="427.0" text="Identificación:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="createEmployeeName" layoutX="253.0" layoutY="115.0" promptText="Nombres del empleado" />
-      <TextField fx:id="createEmployeeId" layoutX="253.0" layoutY="223.0" promptText="Identificación única." />
-      <TextField fx:id="createEmployeeLastname" layoutX="253.0" layoutY="164.0" promptText="Apellidos del empleado" />
-      <Button layoutX="222.0" layoutY="306.0" mnemonicParsing="false" onAction="#createEmployee" style="-fx-background-color: a2231d;" text="Añadir empleado." textFill="GOLD">
+      <TextField fx:id="createEmployeeName" layoutX="503.0" layoutY="201.0" prefHeight="25.0" prefWidth="239.0" promptText="Nombres del empleado" />
+      <TextField fx:id="createEmployeeLastname" layoutX="503.0" layoutY="303.0" prefHeight="25.0" prefWidth="239.0" promptText="Apellidos del empleado" />
+      <TextField fx:id="createEmployeeId" layoutX="503.0" layoutY="426.0" prefHeight="25.0" prefWidth="239.0" promptText="Identificación única." />
+      <Button layoutX="501.0" layoutY="629.0" mnemonicParsing="false" onAction="#createEmployee" style="-fx-background-color: a2231d;" text="Añadir empleado." textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Button>
-      <Label layoutX="226.0" layoutY="36.0" text="Añadir empleados." textFill="GOLD">
+      <Label layoutX="488.0" layoutY="54.0" text="Añadir empleados." textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="30.0" />
          </font>
       </Label>
    </children>

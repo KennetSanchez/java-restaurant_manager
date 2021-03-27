@@ -8,39 +8,53 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="577.0" prefWidth="875.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="84.0" layoutY="72.0" text="Cliente:" textFill="GOLD">
+      <Label layoutX="141.0" layoutY="87.0" text="Cliente:" textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <TableView fx:id="tvOrderCostumers" layoutX="579.0" layoutY="71.0" prefHeight="186.0" prefWidth="283.0">
+      <TableView fx:id="tvOrderCostumers" layoutX="836.0" layoutY="83.0" prefHeight="186.0" prefWidth="374.0">
         <columns>
-          <TableColumn fx:id="tcOrderCostumers" prefWidth="282.0" text="Clientes" />
+          <TableColumn fx:id="tcOrderCostumers" prefWidth="209.0" text="Clientes" />
+            <TableColumn fx:id="tcOrderCostumersPhone" prefWidth="164.0" text="Teléfono" />
         </columns>
       </TableView>
-      <TableView fx:id="tvOrderFoodAvaible" layoutX="579.0" layoutY="289.0" prefHeight="200.0" prefWidth="283.0">
+      <TableView fx:id="tvOrderFoodAvaible" layoutX="836.0" layoutY="343.0" prefHeight="326.0" prefWidth="399.0">
         <columns>
-          <TableColumn fx:id="tcOrderFoodAvaible" prefWidth="282.0" text="Alimentos disponibles" />
+          <TableColumn fx:id="tcOrderFoodAvaible" prefWidth="173.0" text="Alimentos disponibles" />
+            <TableColumn fx:id="tcOrderFoodAvaibleSize" prefWidth="116.0" text="Tamaño" />
+            <TableColumn fx:id="tcOrderFoodAvaiblePrice" prefWidth="109.0" text="Precio" />
         </columns>
       </TableView>
-      <TableView fx:id="tvOrderFoodRequested" layoutX="159.0" layoutY="289.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tvOrderFoodRequested" layoutX="79.0" layoutY="343.0" prefHeight="326.0" prefWidth="388.0">
         <columns>
-          <TableColumn fx:id="tcOrderFoodRequested" prefWidth="199.0" text="Alimentos pedidos por el cliente" />
+          <TableColumn fx:id="tcOrderFoodRequested" prefWidth="174.0" text="Alimentos pedidos" />
+            <TableColumn fx:id="tcOrderFoodRequestedSize" prefWidth="107.0" text="Tamaño" />
+            <TableColumn fx:id="tcOrderFoodRequestedPrice" prefWidth="106.0" text="Precio" />
         </columns>
       </TableView>
-      <Button layoutX="379.0" layoutY="511.0" mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: a2231d;" text="Crear orden." textFill="GOLD">
+      <TextArea fx:id="orderCostumerInfo" editable="false" layoutX="253.0" layoutY="90.0" prefHeight="48.0" prefWidth="200.0" promptText="Seleccione un cliente, y presione el botón." />
+      <Label layoutX="470.0" layoutY="14.0" text="Creación de ordenes." textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="544.0" layoutY="98.0" mnemonicParsing="false" onAction="#chooseCostumer" style="-fx-background-color: a2231d;" text="Seleccionar cliente." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="17.0" />
          </font>
       </Button>
-      <TextArea fx:id="orderCostumerInfo" layoutX="159.0" layoutY="72.0" prefHeight="84.0" prefWidth="200.0" promptText="Arrastre y suelte aquí el elemento del cliente que está ordenando." />
-      <Label layoutX="356.0" layoutY="14.0" text="Creación de ordenes." textFill="GOLD">
+      <Button layoutX="512.0" layoutY="419.0" mnemonicParsing="false" onAction="#addMealToOrder" style="-fx-background-color: a2231d;" text="Añadir producto a la orden." textFill="GOLD">
          <font>
-            <Font name="Arial Bold" size="16.0" />
+            <Font name="Arial Bold" size="17.0" />
          </font>
-      </Label>
+      </Button>
+      <Button layoutX="531.0" layoutY="745.0" mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: a2231d;" text="Crear orden." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="25.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

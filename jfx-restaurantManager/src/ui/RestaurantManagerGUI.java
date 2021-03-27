@@ -21,9 +21,12 @@ import javafx.scene.layout.Pane;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
 
 import model.*;
 
@@ -68,8 +71,16 @@ public class RestaurantManagerGUI {
 
 	// This method crash the program.
 	public String timeAndDate() {		
-		LocalDateTime ldt = LocalDateTime.now();
-		String msg = ldt+ "";
+		FormatStyle timeStyle = FormatStyle.MEDIUM;
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(timeStyle);
+		String lt= LocalTime.now().format(formatter);
+		
+		
+		DateTimeFormatter formatterH = DateTimeFormatter.ofLocalizedDate(timeStyle);
+		String ld = LocalDate.now().format(formatterH);
+		
+		String msg = ld + " - " + lt;
 		return msg;
 	}
 
@@ -400,31 +411,65 @@ public class RestaurantManagerGUI {
 
 	// Create order code.
 
-	@FXML
-	private TableView<Costumer> tvOrderCostumers;
+		ObservableList<Meal> orderFood = null;
+	
+		@FXML
+	    private TableView<Costumer> tvOrderCostumers;
 
-	@FXML
-	private TableColumn<Costumer, String> tcOrderCostumers;
+	    @FXML
+	    private TableColumn<Costumer, String> tcOrderCostumers;
 
-	@FXML
-	private TableView<Meal> tvOrderFoodAvaible;
+	    @FXML
+	    private TableColumn<Costumer, String> tcOrderCostumersPhone;
 
-	@FXML
-	private TableColumn<Meal, String> tcOrderFoodAvaible;
+	    @FXML
+	    private TableView<Meal> tvOrderFoodAvaible;
 
-	@FXML
-	private TableView<String> tvOrderFoodRequested;
+	    @FXML
+	    private TableColumn<Meal, String> tcOrderFoodAvaible;
 
-	@FXML
-	private TableColumn<Meal, String> tcOrderFoodRequested;
+	    @FXML
+	    private TableColumn<Meal, String> tcOrderFoodAvaibleSize;
 
-	@FXML
-	private TextArea orderCostumerInfo;
+	    @FXML
+	    private TableColumn<Meal, Double> tcOrderFoodAvaiblePrice;
+
+	    @FXML
+	    private TableView<Meal> tvOrderFoodRequested;
+
+	    @FXML
+	    private TableColumn<Meal, String> tcOrderFoodRequested;
+
+
+	    @FXML
+	    private TableColumn<Meal, String> tcOrderFoodRequestedSize;
+	    
+	    @FXML
+	    private TableColumn<Meal, Double> tcOrderFoodRequestedPrice;
+	     
+	    @FXML
+	    private TextArea orderCostumerInfo;
+
+	    @FXML
+	    void addMealToOrder(ActionEvent event) {
+	    	int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();;
+	    	if(index >= 0) {
+	    		orderFood.add(rm.getMeals().get(index));
+	    		tvOrderFoodRequested.setItems(orderFood);    	
+	    	}
+	    }
+
+	    @FXML
+	    void chooseCostumer(ActionEvent event) {
+	    	int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();
+	    	orderCostumerInfo.setText(rm.getCostumers().get(index).getName() + " - " + rm.getCostumers().get(index).getPhone());    	
+	    }
+
 
 	@FXML
 	void createOrder(ActionEvent event) throws IOException {
 
-		ObservableList<String> orderFood = tvOrderFoodRequested.getItems();
+		ObservableList<Meal> orderFood = tvOrderFoodRequested.getItems();
 		String costumer = orderCostumerInfo.getText();
 
 		if (orderFood != null && costumer != "") {
@@ -449,10 +494,15 @@ public class RestaurantManagerGUI {
 		ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumers());
 		tvOrderCostumers.setItems(tvCostumerObservableList);
 		tcOrderCostumers.setCellValueFactory(new PropertyValueFactory<Costumer, String>("name"));
+		tcOrderCostumersPhone.setCellValueFactory(new PropertyValueFactory<Costumer, String>("phone"));
 
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
 		tvOrderFoodAvaible.setItems(tvMealObservableList);
 		tcOrderFoodAvaible.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+		tcOrderFoodAvaibleSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
+		tcOrderFoodAvaiblePrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
+		
+		
 	}
 
 	// Create employees code.
@@ -647,8 +697,24 @@ public class RestaurantManagerGUI {
 	private TableColumn<Ingredient, String> tcManageIngredientsEnabled;
 
 	@FXML
-	void deleteIngredient(ActionEvent event) {
-
+	void deleteIngredient(ActionEvent event) throws IOException {
+		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.deleteIngredient(index);
+		
+		if(founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El ingrediente ha sido removido exitosamente.");
+			showManageIngredients();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El ingrediente no ha sido removido. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -704,8 +770,24 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-	void deleteUser(ActionEvent event) {
-
+	void deleteUser(ActionEvent event) throws IOException {
+		int index = tvManageUsers.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.deleteUser(index);
+		
+		if(founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El usuario ha sido removido exitosamente.");
+			showManageUsers();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El usuario no ha sido removido. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -761,8 +843,24 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-	void deleteOrder(ActionEvent event) {
-
+	void deleteOrder(ActionEvent event) throws IOException {
+		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.deleteOrder(index);
+		
+		if(founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("La orden ha sido removida exitosamente.");
+			showManageOrders();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("La orden no ha sido removida. Seleccione una e intente de nuevo.");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -777,7 +875,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void refreshState(ActionEvent event) {
-
+		
 	}
 
 	// Manage Meals code.
@@ -819,8 +917,24 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-	void deleteMeal(ActionEvent event) {
-
+	void deleteMeal(ActionEvent event) throws IOException {
+		int index = tvManageMeals.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.deleteMeal(index);
+		
+		if(founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El producto ha sido removido exitosamente.");
+			showManageMeals();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El producto no ha sido removido. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
