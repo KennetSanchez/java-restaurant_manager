@@ -20,7 +20,10 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 import model.*;
 
@@ -32,15 +35,14 @@ public class RestaurantManagerGUI {
 		rm = new RestaurantManager();
 	}
 
-	
 	public void initialize() {
 		new Thread() {
 			public void run() {
-				showHour();				
+				showHour();
 			}
 		}.start();
 	}
-	
+
 	// This method crash the program, and enter into a loop.
 	private void showHour() {
 		boolean finished = false;
@@ -51,7 +53,7 @@ public class RestaurantManagerGUI {
 				try {
 					Platform.runLater(new Thread() {
 						public void run() {
-							date.setText(timeAndDate());							
+							date.setText(timeAndDate());
 						}
 					});
 					Thread.sleep(1000);
@@ -65,9 +67,9 @@ public class RestaurantManagerGUI {
 	}
 
 	// This method crash the program.
-	public String timeAndDate() {
+	public String timeAndDate() {		
 		LocalDateTime ldt = LocalDateTime.now();
-		String msg = ldt + "";
+		String msg = ldt+ "";
 		return msg;
 	}
 
@@ -131,6 +133,11 @@ public class RestaurantManagerGUI {
 		String user = rm.login(name, password);
 		if (user != "") {
 			userActive.setText(user);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Hecho.");
+			alert.setContentText("Inicio de sesión exitoso.");
+			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -180,7 +187,7 @@ public class RestaurantManagerGUI {
 	void showHelp(ActionEvent event) {
 
 	}
-	
+
 	// Ingredients code.
 
 	@FXML
@@ -207,6 +214,11 @@ public class RestaurantManagerGUI {
 			initializeTableViewsIngredientWindow();
 			txtIngredient.clear();
 			allergenCheckBox.setSelected(false);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Hecho.");
+			alert.setContentText("El ingrediente ha sido añadido exitosamente.");
+			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -264,7 +276,7 @@ public class RestaurantManagerGUI {
 	private TableColumn<Size, String> tcSize;
 
 	@FXML
-	void createMeal(ActionEvent event){
+	void createMeal(ActionEvent event) {
 		String name, type, price, size;
 		String[] ingredients;
 		name = txtMeal.getText();
@@ -274,8 +286,6 @@ public class RestaurantManagerGUI {
 		ingredients = areaIngredients.getText().split(",");
 		String ingredientsTxt = ingredients.toString();
 
-	
-		
 		if (name != "" && type != "" && price != "" && size != "" && ingredientsTxt != "") {
 			rm.addMeal(name, size, price, type, ingredientsTxt);
 			txtMeal.clear();
@@ -286,7 +296,7 @@ public class RestaurantManagerGUI {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("Creación completada.");
 			alert.setContentText("El producto ha sido añadido exitosamente.");
-			alert.showAndWait();				
+			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -346,41 +356,45 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void createCostumer(ActionEvent event) {
-		
-		String name = costumerNameTxt.getText(); 
+
+		String name = costumerNameTxt.getText();
 		String lastname = costumerLastnames.getText();
 		String observations = costumerObservationsArea.getText();
 		String address = costumerAddress.getText();
-		
+
 		long costumerPhoneLong = 0L;
 		long costumerIdLong = 0L;
-		
-		if(!costumerPhone.getText().equals("")) {
-			costumerPhoneLong = Long.parseLong(costumerPhone.getText()); 
-		}else if(!costumerId.getText().equals("")){
+
+		if (!costumerPhone.getText().equals("")) {
+			costumerPhoneLong = Long.parseLong(costumerPhone.getText());
+		} else if (!costumerId.getText().equals("")) {
 			costumerIdLong = Long.parseLong(costumerId.getText());
-		}else if(!costumerPhone.getText().equals("")) {
+		} else if (!costumerPhone.getText().equals("")) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-    	    alert.setHeaderText(null);
-    	    alert.setTitle("Error");
-    	    alert.setContentText("Por favor ingrese el número de télefono del cliente.");
-    	    alert.showAndWait();
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Por favor ingrese el número de télefono del cliente.");
+			alert.showAndWait();
 		}
-		
-		
-		if(name != "" && lastname != "" && address != "" && costumerPhoneLong != 0L) {
+
+		if (name != "" && lastname != "" && address != "" && costumerPhoneLong != 0L) {
 			rm.addCostumer(name, lastname, address, observations, costumerPhoneLong, costumerIdLong);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Hecho.");
+			alert.setContentText("El cliente ha sido añadida exitosamente.");
+			alert.showAndWait();
 			try {
 				showCreateCostumerWindow();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-    	    alert.setHeaderText(null);
-    	    alert.setTitle("Error");
-    	    alert.setContentText("Por favor llene todos los campos.");
-    	    alert.showAndWait();
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Por favor llene todos los campos.");
+			alert.showAndWait();
 		}
 	}
 
@@ -409,18 +423,25 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void createOrder(ActionEvent event) throws IOException {
-		
+
 		ObservableList<String> orderFood = tvOrderFoodRequested.getItems();
 		String costumer = orderCostumerInfo.getText();
-		
-		if(orderFood != null && costumer != "") {
+
+		if (orderFood != null && costumer != "") {
 			rm.createEmployeeList();
-		}else {
+			initializeTableViewsOrderWindow();
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Hecho.");
+			alert.setContentText("La orden ha sido añadido exitosamente.");
+			alert.showAndWait();
+
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-    	    alert.setHeaderText(null);
-    	    alert.setTitle("Error");
-    	    alert.setContentText("Por favor llene todos los campos.");
-    	    alert.showAndWait();
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Por favor llene todos los campos.");
+			alert.showAndWait();
 		}
 	}
 
@@ -454,14 +475,19 @@ public class RestaurantManagerGUI {
 		long employeeId = Long.parseLong(createEmployeeId.getText());
 		String employeeLastname = createEmployeeLastname.getText();
 
-		if(employeeName != "" && createEmployeeId.getText() != "" && employeeLastname != "") {
+		if (employeeName != "" && createEmployeeId.getText() != "" && employeeLastname != "") {
 			rm.addEmployee(employeeName, employeeLastname, employeeId);
-		}else {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Hecho.");
+			alert.setContentText("El empleado ha sido añadido exitosamente.");
+			alert.showAndWait();
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-    	    alert.setHeaderText(null);
-    	    alert.setTitle("Error");
-    	    alert.setContentText("Por favor llene todos los campos.");
-    	    alert.showAndWait();
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Por favor llene todos los campos.");
+			alert.showAndWait();
 		}
 	}
 
@@ -493,296 +519,320 @@ public class RestaurantManagerGUI {
 		String name = userTxtName.getText();
 		String lastName = userTxtLastname.getText();
 
-		if(userName != "" && userPass != "" && name != "" && lastName != "" && userTxtId.getText() != "") {
+		if (userName != "" && userPass != "" && name != "" && lastName != "" && userTxtId.getText() != "") {
 			rm.addUser(userName, userPass, name, lastName, userId);
-		}else {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Hecho.");
+			alert.setContentText("El usuario ha sido creado exitosamente.");
+			alert.showAndWait();
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-    	    alert.setHeaderText(null);
-    	    alert.setTitle("Error");
-    	    alert.setContentText("Por favor llene todos los campos.");
-    	    alert.showAndWait();
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Por favor llene todos los campos.");
+			alert.showAndWait();
 		}
-		
+
 	}
-	
-	//Management code.
-	
-	//Manage costumers.
-	 
+
+	// Management code.
+
+	// Manage costumers.
+
 	@FXML
-	    private TableView<Costumer> tvManageCostumers;
-
-	    @FXML
-	    private TableColumn<Costumer, String> tcManageCostumersName;
+	private TableView<Costumer> tvManageCostumers;
 
-	    @FXML
-	    private TableColumn<Costumer, String> tcManageCostumersLastName;
+	@FXML
+	private TableColumn<Costumer, String> tcManageCostumersName;
 
-	    @FXML
-	    private TableColumn<Costumer, String> tcManageCostumersAddress;
+	@FXML
+	private TableColumn<Costumer, String> tcManageCostumersLastName;
 
-	    @FXML
-	    private TableColumn<Costumer, Long> tcManageCostumersPhone;
+	@FXML
+	private TableColumn<Costumer, String> tcManageCostumersAddress;
 
-	    @FXML
-	    private TableColumn<Costumer, Long> tcManageCostumersId;
+	@FXML
+	private TableColumn<Costumer, Long> tcManageCostumersPhone;
 
-	    @FXML
-	    private TableColumn<Costumer, String> tcManageCostumersObservations;
+	@FXML
+	private TableColumn<Costumer, Long> tcManageCostumersId;
 
-	    @FXML
-	    private TableColumn<Costumer, String> tcManageCostumersEnabled;
+	@FXML
+	private TableColumn<Costumer, String> tcManageCostumersObservations;
 
-	    @FXML
-	    void deleteCostumer(ActionEvent event) {
+	@FXML
+	private TableColumn<Costumer, String> tcManageCostumersEnabled;
 
-	    }
+	@FXML
+	void deleteCostumer(ActionEvent event) {
 
-	    @FXML
-	    void disableCostumer(ActionEvent event) {
-
-	    }
-
-	    @FXML
-	    void enableCostumer(ActionEvent event) {
-
-	    }
-	    
-	    private void initializeManagerCostumerWindow() {
-	    	ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumers());
-	    	tvManageCostumers.setItems(tvCostumerObservableList);
-	    	tcManageCostumersName.setCellValueFactory(new PropertyValueFactory<Costumer, String>("name"));
-	    	tcManageCostumersLastName.setCellValueFactory(new PropertyValueFactory<Costumer, String>("lastname"));
-	    	tcManageCostumersAddress.setCellValueFactory(new PropertyValueFactory<Costumer, String>("address"));
-	    	tcManageCostumersObservations.setCellValueFactory(new PropertyValueFactory<Costumer, String>("observations"));
-	    	tcManageCostumersId.setCellValueFactory(new PropertyValueFactory<Costumer, Long>("phone"));
-	    	tcManageCostumersPhone.setCellValueFactory(new PropertyValueFactory<Costumer, Long>("id"));
-	    	tcManageCostumersEnabled.setCellValueFactory(new PropertyValueFactory<Costumer, String>("enabled"));
-	    }
-	    
-	    // Manage employees window code.
-	    
-	    @FXML
-	    private TableView<Employee> tvManageEmployees;
+	}
 
-	    @FXML
-	    private TableColumn<Employee, String> tcManageEmployeesName;
+	@FXML
+	void disableCostumer(ActionEvent event) {
 
-	    @FXML
-	    private TableColumn<Employee, String> tcManageEmployeesLastName;
+	}
 
-	    @FXML
-	    private TableColumn<Employee, Long> tcManageEmployeesId;
+	@FXML
+	void enableCostumer(ActionEvent event) {
 
-	    @FXML
-	    private TableColumn<Employee, String> tcManageEmployeesEnabled;
+	}
 
-	    @FXML
-	    void deleteEmployee(ActionEvent event) {
+	private void initializeManagerCostumerWindow() {
+		ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumers());
+		tvManageCostumers.setItems(tvCostumerObservableList);
+		tcManageCostumersName.setCellValueFactory(new PropertyValueFactory<Costumer, String>("name"));
+		tcManageCostumersLastName.setCellValueFactory(new PropertyValueFactory<Costumer, String>("lastname"));
+		tcManageCostumersAddress.setCellValueFactory(new PropertyValueFactory<Costumer, String>("address"));
+		tcManageCostumersObservations.setCellValueFactory(new PropertyValueFactory<Costumer, String>("observations"));
+		tcManageCostumersId.setCellValueFactory(new PropertyValueFactory<Costumer, Long>("phone"));
+		tcManageCostumersPhone.setCellValueFactory(new PropertyValueFactory<Costumer, Long>("id"));
+		tcManageCostumersEnabled.setCellValueFactory(new PropertyValueFactory<Costumer, String>("enabled"));
+	}
 
-	    }
+	// Manage employees window code.
 
-	    @FXML
-	    void disableEmployee(ActionEvent event) {
+	@FXML
+	private TableView<Employee> tvManageEmployees;
 
-	    }
+	@FXML
+	private TableColumn<Employee, String> tcManageEmployeesName;
 
-	    @FXML
-	    void enableEmployee(ActionEvent event) {
+	@FXML
+	private TableColumn<Employee, String> tcManageEmployeesLastName;
 
-	    }
-	    
-	    private void initializeManagerEmployeeWindow() {
-	    	ObservableList<Employee> tvEmployeeObservableList = FXCollections.observableArrayList(rm.getEmployees());
-	    	tvManageEmployees.setItems(tvEmployeeObservableList);
-	    	tcManageEmployeesName.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
-	    	tcManageEmployeesLastName.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastname"));
-	    	tcManageEmployeesId.setCellValueFactory(new PropertyValueFactory<Employee, Long>("id"));
-	    	tcManageEmployeesEnabled.setCellValueFactory(new PropertyValueFactory<Employee, String>("enabled"));
-	    }	
-	    
-	    // Manage ingredients window code.
-	    
-	    @FXML
-	    private TableView<Ingredient> tvManageIngredients;
+	@FXML
+	private TableColumn<Employee, Long> tcManageEmployeesId;
 
-	    @FXML
-	    private TableColumn<Ingredient, String> tcManageIngredientsName;
+	@FXML
+	private TableColumn<Employee, String> tcManageEmployeesEnabled;
 
-	    @FXML
-	    private TableColumn<Ingredient, String> tcManageIngredientsAllergen;
+	@FXML
+	void deleteEmployee(ActionEvent event) {
 
-	    @FXML
-	    private TableColumn<Ingredient, String> tcManageIngredientsEnabled;
+	}
 
-	    @FXML
-	    void deleteIngredient(ActionEvent event) {
+	@FXML
+	void disableEmployee(ActionEvent event) {
 
-	    }
+	}
 
-	    @FXML
-	    void disableIngredient(ActionEvent event) {
+	@FXML
+	void enableEmployee(ActionEvent event) {
 
-	    }
+	}
 
-	    @FXML
-	    void enableIngredient(ActionEvent event) {
+	private void initializeManagerEmployeeWindow() {
+		ObservableList<Employee> tvEmployeeObservableList = FXCollections.observableArrayList(rm.getEmployees());
+		tvManageEmployees.setItems(tvEmployeeObservableList);
+		tcManageEmployeesName.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
+		tcManageEmployeesLastName.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastname"));
+		tcManageEmployeesId.setCellValueFactory(new PropertyValueFactory<Employee, Long>("id"));
+		tcManageEmployeesEnabled.setCellValueFactory(new PropertyValueFactory<Employee, String>("enabled"));
+	}
 
-	    }
-	    
-	    private void initializeManagerIngredientWindow() {
-	    	ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredients());
-	    	tvManageIngredients.setItems(tvIngredientObservableList);
-	    	tcManageIngredientsName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
-	    	tcManageIngredientsAllergen.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("allergen"));
-	    	tcManageIngredientsEnabled.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("enabled"));
-	    }	
-	    
-	    // Manage users code.
-	    
-	    @FXML
-	    private TableView<User> tvManageUsers;
+	// Manage ingredients window code.
 
-	    @FXML
-	    private TableColumn<User, String> tcManageUsersUserName;
+	@FXML
+	private TableView<Ingredient> tvManageIngredients;
 
-	    @FXML
-	    private TableColumn<User, String> tcManageUsersName;
+	@FXML
+	private TableColumn<Ingredient, String> tcManageIngredientsName;
 
-	    @FXML
-	    private TableColumn<User, String> tcManageUsersLastName;
+	@FXML
+	private TableColumn<Ingredient, String> tcManageIngredientsAllergen;
 
-	    @FXML
-	    private TableColumn<User, Long> tcManageUsersId;
+	@FXML
+	private TableColumn<Ingredient, String> tcManageIngredientsEnabled;
 
-	    @FXML
-	    private TableColumn<User, String> tcManageUsersUserEnabled;
+	@FXML
+	void deleteIngredient(ActionEvent event) {
 
-	    @FXML
-	    private TableColumn<User, String> tcManageUsersEmployeeEnabled;
+	}
 
-	    @FXML
-	    void deleteUser(ActionEvent event) {
-	    	
-	    }
+	@FXML
+	void disableIngredient(ActionEvent event) {
 
-	    @FXML
-	    void disableUser(ActionEvent event) {
+	}
 
-	    }
+	@FXML
+	void enableIngredient(ActionEvent event) {
 
-	    @FXML
-	    void enableUser(ActionEvent event) {
+	}
 
-	    }
+	private void initializeManagerIngredientWindow() {
+		ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredients());
+		tvManageIngredients.setItems(tvIngredientObservableList);
+		tcManageIngredientsName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
+		tcManageIngredientsAllergen.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("allergen"));
+		tcManageIngredientsEnabled.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("enabled"));
+	}
 
-	    
-	    // Manage Orders code.
-	    
-	    @FXML
-	    private TableView<Order> tvManageOrders;
+	// Manage users code.
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersCostumer;
+	@FXML
+	private TableView<User> tvManageUsers;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersEmployee;
+	@FXML
+	private TableColumn<User, String> tcManageUsersUserName;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersDate;
+	@FXML
+	private TableColumn<User, String> tcManageUsersName;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersCode;
+	@FXML
+	private TableColumn<User, String> tcManageUsersLastName;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersMeals;
+	@FXML
+	private TableColumn<User, Long> tcManageUsersId;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersObservations;
+	@FXML
+	private TableColumn<User, String> tcManageUsersUserEnabled;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersEnabled;
+	@FXML
+	private TableColumn<User, String> tcManageUsersEmployeeEnabled;
 
-	    @FXML
-	    private TableColumn<Order, String> tcManageOrdersState;
+	private void initializeManagerUsersWindow() {
+		ObservableList<User> tvUserObservableList = FXCollections.observableArrayList(rm.getUsers());
+		tvManageUsers.setItems(tvUserObservableList);
+		tcManageUsersUserName.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
+		tcManageUsersName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+		tcManageUsersLastName.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
+		tcManageUsersId.setCellValueFactory(new PropertyValueFactory<User, Long>("id"));
+		tcManageUsersUserEnabled.setCellValueFactory(new PropertyValueFactory<User, String>("enabledU"));
+		tcManageUsersEmployeeEnabled.setCellValueFactory(new PropertyValueFactory<User, String>("enabledE"));
+	}
 
-	    private void initializeManagerOrdersWindow() {
-	    	ObservableList<Order> tvOrderObservableList = FXCollections.observableArrayList(rm.getOrders());
-	    	tvManageOrders.setItems(tvOrderObservableList);
-	    	tcManageOrdersCostumer.setCellValueFactory(new PropertyValueFactory<Order, String>("costumerName"));
-	    	tcManageOrdersEmployee.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeName"));
-	    	tcManageOrdersDate.setCellValueFactory(new PropertyValueFactory<Order, String>("date"));
-	    	tcManageOrdersCode.setCellValueFactory(new PropertyValueFactory<Order, String>("code"));
-	    	tcManageOrdersMeals.setCellValueFactory(new PropertyValueFactory<Order, String>("mealsTxt"));
-	    	tcManageOrdersObservations.setCellValueFactory(new PropertyValueFactory<Order, String>("observations"));
-	    	tcManageOrdersEnabled.setCellValueFactory(new PropertyValueFactory<Order, String>("enabled"));
-	    	tcManageOrdersState.setCellValueFactory(new PropertyValueFactory<Order, String>("status"));
-	    }	
-	    
-	    @FXML
-	    void deleteOrder(ActionEvent event) {
+	@FXML
+	void deleteUser(ActionEvent event) {
 
-	    }
+	}
 
-	    @FXML
-	    void disableOrder(ActionEvent event) {
+	@FXML
+	void disableUser(ActionEvent event) {
 
-	    }
+	}
 
-	    @FXML
-	    void enableOrder(ActionEvent event) {
+	@FXML
+	void enableUser(ActionEvent event) {
 
-	    }
+	}
 
-	    @FXML
-	    void refreshState(ActionEvent event) {
+	// Manage Orders code.
 
-	    }
+	@FXML
+	private TableView<Order> tvManageOrders;
 
-	    
-	    //Manage Meals code.
-	    
-	    @FXML
-	    private TableView<Meal> tvManageMeals;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersCostumer;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsName;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersEmployee;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsSize;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersDate;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsPrice;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersCode;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsType;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersMeals;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsIngredients;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersObservations;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsAllergens;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersEnabled;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcManageMealsEnabled;
+	@FXML
+	private TableColumn<Order, String> tcManageOrdersState;
 
-	    
-	    
-	    @FXML
-	    void deleteMeal(ActionEvent event) {
+	private void initializeManagerOrdersWindow() {
+		ObservableList<Order> tvOrderObservableList = FXCollections.observableArrayList(rm.getOrders());
+		tvManageOrders.setItems(tvOrderObservableList);
+		tcManageOrdersCostumer.setCellValueFactory(new PropertyValueFactory<Order, String>("costumerName"));
+		tcManageOrdersEmployee.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeName"));
+		tcManageOrdersDate.setCellValueFactory(new PropertyValueFactory<Order, String>("date"));
+		tcManageOrdersCode.setCellValueFactory(new PropertyValueFactory<Order, String>("code"));
+		tcManageOrdersMeals.setCellValueFactory(new PropertyValueFactory<Order, String>("mealsTxt"));
+		tcManageOrdersObservations.setCellValueFactory(new PropertyValueFactory<Order, String>("observations"));
+		tcManageOrdersEnabled.setCellValueFactory(new PropertyValueFactory<Order, String>("enabled"));
+		tcManageOrdersState.setCellValueFactory(new PropertyValueFactory<Order, String>("status"));
+	}
 
-	    }
+	@FXML
+	void deleteOrder(ActionEvent event) {
 
-	    @FXML
-	    void disableMeal(ActionEvent event) {
+	}
 
-	    }
+	@FXML
+	void disableOrder(ActionEvent event) {
 
-	    @FXML
-	    void enableMeal(ActionEvent event) {
+	}
 
-	    }
-	    
+	@FXML
+	void enableOrder(ActionEvent event) {
+
+	}
+
+	@FXML
+	void refreshState(ActionEvent event) {
+
+	}
+
+	// Manage Meals code.
+
+	@FXML
+	private TableView<Meal> tvManageMeals;
+
+	@FXML
+	private TableColumn<Meal, String> tcManageMealsName;
+
+	@FXML
+	private TableColumn<Meal, String> tcManageMealsSize;
+
+	@FXML
+	private TableColumn<Meal, Double> tcManageMealsPrice;
+
+	@FXML
+	private TableColumn<Meal, String> tcManageMealsType;
+
+	@FXML
+	private TableColumn<Meal, String> tcManageMealsIngredients;
+
+	@FXML
+	private TableColumn<Meal, String> tcManageMealsAllergens;
+
+	@FXML
+	private TableColumn<Meal, String> tcManageMealsEnabled;
+
+	private void initializeManagerMealsWindow() {
+		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
+		tvManageMeals.setItems(tvMealObservableList);
+		tcManageMealsName.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+		tcManageMealsSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
+		tcManageMealsPrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
+		tcManageMealsType.setCellValueFactory(new PropertyValueFactory<Meal, String>("type"));
+		tcManageMealsIngredients.setCellValueFactory(new PropertyValueFactory<Meal, String>("ingredientsTxt"));
+		tcManageMealsAllergens.setCellValueFactory(new PropertyValueFactory<Meal, String>("allergensTxt"));
+		tcManageMealsEnabled.setCellValueFactory(new PropertyValueFactory<Meal, String>("enabled"));
+	}
+
+	@FXML
+	void deleteMeal(ActionEvent event) {
+
+	}
+
+	@FXML
+	void disableMeal(ActionEvent event) {
+
+	}
+
+	@FXML
+	void enableMeal(ActionEvent event) {
+
+	}
+
 	// Show addition windows code.
 
 	private void showCreateIngredientWindow() throws IOException {
@@ -837,9 +887,9 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(addOrder);
 		initializeTableViewsOrderWindow();
 	}
-	
-	//Show manage windows code.
-	
+
+	// Show manage windows code.
+
 	private void showManageCostumers() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageCostumers.fxml"));
 		fxmlLoader.setController(this);
@@ -847,7 +897,7 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageCostumer);
 		initializeManagerCostumerWindow();
 	}
-	
+
 	private void showManageEmployees() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageEmployees.fxml"));
 		fxmlLoader.setController(this);
@@ -855,7 +905,7 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageEmployees);
 		initializeManagerEmployeeWindow();
 	}
-	
+
 	private void showManageIngredients() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageIngredients.fxml"));
 		fxmlLoader.setController(this);
@@ -863,21 +913,23 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageIngredients);
 		initializeManagerIngredientWindow();
 	}
-	
+
 	private void showManageUsers() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageUsers.fxml"));
 		fxmlLoader.setController(this);
 		Parent manageUsers = fxmlLoader.load();
 		mainPane.getChildren().setAll(manageUsers);
+		initializeManagerUsersWindow();
 	}
-	
+
 	private void showManageMeals() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageMeals.fxml"));
 		fxmlLoader.setController(this);
 		Parent manageMeals = fxmlLoader.load();
 		mainPane.getChildren().setAll(manageMeals);
+		initializeManagerMealsWindow();
 	}
-	
+
 	private void showManageOrders() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageOrders.fxml"));
 		fxmlLoader.setController(this);
@@ -885,6 +937,5 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageOrders);
 		initializeManagerOrdersWindow();
 	}
-	
-	
+
 }

@@ -93,4 +93,8 @@ public class Order {
 		return code +sep+ status +sep+ observations +sep+ owner +sep+ employeeInCharge +sep+ meals +sep+ date;
 	}
 	
+	public void setStatus(String newStatus) {
+		status = newStatus;
+	}
+	
 }

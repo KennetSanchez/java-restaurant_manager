@@ -18,7 +18,7 @@ public class User extends Employee{
 		super(name, lastname, id, enabledE);
 		this.userName = userName;
 		this.password = password;
-		this.enabled = enabledU;
+		this.enabledU = enabledU;
 	}
 	
 	public String getUsername() {
@@ -29,19 +29,33 @@ public class User extends Employee{
 		return password;
 	}
 	
+	@Override
 	public String getEnabledE() {
-		return enabledE;
+		return super.getEnabledE();
 	}
 	
 	public String getEnabledU() {
 		return enabledU;
 	}
 	
+
+	@Override
+	public String getName() {
+		return super.getName();
+	}
+
+	@Override
+	public String getLastname() {
+		return super.getLastname();
+	}
+
+
 	@Override
 	public long getId() {
 		return super.getId();
 	}
 	
+	@Override
 	public String toString() {
 		return name +sep+ lastname +sep+ id +sep+ userName +sep+ password;
 	}

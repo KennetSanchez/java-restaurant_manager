@@ -46,7 +46,7 @@ public class Meal {
 		return type;
 	}
 	
-	public String getIngredients(){
+	public String getIngredientsTxt(){
 		return ingredientsTxt;
 	}
 	
