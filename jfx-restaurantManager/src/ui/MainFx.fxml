@@ -45,6 +45,12 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#changeUser" text="Actualizar usuario" />
                </items></Menu>
+            <Menu mnemonicParsing="false" text="Generar Reportes">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#sellsByEm" text="Ventas por Empleado" />
+                  <MenuItem mnemonicParsing="false" onAction="#sellsByPr" text="Ventas por Producto" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
       <Label layoutX="14.0" layoutY="907.0" prefHeight="17.0" prefWidth="54.0" text="Usuario:" />

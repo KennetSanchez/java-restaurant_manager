@@ -36,7 +36,6 @@ public class RestaurantManagerGUI {
 
 	public RestaurantManagerGUI() throws IOException, FileNotFoundException {
 		rm = new RestaurantManager();
-		
 	}
 
 	public void initialize() throws IOException {		
@@ -298,6 +297,43 @@ public class RestaurantManagerGUI {
 		showLoginWindow();
     }
 	
+	
+	@FXML
+	void sellsByEm(ActionEvent event) throws IOException {
+		if(userActive.getText() != ""){
+			rm.sellsByEmployee();
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Reporte");
+			alert.setContentText("Reporte de Empleados creado en el archivo.");
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}	
+	}
+	
+	@FXML
+	void sellsByPr(ActionEvent event) throws IOException{
+		if(userActive.getText() != ""){
+			rm.sellsByProduct();
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Reporte");
+			alert.setContentText("Reporte de ventas por Producto creado.");
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}	
+	}
+	
 	// Ingredients code.
 
 	@FXML
@@ -553,9 +589,9 @@ public class RestaurantManagerGUI {
 	    @FXML
 	    void addMealToOrder(ActionEvent event) {
 	    	int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();;
-	    	if(index >= 0) {
-	    		orderFood.add(rm.getMeals().get(index));
-	    		tvOrderFoodRequested.setItems(orderFood);    	
+	    	if(index >= 0 && rm.getMeals()!=null) {
+    			orderFood.add(rm.getMeals().get(index));
+	    		tvOrderFoodRequested.setItems(orderFood);   	 	
 	    	}
 	    }
 
@@ -573,7 +609,8 @@ public class RestaurantManagerGUI {
 		String costumer = orderCostumerInfo.getText();
 
 		if (orderFood != null && costumer != "") {
-			rm.createEmployeeList();
+			//rm.sellsByEmployee();
+			//Serializar luego              **
 			initializeTableViewsOrderWindow();
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);

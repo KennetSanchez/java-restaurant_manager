@@ -3,9 +3,10 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.InputStreamReader;
 //import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,13 +39,14 @@ public class RestaurantManager {
 	//
 	BufferedReader br = null;
 	BufferedWriter bw = null;
-	FileWriter emList = null;
+	FileWriter fileW = null;
+	FileReader fileR = null;
 
 	public RestaurantManager() throws IOException, FileNotFoundException {
-		// br = new BufferedReader(new FileReader("input.txt.exampleeee"));
-		 br = new BufferedReader(new InputStreamReader(System.in));
-		 emList = new FileWriter("docs/em-List.txt");
-
+		//br = new BufferedReader(new InputStreamReader(System.in));
+		fileR = new FileReader("docs/em-List.txt"); //example. That isn't the name
+		br = new BufferedReader(fileR);
+	     
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
 		allFoodTypes = new ArrayList<FoodType>();
@@ -68,7 +70,49 @@ public class RestaurantManager {
 		// TEST -------
 		// createEmployeeList();
 	}
+	//Make the report of sells by employee and sells of each product
+	
+	public void reports(String fileName) throws IOException {
+		//fileName = "docs/em-List.txt";
+		fileW = new FileWriter(fileName);
+		bw = new BufferedWriter(fileW);
+		//bw.write("");
+		bw.close();
+		//I could make two methods with the fors, 
+	}
+	public void sellsByEmployee() throws IOException {
+		double cost = 0;
+		double total = 0;
+		
+		String fileName = "docs/em-List.txt";
+		fileW = new FileWriter(fileName);
+		bw = new BufferedWriter(fileW);
+		for (int i = 0; i < allEmployees.size() && !allEmployees.isEmpty(); i++) {
 
+			if (allEmployees.get(0).getMeals() != null) {
+
+				for (int j = 0; j < allEmployees.get(i).getMeals().size(); j++) {
+					cost += allEmployees.get(i).getMeals().get(j).getPrice();
+				}
+			}
+			bw.write(allEmployees.get(i).getName() + ":  Pedido(s): " + allEmployees.get(i).getOrdersToday()
+					+ ". Valor: " + cost+"\n");
+			total = cost;
+			cost = 0;
+		}
+		
+		bw.write("\n           -                -           Total:"+total);
+		bw.close();
+	}
+	
+	public void sellsByProduct() throws IOException{
+		String fileName = "docs/times-ordered-product.txt";
+		fileW = new FileWriter(fileName);
+		bw= new BufferedWriter(fileW);
+		bw.write("SIsirve");
+		bw.close();
+	}
+	
 	//Enable /Disable objects methods.
 	
 	public boolean changeStateIngredient(int index, String newState) {
@@ -300,26 +344,8 @@ public class RestaurantManager {
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
 	}
-
-	public void createEmployeeList() throws IOException {
-		double cost = 0;
-
-		bw = new BufferedWriter(emList);
-		for (int i = 0; i < allEmployees.size() && !allEmployees.isEmpty(); i++) {
-
-			if (allEmployees.get(0).getMeals() != null) {
-
-				for (int j = 0; j < allEmployees.get(i).getMeals().size(); j++) {
-					cost += allEmployees.get(i).getMeals().get(j).getPrice();
-				}
-			}
-			bw.write(allEmployees.get(i).getName() + ":  Pedido(s): " + allEmployees.get(i).getOrdersToday()
-					+ ". Valor: " + cost);
-			cost = 0;
-		}
-		bw.close();
-	}
-
+	
+	//DataList
 	public List<String> createDataList(String opt) {
 		String txt = null;
 		switch (opt) {
