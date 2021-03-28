@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 //import java.util.Objects;
 
 public class RestaurantManager {
@@ -36,6 +37,9 @@ public class RestaurantManager {
 	ArrayList<Employee> allEmployees;
 	ArrayList<User> allUsers;
 
+	// Order observableList
+	ArrayList<Meal> orderFood;
+
 	//
 	BufferedReader br = null;
 	BufferedWriter bw = null;
@@ -43,10 +47,10 @@ public class RestaurantManager {
 	FileReader fileR = null;
 
 	public RestaurantManager() throws IOException, FileNotFoundException {
-		//br = new BufferedReader(new InputStreamReader(System.in));
-		fileR = new FileReader("docs/em-List.txt"); //example. That isn't the name
+		// br = new BufferedReader(new InputStreamReader(System.in));
+		fileR = new FileReader("docs/em-List.txt"); // example. That isn't the name
 		br = new BufferedReader(fileR);
-	     
+
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
 		allFoodTypes = new ArrayList<FoodType>();
@@ -67,24 +71,27 @@ public class RestaurantManager {
 		// Admin user
 		allUsers.add(adminUser);
 
+		orderFood = new ArrayList<Meal>();
+		
 		// TEST -------
 		// createEmployeeList();
 	}
-	//Make the report of sells by employee and sells of each product
-	
+	// Make the report of sells by employee and sells of each product
+
 	public void reports(String fileName) throws IOException {
-		//fileName = "docs/em-List.txt";
+		// fileName = "docs/em-List.txt";
 		fileW = new FileWriter(fileName);
 		bw = new BufferedWriter(fileW);
-		//bw.write("");
+		// bw.write("");
 		bw.close();
-		//I could make two methods with the fors, 
+		// I could make two methods with the fors,
 	}
+
 	public void sellsByEmployee() throws IOException {
 		double cost = 0;
 		double totalValue = 0;
-		int totalOrders=0;
-		
+		int totalOrders = 0;
+
 		String fileName = "docs/Emp-List.csv";
 		fileW = new FileWriter(fileName);
 		bw = new BufferedWriter(fileW);
@@ -97,28 +104,27 @@ public class RestaurantManager {
 					cost += allEmployees.get(i).getMeals().get(j).getPrice();
 				}
 			}
-			bw.write(allEmployees.get(i).getName() + "," + allEmployees.get(i).getOrdersToday()
-					+ "," + cost+"\n");
+			bw.write(allEmployees.get(i).getName() + "," + allEmployees.get(i).getOrdersToday() + "," + cost + "\n");
 			totalValue = cost;
 			cost = 0;
 			totalOrders += allEmployees.get(i).getOrdersToday();
 		}
-		
-		bw.write("\nTotal:,"+totalOrders+","+totalValue);
+
+		bw.write("\nTotal:," + totalOrders + "," + totalValue);
 		bw.close();
 	}
-	
-	public void sellsByProduct() throws IOException{
+
+	public void sellsByProduct() throws IOException {
 		String fileName = "docs/Pr-List.csv";
 		fileW = new FileWriter(fileName);
 		bw = new BufferedWriter(fileW);
 		bw.write("Producto,N° Ordenes,Valor\n");
-		bw.write("\nTotal:,"+""+",");
+		bw.write("\nTotal:," + "" + ",");
 		bw.close();
 	}
-	
-	//Enable /Disable objects methods.
-	
+
+	// Enable /Disable objects methods.
+
 	public boolean changeStateIngredient(int index, String newState) {
 		boolean founded = false;
 		boolean posible = false;
@@ -126,14 +132,15 @@ public class RestaurantManager {
 		if (allIngredients.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
-			allIngredients.get(index).setState(newState);;
+			allIngredients.get(index).setState(newState);
+			;
 			founded = true;
 		}
 		return founded;
 	}
-	
+
 	public boolean changeStateCostumer(int index, String newState) {
 		boolean founded = false;
 		boolean posible = false;
@@ -141,14 +148,15 @@ public class RestaurantManager {
 		if (allCostumers.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
-			allCostumers.get(index).setState(newState);;
+			allCostumers.get(index).setState(newState);
+			;
 			founded = true;
 		}
 		return founded;
 	}
-	
+
 	public boolean changeStateEmployee(int index, String newState) {
 		boolean founded = false;
 		boolean posible = false;
@@ -156,14 +164,15 @@ public class RestaurantManager {
 		if (allEmployees.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
-			allEmployees.get(index).setState(newState);;
+			allEmployees.get(index).setState(newState);
+			;
 			founded = true;
 		}
 		return founded;
 	}
-	
+
 	public boolean changeStateOrder(int index, String newState) {
 		boolean founded = false;
 		boolean posible = false;
@@ -171,14 +180,15 @@ public class RestaurantManager {
 		if (allOrders.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
-			allOrders.get(index).setState(newState);;
+			allOrders.get(index).setState(newState);
+			;
 			founded = true;
 		}
 		return founded;
 	}
-	
+
 	public boolean changeStateUsert(int index, String newState) {
 		boolean founded = false;
 		boolean posible = false;
@@ -186,15 +196,15 @@ public class RestaurantManager {
 		if (allUsers.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
-			allUsers.get(index).setState(newState);;
+			allUsers.get(index).setState(newState);
+			;
 			founded = true;
 		}
 		return founded;
 	}
-	
-	
+
 	// Delete objects methods.
 
 	public boolean deleteIngredient(int index) {
@@ -231,8 +241,8 @@ public class RestaurantManager {
 	public boolean deleteEmployee(int index) {
 		boolean founded = false;
 		boolean posible = false;
-		
-		if(allEmployees.size() >= index && index >= 0) {
+
+		if (allEmployees.size() >= index && index >= 0) {
 			posible = true;
 		}
 		if (posible) {
@@ -250,7 +260,7 @@ public class RestaurantManager {
 		if (allUsers.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
 			allUsers.remove(index);
 			founded = true;
@@ -266,7 +276,7 @@ public class RestaurantManager {
 		if (allCostumers.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
 			allCostumers.remove(index);
 			founded = true;
@@ -282,7 +292,7 @@ public class RestaurantManager {
 		if (allOrders.size() >= index && index >= 0) {
 			posible = true;
 		}
-		
+
 		if (posible) {
 			allOrders.remove(index);
 			founded = true;
@@ -335,8 +345,29 @@ public class RestaurantManager {
 		allCostumers.add(newCostumer);
 	}
 
-	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,
-			ArrayList<Meal> meals) {
+	public void addMealToOrder(Meal meal) {
+		Meal enabledMeal = null;
+		Meal mealTest = null;
+				
+		for(int i = 0; i < getMealsEnabled().size() ; i++) {
+			mealTest = getMealsEnabled().get(i);
+			if(meal == getMealsEnabled().get(i)) {
+				enabledMeal = mealTest;
+				System.out.println("Comida coincide.");
+			}
+		}
+		
+		orderFood.add(enabledMeal);
+	}
+	
+	public ArrayList<Meal> getOrderFood(){
+		return orderFood;
+	}
+
+	public void cleanOrderFood() {
+		orderFood.clear();
+	}
+	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) {
 		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals, "Sí");
 		allOrders.add(newOrder);
 	}
@@ -348,8 +379,8 @@ public class RestaurantManager {
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
 	}
-	
-	//DataList
+
+	// DataList
 	public List<String> createDataList(String opt) {
 		String txt = null;
 		switch (opt) {
@@ -391,6 +422,94 @@ public class RestaurantManager {
 		return list;
 	}
 
+	// Get the arrays only with the enabled items.
+	public ArrayList<Meal> getMealsEnabled() {
+		return allMeals;
+	}
+
+	public ArrayList<Ingredient> getIngredientsEnabled() {
+
+		ArrayList<Ingredient> enabledArray = new ArrayList<Ingredient>();
+
+		for (int i = 0; i < allIngredients.size(); i++) {
+			if (allIngredients.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+				enabledArray.add(allIngredients.get(i));
+			}
+		}
+
+		return enabledArray;
+	}
+
+	public ArrayList<Costumer> getCostumersEnabled() {
+
+		ArrayList<Costumer> enabledArray = new ArrayList<Costumer>();
+
+		for (int i = 0; i < allCostumers.size(); i++) {
+			if (allCostumers.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+				enabledArray.add(allCostumers.get(i));
+			}
+		}
+
+		return enabledArray;
+	}
+
+	public ArrayList<Order> getOrdersEnabled() {
+
+		ArrayList<Order> enabledArray = new ArrayList<Order>();
+
+		for (int i = 0; i < allOrders.size(); i++) {
+			if (allOrders.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+				enabledArray.add(allOrders.get(i));
+			}
+		}
+
+		return enabledArray;
+	}
+
+	public ArrayList<FoodType> getFoodTypesEnabled() {
+
+		ArrayList<FoodType> enabledArray = new ArrayList<FoodType>();
+
+		for (int i = 0; i < allFoodTypes.size(); i++) {
+			if (allFoodTypes.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+				enabledArray.add(allFoodTypes.get(i));
+			}
+		}
+
+		return enabledArray;
+	}
+
+	public ArrayList<Size> getSizesEnabled() {
+		return allSizes;
+	}
+
+	public ArrayList<Employee> getEmployeesEnabled() {
+
+		ArrayList<Employee> enabledArray = new ArrayList<Employee>();
+
+		for (int i = 0; i < allEmployees.size(); i++) {
+			if (allEmployees.get(i).getEnabledE().equalsIgnoreCase("Sí")) {
+				enabledArray.add(allEmployees.get(i));
+			}
+		}
+
+		return enabledArray;
+	}
+
+	public ArrayList<User> getUsersEnabled() {
+
+		ArrayList<User> enabledArray = new ArrayList<User>();
+
+		for (int i = 0; i < allUsers.size(); i++) {
+			if (allUsers.get(i).getEnabledU().equalsIgnoreCase("Sí")) {
+				enabledArray.add(allUsers.get(i));
+			}
+		}
+
+		return enabledArray;
+	}
+
+	// Get the complete arrays.
 	public ArrayList<Meal> getMeals() {
 		return allMeals;
 	}
@@ -423,17 +542,49 @@ public class RestaurantManager {
 		return allUsers;
 	}
 
-	public String login(String name, String password) {
+	public Costumer getCostumerObject(String name) {
+		Costumer costumer = null;
+		boolean founded = false;
+		String[] fullName = name.split(" ");
+
+		for (int i = 0; i < allCostumers.size() && !founded; i++) {
+			if (allCostumers.get(i).getName().equals(fullName[0])
+					&& allCostumers.get(i).getName().equals(fullName[1])) {
+				costumer = allCostumers.get(i);
+				founded = true;
+			}
+		}
+
+		return costumer;
+	}
+
+	public Employee getEmployeeObject(String name) {
+		Employee costumer = null;
+		boolean founded = false;
+		String[] fullName = name.split(" ");
+
+		for (int i = 0; i < allEmployees.size() && !founded; i++) {
+			if (allEmployees.get(i).getName().equals(fullName[0])
+					&& allEmployees.get(i).getName().equals(fullName[1])) {
+				costumer = allEmployees.get(i);
+				founded = true;
+			}
+		}
+
+		return costumer;
+	}
+
+	public Employee login(String name, String password) {
 		boolean founded = false;
 		String userName = "";
 		String userPass = "";
-		String user = "";
+		Employee user = null;
 
 		for (int i = 0; i < allUsers.size() && !founded; i++) {
 			userName = allUsers.get(i).getUsername();
 			userPass = allUsers.get(i).getPassword();
 			if (name.equals(userName) && password.equals(userPass)) {
-				user = allUsers.get(i).getName() + " " + allUsers.get(i).getLastname();
+				user = allUsers.get(i);
 				founded = true;
 			}
 		}
@@ -445,9 +596,10 @@ public class RestaurantManager {
 	// Test cases.
 	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply", "Sí");
 	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
-	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí.");
+	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí");
 	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,"Sí.");
+	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,
+			"Sí");
 	Order newOrderTestCase = new Order("Requested", "JD001", "Sí");
 	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
 

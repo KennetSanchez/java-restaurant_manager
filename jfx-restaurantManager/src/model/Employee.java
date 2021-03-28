@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Employee {
 
@@ -19,9 +20,9 @@ public class Employee {
 		ordersToday=0;
 	}
 	
-	public void addMeals(ArrayList<Meal> meals) {
+	public void addMeals(List<Meal> meals) {
 		if(!meals.isEmpty()) {
-			mealsOrdered = meals;
+			mealsOrdered = (ArrayList<Meal>) meals;
 		}
 	}
 	

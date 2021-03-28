@@ -27,6 +27,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.*;
 
@@ -36,9 +38,10 @@ public class RestaurantManagerGUI {
 
 	public RestaurantManagerGUI() throws IOException, FileNotFoundException {
 		rm = new RestaurantManager();
+
 	}
 
-	public void initialize() throws IOException {		
+	public void initialize() throws IOException {
 		new Thread() {
 			public void run() {
 				showHour();
@@ -46,7 +49,6 @@ public class RestaurantManagerGUI {
 		}.start();
 	}
 
-	// This method crash the program, and enter into a loop.
 	private void showHour() {
 		boolean finished = false;
 		// If the program isn't finished, it will refresh the date every 10000
@@ -70,16 +72,15 @@ public class RestaurantManagerGUI {
 	}
 
 	// This method crash the program.
-	public String timeAndDate() {		
+	public String timeAndDate() {
 		FormatStyle timeStyle = FormatStyle.MEDIUM;
-		
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(timeStyle);
-		String lt= LocalTime.now().format(formatter);
-		
-		
+		String lt = LocalTime.now().format(formatter);
+
 		DateTimeFormatter formatterH = DateTimeFormatter.ofLocalizedDate(timeStyle);
 		String ld = LocalDate.now().format(formatterH);
-		
+
 		String msg = ld + " - " + lt;
 		return msg;
 	}
@@ -103,81 +104,89 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	private Label userActive;
-	
-    @FXML
-    private Pane loginPane;
 
+	@FXML
+	private Pane loginPane;
 
 	// Menu code.
 
 	@FXML
 	void createCostumers(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showCreateCostumerWindow();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}			
+		}
 	}
 
 	@FXML
 	void createEmployees(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showCreateEmployee();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void createIngredients(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showCreateIngredientWindow();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void createOrders(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showCreateOrderWindow();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void createProducts(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showCreateMealWindow();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void createUsers(ActionEvent event) throws IOException {
-		showCreateUserWindow();
+		if (userActive.getText() != "") {
+			showCreateUserWindow();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
+
 	}
 
 	@FXML
@@ -185,7 +194,7 @@ public class RestaurantManagerGUI {
 		String name = userText.getText();
 		String password = passwordText.getText();
 
-		String user = rm.login(name, password);
+		String user = rm.login(name, password).getName() + " " + rm.login(name, password).getLastname();
 		if (user != "") {
 			userActive.setText(user);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -205,80 +214,80 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void manageCostumers(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showManageCostumers();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void manageEmployees(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showManageEmployees();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void manageIngredients(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showManageIngredients();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void manageOrders(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showManageOrders();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void manageProducts(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showManageMeals();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
 	void manageUsers(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		if (userActive.getText() != "") {
 			showManageUsers();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
@@ -291,51 +300,41 @@ public class RestaurantManagerGUI {
 
 	}
 
-	
 	@FXML
-    void changeUser(ActionEvent event) throws IOException {
+	void changeUser(ActionEvent event) throws IOException {
 		showLoginWindow();
-    }
-	
-	
+	}
+
 	@FXML
 	void sellsByEm(ActionEvent event) throws IOException {
 		rm.sellsByEmployee();
-		/*if(userActive.getText() != ""){
-			rm.sellsByEmployee();
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setTitle("Reporte");
-			alert.setContentText("Reporte de Empleados creado en el archivo.");
-			alert.showAndWait();
-		}else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error.");
-			alert.setContentText("Debe iniciar sesión con un usuario primero.");
-			alert.showAndWait();
-		}	*/
+		/*
+		 * if(userActive.getText() != ""){ rm.sellsByEmployee(); Alert alert = new
+		 * Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
+		 * alert.setTitle("Reporte");
+		 * alert.setContentText("Reporte de Empleados creado en el archivo.");
+		 * alert.showAndWait(); }else { Alert alert = new Alert(Alert.AlertType.ERROR);
+		 * alert.setHeaderText(null); alert.setTitle("Error.");
+		 * alert.setContentText("Debe iniciar sesión con un usuario primero.");
+		 * alert.showAndWait(); }
+		 */
 	}
-	
+
 	@FXML
-	void sellsByPr(ActionEvent event) throws IOException{
+	void sellsByPr(ActionEvent event) throws IOException {
 		rm.sellsByProduct();
-		/*if(userActive.getText() != ""){
-			rm.sellsByProduct();
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setHeaderText(null);
-			alert.setTitle("Reporte");
-			alert.setContentText("Reporte de ventas por Producto creado.");
-			alert.showAndWait();
-		}else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error.");
-			alert.setContentText("Debe iniciar sesión con un usuario primero.");
-			alert.showAndWait();
-		}*/
+		/*
+		 * if(userActive.getText() != ""){ rm.sellsByProduct(); Alert alert = new
+		 * Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
+		 * alert.setTitle("Reporte");
+		 * alert.setContentText("Reporte de ventas por Producto creado.");
+		 * alert.showAndWait(); }else { Alert alert = new Alert(Alert.AlertType.ERROR);
+		 * alert.setHeaderText(null); alert.setTitle("Error.");
+		 * alert.setContentText("Debe iniciar sesión con un usuario primero.");
+		 * alert.showAndWait(); }
+		 */
 	}
-	
+
 	// Ingredients code.
 
 	@FXML
@@ -377,7 +376,8 @@ public class RestaurantManagerGUI {
 	}
 
 	private void initializeTableViewsIngredientWindow() {
-		ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredients());
+		ObservableList<Ingredient> tvIngredientObservableList = FXCollections
+				.observableArrayList(rm.getIngredientsEnabled());
 		tvIngredientsCreated.setItems(tvIngredientObservableList);
 		tcIngredientsCreated.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
 	}
@@ -462,7 +462,7 @@ public class RestaurantManagerGUI {
 	// jd
 
 	private void initializeTableViewsMealWindow() {
-		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
+		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMealsEnabled());
 		tvMeal.setItems(tvMealObservableList);
 		tcMeal.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
 
@@ -482,26 +482,25 @@ public class RestaurantManagerGUI {
 	// Create costumer code.
 
 	@FXML
-    private Pane createCostumerPane;
+	private Pane createCostumerPane;
 
-    @FXML
-    private TextField costumerNameTxt;
+	@FXML
+	private TextField costumerNameTxt;
 
-    @FXML
-    private TextField costumerLastnames;
+	@FXML
+	private TextField costumerLastnames;
 
-    @FXML
-    private TextField costumerId;
+	@FXML
+	private TextField costumerId;
 
-    @FXML
-    private TextField costumerPhone;
+	@FXML
+	private TextField costumerPhone;
 
-    @FXML
-    private TextField costumerAddress;
+	@FXML
+	private TextField costumerAddress;
 
-    @FXML
-    private TextArea costumerObservationsArea;
-
+	@FXML
+	private TextArea costumerObservationsArea;
 
 	@FXML
 	void createCostumer(ActionEvent event) {
@@ -549,77 +548,88 @@ public class RestaurantManagerGUI {
 
 	// Create order code.
 
-		ObservableList<Meal> orderFood = null;
-	
-		@FXML
-	    private TableView<Costumer> tvOrderCostumers;
+	@FXML
+	private TableView<Costumer> tvOrderCostumers;
 
-	    @FXML
-	    private TableColumn<Costumer, String> tcOrderCostumers;
+	@FXML
+	private TableColumn<Costumer, String> tcOrderCostumers;
 
-	    @FXML
-	    private TableColumn<Costumer, String> tcOrderCostumersPhone;
+	@FXML
+	private TableColumn<Costumer, String> tcOrderCostumersPhone;
 
-	    @FXML
-	    private TableView<Meal> tvOrderFoodAvaible;
+	@FXML
+	private TableView<Meal> tvOrderFoodAvaible;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcOrderFoodAvaible;
+	@FXML
+	private TableColumn<Meal, String> tcOrderFoodAvaible;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcOrderFoodAvaibleSize;
+	@FXML
+	private TableColumn<Meal, String> tcOrderFoodAvaibleSize;
 
-	    @FXML
-	    private TableColumn<Meal, Double> tcOrderFoodAvaiblePrice;
+	@FXML
+	private TableColumn<Meal, Double> tcOrderFoodAvaiblePrice;
 
-	    @FXML
-	    private TableView<Meal> tvOrderFoodRequested;
+	@FXML
+	private TableView<Meal> tvOrderFoodRequested;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcOrderFoodRequested;
+	@FXML
+	private TableColumn<Meal, String> tcOrderFoodRequested;
 
+	@FXML
+	private TableColumn<Meal, String> tcOrderFoodRequestedSize;
 
-	    @FXML
-	    private TableColumn<Meal, String> tcOrderFoodRequestedSize;
-	    
-	    @FXML
-	    private TableColumn<Meal, Double> tcOrderFoodRequestedPrice;
-	     
-	    @FXML
-	    private TextArea orderCostumerInfo;
+	@FXML
+	private TableColumn<Meal, Double> tcOrderFoodRequestedPrice;
 
-	    @FXML
-	    void addMealToOrder(ActionEvent event) {
-	    	int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();;
-	    	if(index >= 0 && rm.getMeals()!=null) {
-    			orderFood.add(rm.getMeals().get(index));
-	    		tvOrderFoodRequested.setItems(orderFood);   	 	
-	    	}
-	    }
+	@FXML
+	private TextArea orderCostumerInfo;
 
-	    @FXML
-	    void chooseCostumer(ActionEvent event) {
-	    	int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();
-	    	orderCostumerInfo.setText(rm.getCostumers().get(index).getName() + " - " + rm.getCostumers().get(index).getPhone());    	
-	    }
+	@FXML
+	void addMealToOrder(ActionEvent event) {
+		Meal meal = tvOrderFoodAvaible.getSelectionModel().getSelectedItem();
+		rm.addMealToOrder(meal);
+		
+		ObservableList<Meal> tvOrder = FXCollections.observableArrayList(rm.getOrderFood());
+		if(meal == null) {
+			System.out.println("Nulo comida.");
+		}else{
+			System.out.println("Sí hay comida.");
+		}
+		tvOrderFoodRequested.setItems(tvOrder);
+		initializeTableViewsOrderWindow();
+	}
 
+	@FXML
+	void chooseCostumer(ActionEvent event) {
+		int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();
+		orderCostumerInfo.setText(
+				rm.getCostumersEnabled().get(index).getName() + " - " + rm.getCostumers().get(index).getPhone());
+	}
 
 	@FXML
 	void createOrder(ActionEvent event) throws IOException {
 
 		ObservableList<Meal> orderFood = tvOrderFoodRequested.getItems();
-		String costumer = orderCostumerInfo.getText();
+		List<Meal> meals = orderFood;
 
-		if (orderFood != null && costumer != "") {
-			//rm.sellsByEmployee();
-			//Serializar luego              **
+		String costumerName = orderCostumerInfo.getText();
+		Costumer costumer = rm.getCostumerObject(costumerName);
+
+		String employeeName = userActive.getText();
+		Employee employee = rm.getEmployeeObject(employeeName);
+
+		String observations = "";
+
+		if (orderFood.size() != 0 && costumerName != "") {
+			// rm.sellsByEmployee();
+			// Serializar luego **
 			initializeTableViewsOrderWindow();
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Hecho.");
 			alert.setContentText("La orden ha sido añadido exitosamente.");
 			alert.showAndWait();
-
+			rm.addOrder("Solicitado", observations, costumer, employee, meals);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -630,18 +640,17 @@ public class RestaurantManagerGUI {
 	}
 
 	private void initializeTableViewsOrderWindow() {
-		ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumers());
+		ObservableList<Costumer> tvCostumerObservableList = FXCollections.observableArrayList(rm.getCostumersEnabled());
 		tvOrderCostumers.setItems(tvCostumerObservableList);
 		tcOrderCostumers.setCellValueFactory(new PropertyValueFactory<Costumer, String>("name"));
 		tcOrderCostumersPhone.setCellValueFactory(new PropertyValueFactory<Costumer, String>("phone"));
 
-		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMeals());
+		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMealsEnabled());
 		tvOrderFoodAvaible.setItems(tvMealObservableList);
 		tcOrderFoodAvaible.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
 		tcOrderFoodAvaibleSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
 		tcOrderFoodAvaiblePrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
-		
-		
+
 	}
 
 	// Create employees code.
@@ -757,39 +766,39 @@ public class RestaurantManagerGUI {
 	void deleteCostumer(ActionEvent event) throws IOException {
 		int index = tvManageCostumers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.deleteCostumer(index);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El cliente ha sido eliminado exitosamente.");
 			showManageCostumers();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("El cliente no ha sido eliminado. Seleccione uno e intente de nuevo.");
 			alert.showAndWait();
 		}
-		
+
 	}
 
 	@FXML
 	void disableCostumer(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageCostumers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateCostumer(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El cliente ha sido deshabilitado exitosamente.");
-			showManageCostumers();		
+			showManageCostumers();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -801,18 +810,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void enableCostumer(ActionEvent event) throws IOException {
 		String state = "Sí";
-		
+
 		int index = tvManageCostumers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateCostumer(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El cliente ha sido deshabilitado exitosamente.");
 			showManageCostumers();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -854,39 +863,39 @@ public class RestaurantManagerGUI {
 	void deleteEmployee(ActionEvent event) throws IOException {
 		int index = tvManageEmployees.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.deleteEmployee(index);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El empleado ha sido eliminado exitosamente.");
 			showManageEmployees();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("El empleado no ha sido eliminado. Seleccione uno e intente de nuevo.");
 			alert.showAndWait();
 		}
-		
+
 	}
 
 	@FXML
 	void disableEmployee(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageEmployees.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateEmployee(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El usuario ha sido deshabilitado exitosamente.");
 			showManageEmployees();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -898,18 +907,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void enableEmployee(ActionEvent event) throws IOException {
 		String state = "Sí";
-		
+
 		int index = tvManageEmployees.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateEmployee(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El empleado ha sido deshabilitado exitosamente.");
 			showManageEmployees();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -945,15 +954,15 @@ public class RestaurantManagerGUI {
 	void deleteIngredient(ActionEvent event) throws IOException {
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.deleteIngredient(index);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El ingrediente ha sido removido exitosamente.");
 			showManageIngredients();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -965,18 +974,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void disableIngredient(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateIngredient(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El ingrediente ha sido deshabilitado exitosamente.");
 			showManageIngredients();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -988,18 +997,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void enableIngredient(ActionEvent event) throws IOException {
 		String state = "Sí";
-		
+
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateIngredient(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El ingrediente ha sido habilitado exitosamente.");
 			showManageIngredients();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1054,15 +1063,15 @@ public class RestaurantManagerGUI {
 	void deleteUser(ActionEvent event) throws IOException {
 		int index = tvManageUsers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.deleteUser(index);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El usuario ha sido removido exitosamente.");
 			showManageUsers();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1074,18 +1083,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void disableUser(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageUsers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateUsert(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El usuario ha sido deshabilitado exitosamente.");
 			showManageUsers();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1097,18 +1106,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void enableUser(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageUsers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateUsert(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El usuario ha sido habilitado exitosamente.");
 			showManageUsers();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1149,8 +1158,8 @@ public class RestaurantManagerGUI {
 	private void initializeManagerOrdersWindow() {
 		ObservableList<Order> tvOrderObservableList = FXCollections.observableArrayList(rm.getOrders());
 		tvManageOrders.setItems(tvOrderObservableList);
-		tcManageOrdersCostumer.setCellValueFactory(new PropertyValueFactory<Order, String>("costumerName"));
-		tcManageOrdersEmployee.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeName"));
+		tcManageOrdersCostumer.setCellValueFactory(new PropertyValueFactory<Order, String>("owner"));
+		tcManageOrdersEmployee.setCellValueFactory(new PropertyValueFactory<Order, String>("employeeInCharge"));
 		tcManageOrdersDate.setCellValueFactory(new PropertyValueFactory<Order, String>("date"));
 		tcManageOrdersCode.setCellValueFactory(new PropertyValueFactory<Order, String>("code"));
 		tcManageOrdersMeals.setCellValueFactory(new PropertyValueFactory<Order, String>("mealsTxt"));
@@ -1163,15 +1172,15 @@ public class RestaurantManagerGUI {
 	void deleteOrder(ActionEvent event) throws IOException {
 		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.deleteOrder(index);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("La orden ha sido removida exitosamente.");
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1183,18 +1192,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void disableOrder(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateOrder(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("La orden ha sido deshabilitada exitosamente.");
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1206,18 +1215,18 @@ public class RestaurantManagerGUI {
 	@FXML
 	void enableOrder(ActionEvent event) throws IOException {
 		String state = "No";
-		
+
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateOrder(index, state);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("La orden ha sido habilitada exitosamente.");
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -1228,7 +1237,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void refreshState(ActionEvent event) {
-		
+
 	}
 
 	// Manage Meals code.
@@ -1273,15 +1282,15 @@ public class RestaurantManagerGUI {
 	void deleteMeal(ActionEvent event) throws IOException {
 		int index = tvManageMeals.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.deleteMeal(index);
-		
-		if(founded) {
+
+		if (founded) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Realizado");
 			alert.setContentText("El producto ha sido removido exitosamente.");
 			showManageMeals();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");

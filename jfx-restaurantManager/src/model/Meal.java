@@ -63,4 +63,9 @@ public class Meal {
 	public void setState(String newState) {
 		enabled = newState;
 	}
+	
+	public String getEnabled() {
+		return enabled;
+	}
 }
+

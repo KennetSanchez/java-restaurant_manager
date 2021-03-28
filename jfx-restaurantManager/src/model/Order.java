@@ -3,12 +3,13 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 	String code, status, observations;
 	Costumer owner;
 	Employee employeeInCharge;
-	ArrayList<Meal> meals;
+	List<Meal> meals;
 	String sep=","; //separator
 	Date date;
 	String enabled;
@@ -17,7 +18,7 @@ public class Order {
 	String temporal;
 	
 	//Code and date are not include. The program should generate the code, and take the date from the pc.
-	public Order(String status, String observations, Costumer owner, Employee employeeInCharge, ArrayList<Meal> meals, String enabled) {
+	public Order(String status, String observations, Costumer owner, Employee employeeInCharge, List<Meal> meals, String enabled) {
 		this.status = status;
 		this.observations = observations;
 		this.owner = owner;
@@ -53,8 +54,14 @@ public class Order {
 	}
 	
 	public String generateCode() {
+		String msg = "";
 		LocalDateTime ldt = LocalDateTime.now();
-		String msg = owner.getName() + " - "+ ldt;
+		try {
+			msg = owner.getName() + " - "+ ldt;
+		} catch (Exception e) {
+			msg = "Error con el código.";
+		}		
+		
 		return msg;
 	}
 	
@@ -84,12 +91,16 @@ public class Order {
 		return employeeInCharge.getName();
 	}
 	
-	public ArrayList<Meal> getMeals() {
+	public List<Meal> getMeals() {
 		return meals;
 	}
 	
-	public Date getDate() {
-		return date;
+	public String getDate() {
+		return date.toString();
+	}
+	
+	public String getEnabled() {
+		return enabled;
 	}
 	
 	public String toString() {
