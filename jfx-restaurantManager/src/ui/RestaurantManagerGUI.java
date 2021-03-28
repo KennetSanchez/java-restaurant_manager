@@ -300,7 +300,8 @@ public class RestaurantManagerGUI {
 	
 	@FXML
 	void sellsByEm(ActionEvent event) throws IOException {
-		if(userActive.getText() != ""){
+		rm.sellsByEmployee();
+		/*if(userActive.getText() != ""){
 			rm.sellsByEmployee();
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -313,12 +314,13 @@ public class RestaurantManagerGUI {
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}	*/
 	}
 	
 	@FXML
 	void sellsByPr(ActionEvent event) throws IOException{
-		if(userActive.getText() != ""){
+		rm.sellsByProduct();
+		/*if(userActive.getText() != ""){
 			rm.sellsByProduct();
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -331,7 +333,7 @@ public class RestaurantManagerGUI {
 			alert.setTitle("Error.");
 			alert.setContentText("Debe iniciar sesión con un usuario primero.");
 			alert.showAndWait();
-		}	
+		}*/
 	}
 	
 	// Ingredients code.

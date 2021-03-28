@@ -82,11 +82,13 @@ public class RestaurantManager {
 	}
 	public void sellsByEmployee() throws IOException {
 		double cost = 0;
-		double total = 0;
+		double totalValue = 0;
+		int totalOrders=0;
 		
-		String fileName = "docs/em-List.txt";
+		String fileName = "docs/Emp-List.csv";
 		fileW = new FileWriter(fileName);
 		bw = new BufferedWriter(fileW);
+		bw.write("Empleado,N° Ordenes,Valor\n");
 		for (int i = 0; i < allEmployees.size() && !allEmployees.isEmpty(); i++) {
 
 			if (allEmployees.get(0).getMeals() != null) {
@@ -95,21 +97,23 @@ public class RestaurantManager {
 					cost += allEmployees.get(i).getMeals().get(j).getPrice();
 				}
 			}
-			bw.write(allEmployees.get(i).getName() + ":  Pedido(s): " + allEmployees.get(i).getOrdersToday()
-					+ ". Valor: " + cost+"\n");
-			total = cost;
+			bw.write(allEmployees.get(i).getName() + "," + allEmployees.get(i).getOrdersToday()
+					+ "," + cost+"\n");
+			totalValue = cost;
 			cost = 0;
+			totalOrders += allEmployees.get(i).getOrdersToday();
 		}
 		
-		bw.write("\n           -                -           Total:"+total);
+		bw.write("\nTotal:,"+totalOrders+","+totalValue);
 		bw.close();
 	}
 	
 	public void sellsByProduct() throws IOException{
-		String fileName = "docs/times-ordered-product.txt";
+		String fileName = "docs/Pr-List.csv";
 		fileW = new FileWriter(fileName);
-		bw= new BufferedWriter(fileW);
-		bw.write("SIsirve");
+		bw = new BufferedWriter(fileW);
+		bw.write("Producto,N° Ordenes,Valor\n");
+		bw.write("\nTotal:,"+""+",");
 		bw.close();
 	}
 	
