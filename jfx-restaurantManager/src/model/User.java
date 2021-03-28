@@ -59,4 +59,8 @@ public class User extends Employee{
 	public String toString() {
 		return name +sep+ lastname +sep+ id +sep+ userName +sep+ password;
 	}
+	
+	public void setState(String newState) {
+		enabledU = newState;
+	}
 }

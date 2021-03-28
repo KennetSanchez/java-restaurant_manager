@@ -69,6 +69,84 @@ public class RestaurantManager {
 		// createEmployeeList();
 	}
 
+	//Enable /Disable objects methods.
+	
+	public boolean changeStateIngredient(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allIngredients.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allIngredients.get(index).setState(newState);;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	public boolean changeStateCostumer(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allCostumers.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allCostumers.get(index).setState(newState);;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	public boolean changeStateEmployee(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allEmployees.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allEmployees.get(index).setState(newState);;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	public boolean changeStateOrder(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allOrders.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allOrders.get(index).setState(newState);;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	public boolean changeStateUsert(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allUsers.size() >= index && index >= 0) {
+			posible = true;
+		}
+		
+		if (posible) {
+			allUsers.get(index).setState(newState);;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	
 	// Delete objects methods.
 
 	public boolean deleteIngredient(int index) {
@@ -169,7 +247,7 @@ public class RestaurantManager {
 
 	// In the next versions this will be with the classes type, not Strings.
 	public void addMeal(String name, String size, String value, String type, String ingredients) {
-		Meal newMeal = new Meal(name, size, value, type, ingredients);
+		Meal newMeal = new Meal(name, size, value, type, ingredients, "Sí");
 		allMeals.add(newMeal);
 	}
 
@@ -211,7 +289,7 @@ public class RestaurantManager {
 
 	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,
 			ArrayList<Meal> meals) {
-		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals);
+		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals, "Sí");
 		allOrders.add(newOrder);
 	}
 
@@ -335,13 +413,12 @@ public class RestaurantManager {
 	}
 
 	// Test cases.
-	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply");
+	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply", "Sí");
 	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
 	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí.");
 	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,
-			"Sí.");
-	Order newOrderTestCase = new Order("Requested", "JD001");
+	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,"Sí.");
+	Order newOrderTestCase = new Order("Requested", "JD001", "Sí");
 	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
 
 	// Admin user, used as a basic user.

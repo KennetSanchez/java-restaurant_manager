@@ -36,4 +36,8 @@ public class Ingredient {
 	public String toString() {
 		return name + sep + allergen;
 	}
+	
+	public void setState(String newState) {
+		enabled = newState;
+	}
 }

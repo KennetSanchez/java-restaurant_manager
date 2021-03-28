@@ -56,4 +56,8 @@ public class Employee {
 	public String toString() {
 		return name +sep+ lastname +sep+ id;
 	}
+	
+	public void setState(String newState) {
+		enabled = newState;
+	}
 }

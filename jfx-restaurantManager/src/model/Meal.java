@@ -8,6 +8,7 @@ public class Meal {
 	String ingredientsTxt;
 	String price;
 	String sep=","; //separator
+	String enabled;
 	//ArrayList<Ingredient> ingredients;
 	
 	
@@ -16,12 +17,13 @@ public class Meal {
 	String causes;
 	
 	//Dentro de RestaurantManager un array con los tipos principales para usarlos como "constantes".
-	public Meal(String name, String size, String price, String type, String ingredients) {
+	public Meal(String name, String size, String price, String type, String ingredients, String enabled) {
 		this.name = name;
 		this.size = size;
 		this.price = price;
 		this.type = type;
 		this.ingredientsTxt = ingredients;
+		this.enabled = enabled;
 		
 		//We are going to work with it as a String for a while.
 		//this.ingredients = ingredients;
@@ -56,5 +58,9 @@ public class Meal {
 	
 	public String toString() {
 		return name +sep+ size +sep+ price +sep+ type +sep+ ingredientsTxt +sep+ causes;
+	}
+	
+	public void setState(String newState) {
+		enabled = newState;
 	}
 }

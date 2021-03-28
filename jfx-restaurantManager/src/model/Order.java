@@ -11,25 +11,28 @@ public class Order {
 	ArrayList<Meal> meals;
 	String sep=","; //separator
 	Date date;
+	String enabled;
 	
 	ArrayList<String> causes;
 	String temporal;
 	
 	//Code and date are not include. The program should generate the code, and take the date from the pc.
-	public Order(String status, String observations, Costumer owner, Employee employeeInCharge, ArrayList<Meal> meals) {
+	public Order(String status, String observations, Costumer owner, Employee employeeInCharge, ArrayList<Meal> meals, String enabled) {
 		this.status = status;
 		this.observations = observations;
 		this.owner = owner;
 		this.employeeInCharge = employeeInCharge;
 		this.meals = meals;
 		code = generateCode();
+		this.enabled = enabled;
 		addMealsToEmp();
 	}
 	
 	//This constructor it's only for testing.
-	public Order(String status, String observations) {
+	public Order(String status, String observations, String enabled) {
 		this.status = status;
 		this.observations = observations;
+		this.enabled = enabled;
 	}
 	
 	public String getMealsTxt() {
@@ -97,4 +100,7 @@ public class Order {
 		status = newStatus;
 	}
 	
+	public void setState(String newState) {
+		enabled = newState;
+	}
 }

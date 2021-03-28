@@ -69,4 +69,7 @@ public class Costumer {
 		return id;
 	}
 	
+	public void setState(String newState) {
+		enabled = newState;
+	}
 }
