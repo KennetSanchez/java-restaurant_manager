@@ -33,7 +33,7 @@ public class Order {
 		date = takeDate();
 		this.enabled = enabled;
 		statusNum = 1;
-		addMealsToEmp();		
+		//addMealsToEmp();		
 	}
 	
 	//This constructor it's only for testing.
@@ -103,11 +103,11 @@ public class Order {
 	}
 	
 	public String getOwner() {
-		return owner.getName();
+		return null;
 	}
 	
 	public String getEmployeeInCharge() {
-		return employeeInCharge.getName();
+		return null;
 	}
 	
 	public List<Meal> getMeals() {

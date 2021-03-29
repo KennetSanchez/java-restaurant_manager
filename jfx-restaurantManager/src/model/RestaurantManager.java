@@ -639,7 +639,7 @@ public class RestaurantManager {
 	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
 	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí");
 	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,	"Sí");
+	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,	"Sí", 1006229463L);
 	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
 	Order newOrderTestCase = new Order("Solicitado", "Sin observaciones", newCostumerTestCase,newEmployeeTestCase, newMealArray , "Sí");
 

@@ -27,6 +27,7 @@ public class Costumer {
 		this.observations = observations;
 		this.phone = phone;
 		this.id = id;
+		this.enabled = enabled;
 	}
 
 	public String getName() {
