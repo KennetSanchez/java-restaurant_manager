@@ -1,2 +1,0 @@
-Employee1:  Pedido(s): 0. Valor: 0.0
-             -                      -                        Total:0.0

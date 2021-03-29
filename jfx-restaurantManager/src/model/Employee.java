@@ -1,10 +1,16 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Employee {
+public class Employee implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	String name, lastname, enabled;
 	long id;
 	ArrayList<Meal> mealsOrdered;

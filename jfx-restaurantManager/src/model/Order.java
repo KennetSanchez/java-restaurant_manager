@@ -1,5 +1,6 @@
  package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,12 @@ import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	String code, status, observations;
 	Costumer owner;	
 	Employee employeeInCharge;

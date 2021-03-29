@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="ingredientsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="56.0" layoutY="103.0" text="Ingrediente:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtIngredient" layoutX="166.0" layoutY="101.0" promptText="Nombre" />
+      <CheckBox fx:id="allergenCheckBox" layoutX="421.0" layoutY="314.0" mnemonicParsing="false" text="¿Es un alérgeno?" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </CheckBox>
+      <Label layoutX="32.0" layoutY="208.0" prefHeight="78.0" prefWidth="336.0" text="Por favor, marque la casilla si el ingredente puede causar alergias." textAlignment="JUSTIFY" textFill="GOLD" wrapText="true">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="238.0" layoutY="411.0" mnemonicParsing="false" onAction="#createIngredient" style="-fx-background-color: a2231d;" text="Añadir ingrediente." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="32.0" layoutY="286.0" prefHeight="78.0" prefWidth="336.0" text="Los alergénos más comunes son:  leche de vaca, huevos, durazno, aguacate, nueces, maní, soya, trigo, gluten." textAlignment="JUSTIFY" textFill="GOLD" wrapText="true">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvIngredientsCreated" layoutX="415.0" layoutY="23.0" prefHeight="200.0" prefWidth="227.0">
+        <columns>
+          <TableColumn fx:id="tcIngredientsCreated" prefWidth="226.0" text="Ingrediente" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

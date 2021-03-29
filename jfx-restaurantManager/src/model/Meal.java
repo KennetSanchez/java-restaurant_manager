@@ -1,8 +1,14 @@
 package model;
 
+import java.io.Serializable;
+
 //import java.util.ArrayList;
 
-public class Meal {
+public class Meal implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String name, size;
 	String type;
 	String ingredientsTxt;

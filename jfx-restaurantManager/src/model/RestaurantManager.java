@@ -3,9 +3,11 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 //import java.io.InputStreamReader;
 //import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class RestaurantManager {
 	Order order;
 	Size size;
 	User user;
-
+	
 	// ArrayLists with the data. Without persistence.
 	ArrayList<Meal> allMeals;
 	ArrayList<Costumer> allCostumers;
@@ -51,8 +53,8 @@ public class RestaurantManager {
 	
 	public RestaurantManager() throws IOException, FileNotFoundException {
 		// br = new BufferedReader(new InputStreamReader(System.in));
-		fileR = new FileReader("docs/em-List.txt"); // example. That isn't the name
-		br = new BufferedReader(fileR);
+		//fileR = new FileReader("docs/em-List.txt"); // example. That isn't the name
+		//br = new BufferedReader(fileR);
 
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
@@ -81,6 +83,8 @@ public class RestaurantManager {
 		
 		// TEST -------
 		// createEmployeeList();
+		String x=newOrderTestCase.toString();
+		toSerialize(newOrderTestCase);
 	}
 	// Make the report of sells by employee and sells of each product
 
@@ -92,6 +96,28 @@ public class RestaurantManager {
 		bw.close();
 		// I could make two methods with the fors,
 	}
+	
+	public void orderX() {
+		if(!allOrders.isEmpty()) {
+		}
+	}
+	
+	public void toSerialize(Order orderX) {
+    	String fileName="docs/Serializacion.txt";
+    	FileOutputStream file;
+		try {
+			file = new FileOutputStream(fileName);
+			ObjectOutputStream obOut = new ObjectOutputStream(file);
+			obOut.writeObject(orderX);
+			obOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException i) {
+			i.printStackTrace();
+		} catch (NullPointerException x) {
+			x.printStackTrace();
+		}
+    }
 
 	public void sellsByEmployee() throws IOException {
 		double cost = 0;

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="468.0" layoutY="76.0" text="Administración de pedidos." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvManageOrders" layoutX="36.0" layoutY="134.0" prefHeight="408.0" prefWidth="998.0">
+        <columns>
+          <TableColumn fx:id="tcManageOrdersCostumer" prefWidth="137.0" text="Cliente" />
+          <TableColumn fx:id="tcManageOrdersEmployee" prefWidth="139.0" text="Despachador" />
+            <TableColumn fx:id="tcManageOrdersDate" prefWidth="90.0" text="Fecha" />
+            <TableColumn fx:id="tcManageOrdersCode" prefWidth="123.0" text="Código" />
+            <TableColumn fx:id="tcManageOrdersMeals" prefWidth="173.0" text="Alimentos" />
+            <TableColumn fx:id="tcManageOrdersObservations" minWidth="0.0" prefWidth="134.0" text="Observaciones" />
+            <TableColumn fx:id="tcManageOrdersEnabled" minWidth="0.0" prefWidth="101.0" text="Habilitado" />
+            <TableColumn fx:id="tcManageOrdersState" minWidth="0.0" prefWidth="100.0" text="Estado" />
+        </columns>
+      </TableView>
+      <Button layoutX="259.0" layoutY="564.0" mnemonicParsing="false" onAction="#deleteOrder" style="-fx-background-color: a2231d;" text="Eliminar." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="514.0" layoutY="564.0" mnemonicParsing="false" onAction="#disableOrder" style="-fx-background-color: a2231d;" text="Deshabilitar." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="794.0" layoutY="564.0" mnemonicParsing="false" onAction="#enableOrder" style="-fx-background-color: a2231d;" text="Habilitar." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="1054.0" layoutY="124.0" text="Actualizar estado a:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="1073.0" layoutY="185.0" mnemonicParsing="false" onAction="#refreshStateInProcess" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="En proceso." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="1073.0" layoutY="260.0" mnemonicParsing="false" onAction="#refreshStateSend" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Enviado." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="1073.0" layoutY="338.0" mnemonicParsing="false" onAction="#refreshStateDelivered" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Entregado." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="1073.0" layoutY="419.0" mnemonicParsing="false" onAction="#refreshStateCanceled" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Cancelado." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

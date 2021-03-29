@@ -1,7 +1,13 @@
 package model;
 
-public class Costumer {
+import java.io.Serializable;
 
+public class Costumer implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String name, lastname, address, observations, enabled;
 	long phone;
 	String sep=","; //separator
