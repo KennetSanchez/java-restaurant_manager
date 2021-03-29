@@ -302,6 +302,38 @@ public class RestaurantManager {
 		}
 		return founded;
 	}
+	
+	public boolean changeStateSize(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allSizes.size() >= index && index >= 0) {
+			posible = true;
+		}
+
+		if (posible) {
+			allSizes.get(index).setState(newState);
+			;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	public boolean changeStateType(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allFoodTypes.size() >= index && index >= 0) {
+			posible = true;
+		}
+
+		if (posible) {
+			allFoodTypes.get(index).setState(newState);
+			;
+			founded = true;
+		}
+		return founded;
+	}
 
 	// Delete objects methods.
 
@@ -330,6 +362,36 @@ public class RestaurantManager {
 		}
 		if (posible) {
 			allMeals.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+	
+	public boolean deleteSize(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allSizes.size() >= index && index >= 0) {
+			posible = true;
+		}
+		if (posible) {
+			allSizes.remove(index);
+			founded = true;
+		}
+
+		return founded;
+	}
+	
+	public boolean deleteType(int index) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allFoodTypes.size() >= index && index >= 0) {
+			posible = true;
+		}
+		if (posible) {
+			allFoodTypes.remove(index);
 			founded = true;
 		}
 
@@ -489,7 +551,7 @@ public class RestaurantManager {
 			txt = employee.toString();
 			break;
 		case "foodType":
-			txt = foodType.getType();
+			txt = foodType.getName();
 			break;
 		case "ingredient":
 			txt = ingredient.toString();
@@ -569,8 +631,9 @@ public class RestaurantManager {
 		ArrayList<FoodType> enabledArray = new ArrayList<FoodType>();
 
 		for (int i = 0; i < allFoodTypes.size(); i++) {
-			if (allFoodTypes.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+			if (allFoodTypes.get(i).getState().equalsIgnoreCase("Sí")) {
 				enabledArray.add(allFoodTypes.get(i));
+				
 			}
 		}
 

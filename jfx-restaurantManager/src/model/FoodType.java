@@ -11,21 +11,22 @@ public class FoodType implements Serializable{
 	User lastModifier;
 	
 	//Attributes
-	String type, enabled;
+	String name, enabled;
 	
 	public FoodType(String type) {
-		this.type = type;
+		this.name = type;
+		enabled = "Sí";
 	}
 	
-	public String getType(){
-		return type;
+	public String getName(){
+		return name;
 	}
 	
-	public void setEnabled(String newState) {
+	public void setState(String newState) {
 		enabled = newState;
 	}
 	
-	public String getEnabled() {
+	public String getState() {
 		return enabled;
 	}
 }

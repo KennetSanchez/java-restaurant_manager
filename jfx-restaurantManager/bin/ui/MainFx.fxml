@@ -21,6 +21,8 @@
                   <MenuItem mnemonicParsing="false" onAction="#createIngredients" text="Añadir ingredientes" />
                   <MenuItem mnemonicParsing="false" onAction="#createEmployees" text="Añadir empleados" />
                   <MenuItem mnemonicParsing="false" onAction="#createUsers" text="Añadir usuarios" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateSize" text="Añadir tamaños" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateType" text="Añadir tipos de producto" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Gestionar">
@@ -32,6 +34,8 @@
                   <MenuItem mnemonicParsing="false" onAction="#manageIngredients" text="Gestionar ingredientes" />
                   <MenuItem mnemonicParsing="false" onAction="#manageEmployees" text="Gestionar empleados" />
                   <MenuItem mnemonicParsing="false" onAction="#manageUsers" text="Gestionar usuarios" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageSizes" text="Gestionar tamaños" />
+                  <MenuItem mnemonicParsing="false" onAction="#manageTypes" text="Gestionar tipos de producto" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Acerca">

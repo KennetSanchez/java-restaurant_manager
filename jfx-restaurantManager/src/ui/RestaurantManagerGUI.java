@@ -71,7 +71,6 @@ public class RestaurantManagerGUI {
 		}
 	}
 
-	// This method crash the program.
 	public String timeAndDate() {
 		FormatStyle timeStyle = FormatStyle.MEDIUM;
 
@@ -109,6 +108,59 @@ public class RestaurantManagerGUI {
 	private Pane loginPane;
 
 	// Menu code.
+
+	@FXML
+	void manageSizes(ActionEvent event) throws IOException {
+		if (userActive.getText() != "") {
+			showManageSizes();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void manageTypes(ActionEvent event) throws IOException {
+		if (userActive.getText() != "") {
+			showManageTypes();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void showCreateSize(ActionEvent event) throws IOException {
+		if (userActive.getText() != "") {
+			showCreateSizeWindow();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void showCreateType(ActionEvent event) throws IOException {
+		if (userActive.getText() != "") {
+			showCreateTypeWindow();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
+
+	}
 
 	@FXML
 	void createCostumers(ActionEvent event) throws IOException {
@@ -304,19 +356,15 @@ public class RestaurantManagerGUI {
 	void changeUser(ActionEvent event) throws IOException {
 		showLoginWindow();
 	}
-	
-	/*@FXML
-	void generateReport(ActionEvent event)throws IOException{
-		if (userActive.getText() != "") {
-			showGenerateReport();
-		} else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText(null);
-			alert.setTitle("Error.");
-			alert.setContentText("Debe iniciar sesión con un usuario primero.");
-			alert.showAndWait();
-		}
-	}*/
+
+	/*
+	 * @FXML void generateReport(ActionEvent event)throws IOException{ if
+	 * (userActive.getText() != "") { showGenerateReport(); } else { Alert alert =
+	 * new Alert(Alert.AlertType.ERROR); alert.setHeaderText(null);
+	 * alert.setTitle("Error.");
+	 * alert.setContentText("Debe iniciar sesión con un usuario primero.");
+	 * alert.showAndWait(); } }
+	 */
 
 	@FXML
 	void sellsByEm(ActionEvent event) throws IOException {
@@ -347,12 +395,14 @@ public class RestaurantManagerGUI {
 		 * alert.showAndWait(); }
 		 */
 	}
-	//Create Report Code
-	
-	/*private void initializeGenerateReportWindow() {
-			
-	}*/
-	
+	// Create Report Code
+
+	/*
+	 * private void initializeGenerateReportWindow() {
+	 * 
+	 * }
+	 */
+
 	// Ingredients code.
 
 	@FXML
@@ -398,6 +448,84 @@ public class RestaurantManagerGUI {
 				.observableArrayList(rm.getIngredientsEnabled());
 		tvIngredientsCreated.setItems(tvIngredientObservableList);
 		tcIngredientsCreated.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
+	}
+
+	// Create size code.
+
+	@FXML
+	private Pane sizePane;
+
+	@FXML
+	private TextField txtSizeCreation;
+
+	@FXML
+	private TableView<Size> tvSizeCreated;
+
+	@FXML
+	private TableColumn<Size, String> tcSizeCreated;
+
+	@FXML
+	void createSize(ActionEvent event) {
+		String name = txtSizeCreation.getText();
+		if (name != "") {
+			rm.addSize(name);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("Tamaño añadido.");
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("No ha ingresado el tamaño.");
+			alert.showAndWait();
+		}
+	}
+
+	private void initializeCreationSize() {
+		ObservableList<Size> tvMealObservableList = FXCollections.observableArrayList(rm.getSizesEnabled());
+		tvSizeCreated.setItems(tvMealObservableList);
+		tcSizeCreated.setCellValueFactory(new PropertyValueFactory<Size, String>("name"));
+	}
+
+	// Create type code.
+
+	@FXML
+	private Pane typePane;
+
+	@FXML
+	private TextField txtTypeCreation;
+
+	@FXML
+	private TableView<FoodType> tvTypeCreated;
+
+	@FXML
+	private TableColumn<FoodType, String> tcTypeCreated;
+
+	@FXML
+	void createType(ActionEvent event) {
+		String name = txtTypeCreation.getText();
+		if (name != "") {
+			rm.addFoodType(name);
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("Tamaño añadido.");
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("No ha ingresado el tamaño.");
+			alert.showAndWait();
+		}
+	}
+
+	private void initializeCreationType() {
+		ObservableList<FoodType> tvMealObservableList = FXCollections.observableArrayList(rm.getFoodTypesEnabled());
+		tvTypeCreated.setItems(tvMealObservableList);
+		tcTypeCreated.setCellValueFactory(new PropertyValueFactory<FoodType, String>("name"));
 	}
 
 	// Create meal code.
@@ -601,7 +729,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	private TextArea orderCostumerInfo;
-	
+
 	@FXML
 	private TextArea orderObservations;
 
@@ -609,11 +737,11 @@ public class RestaurantManagerGUI {
 	void addMealToOrder(ActionEvent event) {
 		Meal meal = tvOrderFoodAvaible.getSelectionModel().getSelectedItem();
 		rm.addMealToOrder(meal);
-		
+
 		ObservableList<Meal> tvOrder = FXCollections.observableArrayList(rm.getOrderFood());
-		if(meal == null) {
+		if (meal == null) {
 			System.out.println("Nulo comida.");
-		}else{
+		} else {
 			System.out.println("Sí hay comida.");
 		}
 		tvOrderFoodRequested.setItems(tvOrder);
@@ -640,7 +768,6 @@ public class RestaurantManagerGUI {
 		Employee employee = rm.getEmployeeObject(employeeName);
 
 		String observations = orderObservations.getText();
-		
 
 		if (orderFood.size() != 0 && costumerName != "") {
 			// rm.sellsByEmployee();
@@ -957,6 +1084,178 @@ public class RestaurantManagerGUI {
 		tcManageEmployeesEnabled.setCellValueFactory(new PropertyValueFactory<Employee, String>("enabledE"));
 	}
 
+	
+	//Manage types windows code.
+	
+	 	@FXML
+	    private TableView<FoodType> tvManageType;
+
+	    @FXML
+	    private TableColumn<FoodType, String> tcManageTypeName;
+
+	    @FXML
+	    private TableColumn<FoodType, String> tcManageTypeEnabled;
+
+	    @FXML
+	    void deleteType(ActionEvent event) throws IOException {
+	    	int index = tvManageType.getSelectionModel().getSelectedIndex();
+			boolean founded = rm.deleteType(index);
+
+			if (founded) {
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setTitle("Realizado");
+				alert.setContentText("El tipo de producto ha sido eliminado exitosamente.");
+				showManageTypes();
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("El tipo de producto no ha sido eliminado. Seleccione uno e intente de nuevo.");
+				alert.showAndWait();
+			}
+	    }
+
+	    @FXML
+	    void disableType(ActionEvent event) throws IOException {
+	    	String state = "No";
+
+			int index = tvManageType.getSelectionModel().getSelectedIndex();
+			boolean founded = rm.changeStateType(index, state);
+
+			if (founded) {
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setTitle("Realizado");
+				alert.setContentText("El tipo de producto ha sido deshabilitado exitosamente.");
+				showManageTypes();
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("El tipo de producto no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+				alert.showAndWait();
+			}
+	    }
+
+	    @FXML
+	    void enableType(ActionEvent event) throws IOException {
+	    	String state = "Sí";
+
+			int index = tvManageType.getSelectionModel().getSelectedIndex();
+			boolean founded = rm.changeStateType(index, state);
+
+			if (founded) {
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setTitle("Realizado");
+				alert.setContentText("El tipo de producto ha sido deshabilitado exitosamente.");
+				showManageTypes();
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(Alert.AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setTitle("Error");
+				alert.setContentText("El tipo de producto no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+				alert.showAndWait();
+			}
+	    }
+	
+	private void initializeManagerTypesWindow() {
+
+		ObservableList<FoodType> tvTypeObservableList = FXCollections.observableArrayList(rm.getFoodTypes());
+		tvManageType.setItems(tvTypeObservableList);
+		tcManageTypeName.setCellValueFactory(new PropertyValueFactory<FoodType, String>("name"));
+		tcManageTypeEnabled.setCellValueFactory(new PropertyValueFactory<FoodType, String>("state"));
+	}
+	
+	// Manage size windows code.
+	@FXML
+	private TableView<Size> tvManageSize;
+
+	@FXML
+	private TableColumn<Size, String> tcManageSizeName;
+
+	@FXML
+	private TableColumn<Size, String> tcManageSizeEnabled;
+
+	@FXML
+	void deleteSize(ActionEvent event) throws IOException {
+		int index = tvManageSize.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.deleteSize(index);
+
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El tamaño ha sido eliminado exitosamente.");
+			showManageSizes();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El tamaño no ha sido eliminado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void disableSize(ActionEvent event) throws IOException {
+		String state = "No";
+
+		int index = tvManageSize.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.changeStateSize(index, state);
+
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El tamaño ha sido deshabilitado exitosamente.");
+			showManageSizes();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El tamaño no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void enableSize(ActionEvent event) throws IOException {
+		String state = "Sí";
+
+		int index = tvManageSize.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.changeStateSize(index, state);
+
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El tamaño ha sido deshabilitado exitosamente.");
+			showManageSizes();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El tamaño no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
+	}
+
+	private void initializeManagerSizeWindow() {
+
+		ObservableList<Size> tvSizeObservableList = FXCollections.observableArrayList(rm.getSizes());
+		tvManageSize.setItems(tvSizeObservableList);
+		tcManageSizeName.setCellValueFactory(new PropertyValueFactory<Size, String>("name"));
+		tcManageSizeEnabled.setCellValueFactory(new PropertyValueFactory<Size, String>("state"));
+	}
+
 	// Manage ingredients window code.
 
 	@FXML
@@ -1257,12 +1556,12 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-    void refreshStateInProcess(ActionEvent event) throws IOException {
+	void refreshStateInProcess(ActionEvent event) throws IOException {
 		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		int state = 2;
 		boolean made = rm.refreshStatus(index, state);
-		
-		if(made) {
+
+		if (made) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Estado actualizado");
@@ -1270,22 +1569,22 @@ public class RestaurantManagerGUI {
 			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
 			alert.showAndWait();
 		}
-    }
-	
+	}
+
 	@FXML
-    void refreshStateSend(ActionEvent event) throws IOException {
+	void refreshStateSend(ActionEvent event) throws IOException {
 		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		int state = 3;
 		boolean made = rm.refreshStatus(index, state);
-		
-		if(made) {
+
+		if (made) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Estado actualizado");
@@ -1293,21 +1592,22 @@ public class RestaurantManagerGUI {
 			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
 			alert.showAndWait();
 		}
-    }
-    @FXML
-    void refreshStateDelivered(ActionEvent event) throws IOException {
-    	int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+	}
+
+	@FXML
+	void refreshStateDelivered(ActionEvent event) throws IOException {
+		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		int state = 4;
 		boolean made = rm.refreshStatus(index, state);
-		
-		if(made) {
+
+		if (made) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Estado actualizado");
@@ -1315,23 +1615,22 @@ public class RestaurantManagerGUI {
 			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
 			alert.showAndWait();
 		}
-    }
+	}
 
-    
-    @FXML
-    void refreshStateCanceled(ActionEvent event) throws IOException {
-    	int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+	@FXML
+	void refreshStateCanceled(ActionEvent event) throws IOException {
+		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		int state = 5;
 		boolean made = rm.refreshStatus(index, state);
-		
-		if(made) {
+
+		if (made) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Estado actualizado");
@@ -1339,14 +1638,14 @@ public class RestaurantManagerGUI {
 			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
 			showManageOrders();
 			alert.showAndWait();
-		}else {
+		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
 			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
 			alert.showAndWait();
 		}
-    }
+	}
 
 	// Manage Meals code.
 
@@ -1416,7 +1715,7 @@ public class RestaurantManagerGUI {
 	void enableMeal(ActionEvent event) {
 
 	}
-	
+
 	// Show addition windows code.
 
 	private void showCreateIngredientWindow() throws IOException {
@@ -1472,6 +1771,22 @@ public class RestaurantManagerGUI {
 		initializeTableViewsOrderWindow();
 	}
 
+	private void showCreateTypeWindow() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateType.fxml"));
+		fxmlLoader.setController(this);
+		Parent addOrder = fxmlLoader.load();
+		mainPane.getChildren().setAll(addOrder);
+		initializeCreationType();
+	}
+
+	private void showCreateSizeWindow() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateSize.fxml"));
+		fxmlLoader.setController(this);
+		Parent addOrder = fxmlLoader.load();
+		mainPane.getChildren().setAll(addOrder);
+		initializeCreationSize();
+	}
+
 	// Show manage windows code.
 
 	private void showManageCostumers() throws IOException {
@@ -1521,14 +1836,30 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageOrders);
 		initializeManagerOrdersWindow();
 	}
-	
-	//show report window
-	/*private void showGenerateReport() throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenerateReport.fxml"));
+
+	private void showManageSizes() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageSize.fxml"));
 		fxmlLoader.setController(this);
 		Parent manageOrders = fxmlLoader.load();
 		mainPane.getChildren().setAll(manageOrders);
-		initializeGenerateReportWindow();
-	}*/
+		initializeManagerSizeWindow();
+	}
+
+	private void showManageTypes() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ManageTypes.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageOrders = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageOrders);
+		initializeManagerTypesWindow();
+	}
+
+	// show report window
+	/*
+	 * private void showGenerateReport() throws IOException { FXMLLoader fxmlLoader
+	 * = new FXMLLoader(getClass().getResource("GenerateReport.fxml"));
+	 * fxmlLoader.setController(this); Parent manageOrders = fxmlLoader.load();
+	 * mainPane.getChildren().setAll(manageOrders);
+	 * initializeGenerateReportWindow(); }
+	 */
 
 }
