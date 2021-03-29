@@ -46,27 +46,22 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <Button layoutX="1073.0" layoutY="254.0" mnemonicParsing="false" onAction="#refreshState" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="En proceso." textFill="GOLD">
+      <Button layoutX="1073.0" layoutY="185.0" mnemonicParsing="false" onAction="#refreshStateInProcess" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="En proceso." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="1073.0" layoutY="183.0" mnemonicParsing="false" onAction="#refreshState" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Solicitado." textFill="GOLD">
+      <Button layoutX="1073.0" layoutY="260.0" mnemonicParsing="false" onAction="#refreshStateSend" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Enviado." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="1073.0" layoutY="322.0" mnemonicParsing="false" onAction="#refreshState" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Enviado." textFill="GOLD">
+      <Button layoutX="1073.0" layoutY="338.0" mnemonicParsing="false" onAction="#refreshStateDelivered" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Entregado." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Button>
-      <Button layoutX="1073.0" layoutY="387.0" mnemonicParsing="false" onAction="#refreshState" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Entregado." textFill="GOLD">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-      </Button>
-      <Button layoutX="1073.0" layoutY="458.0" mnemonicParsing="false" onAction="#refreshState" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Cancelado." textFill="GOLD">
+      <Button layoutX="1073.0" layoutY="419.0" mnemonicParsing="false" onAction="#refreshStateCanceled" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: a2231d;" text="Cancelado." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>

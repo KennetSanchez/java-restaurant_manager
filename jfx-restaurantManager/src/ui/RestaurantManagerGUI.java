@@ -1253,9 +1253,96 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-	void refreshState(ActionEvent event) {
+    void refreshStateInProcess(ActionEvent event) throws IOException {
+		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+		int state = 2;
+		boolean made = rm.refreshStatus(index, state);
+		
+		if(made) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Estado actualizado");
+			alert.setContentText("Estado actualizado a: en preparación");
+			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
+			showManageOrders();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
+			alert.showAndWait();
+		}
+    }
+	
+	@FXML
+    void refreshStateSend(ActionEvent event) throws IOException {
+		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+		int state = 3;
+		boolean made = rm.refreshStatus(index, state);
+		
+		if(made) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Estado actualizado");
+			alert.setContentText("Estado actualizado a: en entrega");
+			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
+			showManageOrders();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
+			alert.showAndWait();
+		}
+    }
+    @FXML
+    void refreshStateDelivered(ActionEvent event) throws IOException {
+    	int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+		int state = 4;
+		boolean made = rm.refreshStatus(index, state);
+		
+		if(made) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Estado actualizado");
+			alert.setContentText("Estado actualizado a: entregado");
+			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
+			showManageOrders();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
+			alert.showAndWait();
+		}
+    }
 
-	}
+    
+    @FXML
+    void refreshStateCanceled(ActionEvent event) throws IOException {
+    	int index = tvManageOrders.getSelectionModel().getSelectedIndex();
+		int state = 5;
+		boolean made = rm.refreshStatus(index, state);
+		
+		if(made) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Estado actualizado");
+			alert.setContentText("Estado actualizado a: en cancelado");
+			System.out.println(rm.getOrdersEnabled().get(index).getStatusNum());
+			showManageOrders();
+			alert.showAndWait();
+		}else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El estado solo puede avanzar. No es posible retroceder");
+			alert.showAndWait();
+		}
+    }
 
 	// Manage Meals code.
 

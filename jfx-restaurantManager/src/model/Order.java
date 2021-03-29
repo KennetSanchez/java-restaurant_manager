@@ -1,18 +1,23 @@
  package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
 public class Order {
 	String code, status, observations;
-	Costumer owner;
+	Costumer owner;	
 	Employee employeeInCharge;
 	List<Meal> meals;
 	String sep=","; //separator
-	Date date;
+	String date;
 	String enabled;
+	int statusNum;
 	
 	ArrayList<String> causes;
 	String temporal;
@@ -25,8 +30,10 @@ public class Order {
 		this.employeeInCharge = employeeInCharge;
 		this.meals = meals;
 		code = generateCode();
+		date = takeDate();
 		this.enabled = enabled;
-		addMealsToEmp();
+		statusNum = 1;
+		addMealsToEmp();		
 	}
 	
 	//This constructor it's only for testing.
@@ -34,6 +41,18 @@ public class Order {
 		this.status = status;
 		this.observations = observations;
 		this.enabled = enabled;
+	}
+	
+	public String takeDate() {
+		FormatStyle timeStyle = FormatStyle.MEDIUM;		
+		DateTimeFormatter formatterH = DateTimeFormatter.ofLocalizedDate(timeStyle);
+		String newDate = LocalDate.now().format(formatterH);
+		
+		return newDate;
+	}
+	
+	public int getStatusNum() {
+		return statusNum;
 	}
 	
 	public String getMealsTxt() {
@@ -109,6 +128,10 @@ public class Order {
 	
 	public void setStatus(String newStatus) {
 		status = newStatus;
+	}
+	
+	public void setStatusNum(int newStatus) {
+		statusNum = newStatus;
 	}
 	
 	public void setState(String newState) {

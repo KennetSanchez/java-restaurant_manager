@@ -46,6 +46,9 @@ public class RestaurantManager {
 	FileWriter fileW = null;
 	FileReader fileR = null;
 
+	//ArrayList for test the order.
+	ArrayList<Meal> newMealArray = new ArrayList<Meal>();
+	
 	public RestaurantManager() throws IOException, FileNotFoundException {
 		// br = new BufferedReader(new InputStreamReader(System.in));
 		fileR = new FileReader("docs/em-List.txt"); // example. That isn't the name
@@ -59,6 +62,8 @@ public class RestaurantManager {
 		allSizes = new ArrayList<Size>();
 		allEmployees = new ArrayList<Employee>();
 		allUsers = new ArrayList<User>();
+		
+		newMealArray.add(newMealTestCase);
 
 		// Test cases.
 		allMeals.add(newMealTestCase);
@@ -67,7 +72,8 @@ public class RestaurantManager {
 		allSizes.add(newSizeTestCase);
 		allEmployees.add(newEmployeeTestCase);
 		allCostumers.add(newCostumerTestCase);
-
+		allOrders.add(newOrderTestCase);
+		
 		// Admin user
 		allUsers.add(adminUser);
 
@@ -141,6 +147,41 @@ public class RestaurantManager {
 		return founded;
 	}
 
+	//Orders
+	public boolean refreshStatus(int index, int state) {
+		boolean made = false;
+		ArrayList<Order> orders = getOrdersEnabled();
+		
+		Order orderChoosed = orders.get(index);
+
+		//Validation.
+		if(orderChoosed.getStatusNum() < state) {
+			made = true;
+			
+			switch(state) {
+			
+			case 2: orderChoosed.setStatus("En preparación");
+					orderChoosed.setStatusNum(state);
+					break;
+					
+			case 3: orderChoosed.setStatus("En entrega");	
+					orderChoosed.setStatusNum(state);
+					break;
+					
+			case 4: orderChoosed.setStatus("Entregado");
+					orderChoosed.setStatusNum(state);
+					break;
+					
+			case 5: orderChoosed.setStatus("Cancelado.");
+					orderChoosed.setStatusNum(state);
+					break;
+			}
+		}
+		
+		return made;
+	}
+	
+	
 	public boolean changeStateCostumer(int index, String newState) {
 		boolean founded = false;
 		boolean posible = false;
@@ -598,11 +639,12 @@ public class RestaurantManager {
 	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
 	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí");
 	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,
-			"Sí");
-	Order newOrderTestCase = new Order("Requested", "JD001", "Sí");
+	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,	"Sí");
 	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
+	Order newOrderTestCase = new Order("Solicitado", "Sin observaciones", newCostumerTestCase,newEmployeeTestCase, newMealArray , "Sí");
 
+
+	
 	// Admin user, used as a basic user.
 	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
 
