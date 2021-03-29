@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="141.0" layoutY="87.0" text="Cliente:" textFill="GOLD">
+      <Label layoutX="129.0" layoutY="111.0" text="Cliente:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
@@ -21,21 +21,21 @@
             <TableColumn fx:id="tcOrderCostumersPhone" prefWidth="164.0" text="Teléfono" />
         </columns>
       </TableView>
-      <TableView fx:id="tvOrderFoodAvaible" layoutX="836.0" layoutY="343.0" prefHeight="326.0" prefWidth="399.0">
+      <TableView fx:id="tvOrderFoodAvaible" layoutX="824.0" layoutY="361.0" prefHeight="308.0" prefWidth="399.0">
         <columns>
           <TableColumn fx:id="tcOrderFoodAvaible" prefWidth="173.0" text="Alimentos disponibles" />
             <TableColumn fx:id="tcOrderFoodAvaibleSize" prefWidth="116.0" text="Tamaño" />
             <TableColumn fx:id="tcOrderFoodAvaiblePrice" prefWidth="109.0" text="Precio" />
         </columns>
       </TableView>
-      <TableView fx:id="tvOrderFoodRequested" layoutX="79.0" layoutY="343.0" prefHeight="326.0" prefWidth="388.0">
+      <TableView fx:id="tvOrderFoodRequested" layoutX="79.0" layoutY="361.0" prefHeight="308.0" prefWidth="408.0">
         <columns>
           <TableColumn fx:id="tcOrderFoodRequested" prefWidth="174.0" text="Alimentos pedidos" />
-            <TableColumn fx:id="tcOrderFoodRequestedSize" prefWidth="107.0" text="Tamaño" />
-            <TableColumn fx:id="tcOrderFoodRequestedPrice" prefWidth="106.0" text="Precio" />
+            <TableColumn fx:id="tcOrderFoodRequestedSize" prefWidth="120.0" text="Tamaño" />
+            <TableColumn fx:id="tcOrderFoodRequestedPrice" prefWidth="113.0" text="Precio" />
         </columns>
       </TableView>
-      <TextArea fx:id="orderCostumerInfo" editable="false" layoutX="253.0" layoutY="90.0" prefHeight="48.0" prefWidth="200.0" promptText="Seleccione un cliente, y presione el botón." />
+      <TextArea fx:id="orderCostumerInfo" editable="false" layoutX="226.0" layoutY="111.0" prefHeight="23.0" prefWidth="239.0" promptText="Seleccione un cliente, y presione el botón." />
       <Label layoutX="470.0" layoutY="14.0" text="Creación de ordenes." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="30.0" />
@@ -46,15 +46,21 @@
             <Font name="Arial Bold" size="17.0" />
          </font>
       </Button>
-      <Button layoutX="512.0" layoutY="419.0" mnemonicParsing="false" onAction="#addMealToOrder" style="-fx-background-color: a2231d;" text="Añadir producto a la orden." textFill="GOLD">
+      <Button layoutX="531.0" layoutY="419.0" mnemonicParsing="false" onAction="#addMealToOrder" style="-fx-background-color: a2231d;" text="Añadir producto a la orden." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="17.0" />
          </font>
       </Button>
-      <Button layoutX="531.0" layoutY="745.0" mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: a2231d;" text="Crear orden." textFill="GOLD">
+      <Button layoutX="544.0" layoutY="739.0" mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: a2231d;" text="Crear orden." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="25.0" />
          </font>
       </Button>
+      <TextArea fx:id="orderObservations" layoutX="129.0" layoutY="227.0" prefHeight="99.0" prefWidth="289.0" />
+      <Label layoutX="202.0" layoutY="194.0" text="Observaciones" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

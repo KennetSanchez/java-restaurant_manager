@@ -601,6 +601,9 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	private TextArea orderCostumerInfo;
+	
+	@FXML
+	private TextArea orderObservations;
 
 	@FXML
 	void addMealToOrder(ActionEvent event) {
@@ -636,7 +639,8 @@ public class RestaurantManagerGUI {
 		String employeeName = userActive.getText();
 		Employee employee = rm.getEmployeeObject(employeeName);
 
-		String observations = "";
+		String observations = orderObservations.getText();
+		
 
 		if (orderFood.size() != 0 && costumerName != "") {
 			// rm.sellsByEmployee();

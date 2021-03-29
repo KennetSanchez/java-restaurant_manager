@@ -3,14 +3,17 @@ package model;
 import java.io.Serializable;
 
 public class Costumer implements Serializable{
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
+	//Users
+	User manager;
+	User lastModifier;
+	
+	//Attributes
 	String name, lastname, address, observations, enabled;
 	long phone;
-	String sep=","; //separator
+	String sep = ","; //separator
 	
 	//Optional.
 	long id;

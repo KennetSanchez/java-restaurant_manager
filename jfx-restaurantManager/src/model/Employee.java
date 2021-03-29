@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Employee implements Serializable{
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	
+	//Users
+	User manager;
+	User lastModifier;
+	
+	//Attributes
 	String name, lastname, enabled;
 	long id;
 	ArrayList<Meal> mealsOrdered;

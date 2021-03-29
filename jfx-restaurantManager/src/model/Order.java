@@ -11,11 +11,14 @@ import java.util.Formatter;
 import java.util.List;
 
 public class Order implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
+	//Users
+	User manager;
+	User lastModifier;
+	
+	//Attributes
 	String code, status, observations;
 	Costumer owner;	
 	Employee employeeInCharge;

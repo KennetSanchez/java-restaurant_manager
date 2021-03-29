@@ -5,10 +5,14 @@ import java.io.Serializable;
 //import java.util.ArrayList;
 
 public class Meal implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
+	//Users
+	User manager;
+	User lastModifier;
+	
+	//Attributes
 	String name, size;
 	String type;
 	String ingredientsTxt;
