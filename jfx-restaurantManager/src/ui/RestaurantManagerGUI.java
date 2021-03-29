@@ -304,6 +304,19 @@ public class RestaurantManagerGUI {
 	void changeUser(ActionEvent event) throws IOException {
 		showLoginWindow();
 	}
+	
+	/*@FXML
+	void generateReport(ActionEvent event)throws IOException{
+		if (userActive.getText() != "") {
+			showGenerateReport();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
+	}*/
 
 	@FXML
 	void sellsByEm(ActionEvent event) throws IOException {
@@ -334,7 +347,12 @@ public class RestaurantManagerGUI {
 		 * alert.showAndWait(); }
 		 */
 	}
-
+	//Create Report Code
+	
+	/*private void initializeGenerateReportWindow() {
+			
+	}*/
+	
 	// Ingredients code.
 
 	@FXML
@@ -650,7 +668,6 @@ public class RestaurantManagerGUI {
 		tcOrderFoodAvaible.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
 		tcOrderFoodAvaibleSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
 		tcOrderFoodAvaiblePrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
-
 	}
 
 	// Create employees code.
@@ -1308,7 +1325,7 @@ public class RestaurantManagerGUI {
 	void enableMeal(ActionEvent event) {
 
 	}
-
+	
 	// Show addition windows code.
 
 	private void showCreateIngredientWindow() throws IOException {
@@ -1413,5 +1430,14 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageOrders);
 		initializeManagerOrdersWindow();
 	}
+	
+	//show report window
+	/*private void showGenerateReport() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenerateReport.fxml"));
+		fxmlLoader.setController(this);
+		Parent manageOrders = fxmlLoader.load();
+		mainPane.getChildren().setAll(manageOrders);
+		initializeGenerateReportWindow();
+	}*/
 
 }
