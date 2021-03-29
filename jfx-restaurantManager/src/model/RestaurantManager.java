@@ -2,12 +2,18 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 //import java.io.InputStreamReader;
 //import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -17,6 +23,10 @@ import java.util.List;
 //import java.util.Objects;
 
 public class RestaurantManager {
+	
+	private final static String FILE_ORDERS = "docs/sOrders.txt";
+	private final static String FILE_SELLS_PRODUCT = "docs/sSellsProduct.txt";
+	private final static String FILE_SELLS_EMPLOYEE = "docs/sSellsEmployee.txt";
 
 	String name;
 
@@ -83,51 +93,71 @@ public class RestaurantManager {
 		
 		// TEST -------
 		// createEmployeeList();
-		String x=newOrderTestCase.toString();
-		toSerialize(newOrderTestCase);
+		toSerialize();
+		toDeserialize("orders");
 	}
 	// Make the report of sells by employee and sells of each product
 
 	public void reports(String fileName) throws IOException {
 		// fileName = "docs/em-List.txt";
-		fileW = new FileWriter(fileName);
-		bw = new BufferedWriter(fileW);
-		// bw.write("");
-		bw.close();
 		// I could make two methods with the fors,
 	}
-	
-	public void orderX() {
-		if(!allOrders.isEmpty()) {
-		}
-	}
-	
-	public void toSerialize(Order orderX) {
-    	String fileName="docs/Serializacion.txt";
-    	FileOutputStream file;
-		try {
-			file = new FileOutputStream(fileName);
-			ObjectOutputStream obOut = new ObjectOutputStream(file);
-			obOut.writeObject(orderX);
-			obOut.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (NullPointerException x) {
-			x.printStackTrace();
-		}
-    }
 
-	public void sellsByEmployee() throws IOException {
+	public void toSerialize() throws IOException{
+    	
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_ORDERS));
+		oos.writeObject(allOrders);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_SELLS_EMPLOYEE));
+		oos.writeObject(sellsByEmployee());
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_SELLS_PRODUCT));
+		//oos.writeObject(sellsByEmployee());
+		oos.close();
+    }
+	
+	public void toDeserialize(String st) throws IOException{
+		String fileName = null;
+		
+		switch (st){
+			case "employee": fileName = "docs/Emp-Lists.csv";
+			break;
+			case "products":fileName = "docs/Pr-List.csv";
+			break;
+			case "orders":fileName = "docs/Ordenes.csv";
+			break;
+			default: System.out.println("X");;
+		}
+		fileName = "docs/Ordenes.csv";
+		FileWriter fw = new FileWriter(fileName);
+		BufferedWriter bw = new BufferedWriter(fw);
+		
+		try{
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_ORDERS));
+            while(true){
+                ArrayList<Order> aux = (ArrayList<Order>) ois.readObject();
+                bw.write(aux.get(0).toString());
+                bw.close();
+                System.out.println("SIII");
+                System.out.println(aux.get(0).toString());
+            }
+        }catch(ClassNotFoundException i){
+        	i.printStackTrace();
+        }catch(EOFException e){
+        	//Cuando no haya para leer saltará EOFException, is like the while(false)
+        }
+	}
+
+	public ArrayList<String> sellsByEmployee() throws IOException {
 		double cost = 0;
 		double totalValue = 0;
 		int totalOrders = 0;
-
-		String fileName = "docs/Emp-List.csv";
-		fileW = new FileWriter(fileName);
-		bw = new BufferedWriter(fileW);
-		bw.write("Empleado,N° Ordenes,Valor\n");
+		ArrayList<String> stList= new ArrayList<>(); 
+		
+		stList.add("Empleado,N° Ordenes,Valor\n");
+		
 		for (int i = 0; i < allEmployees.size() && !allEmployees.isEmpty(); i++) {
 
 			if (allEmployees.get(0).getMeals() != null) {
@@ -136,14 +166,15 @@ public class RestaurantManager {
 					cost += allEmployees.get(i).getMeals().get(j).getPrice();
 				}
 			}
-			bw.write(allEmployees.get(i).getName() + "," + allEmployees.get(i).getOrdersToday() + "," + cost + "\n");
-			totalValue = cost;
+			stList.add(allEmployees.get(i).getName() + "," +allEmployees.get(i).getLastname()
+					+ allEmployees.get(i).getOrdersToday() + "," + cost + "\n");
+			totalValue += cost;
 			cost = 0;
 			totalOrders += allEmployees.get(i).getOrdersToday();
 		}
-
-		bw.write("\nTotal:," + totalOrders + "," + totalValue);
-		bw.close();
+		stList.add("\nTotal:," + totalOrders + "," + totalValue);
+		
+		return stList;
 	}
 
 	public void sellsByProduct() throws IOException {
