@@ -39,6 +39,15 @@ public class RestaurantManager {
 
 	String name;
 	
+	Costumer costumer;
+	Employee employee = null;
+	FoodType foodType;
+	Ingredient ingredient;
+	Meal meal;
+	Order order;
+	Size size;
+	User user;
+	
 	// ArrayLists with the data. Without persistence.
 	ArrayList<Meal> allMeals;
 	ArrayList<Costumer> allCostumers;
@@ -91,10 +100,23 @@ public class RestaurantManager {
 
 		orderFood = new ArrayList<Meal>();
 		
-		// TEST -------
-		// createEmployeeList();
+		// TEST ------
 		toSerialize();
-		toDeserialize("orders");
+		System.out.println( allCostumers.get(0).getClass().getSimpleName());
+		Object x= new Object();
+		x= allEmployees.get(0);
+    	//ArrayList<x.getClass()> a= new ArrayList<>();
+		
+		/*allCostumers.clear();
+		allEmployees.clear();
+		allFoodTypes.clear();
+		allIngredients.clear();
+		allMeals.clear();
+		allOrders.clear();
+		allSizes.clear();
+		allUsers.clear();*/
+		
+		//secondDeserialize("orders");
 	}
 	// Make the report of sells by employee and sells of each product
 
@@ -143,18 +165,63 @@ public class RestaurantManager {
 		oos.close();
     }
 	
-	public void toDeserialize(String st) throws IOException{
+	/*public void principalDeserialize() throws IOException{
+		ArrayList<Costumer> arCostumer = new ArrayList<>();
+		secondDeserialize(FILE_COSTUMER,costumer, arCostumer);
+		ArrayList<Costumer> arEmployee = new ArrayList<>();
+		secondDeserialize(FILE_EMPLOYEE, employee, arEmployee);
+		name = employe.getClass().getSimpleName();
+	}*/
+	public void secondDeserialize(String st, Object x) throws IOException{
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(st));
+		Class<? extends Object> aa=allEmployees.get(0).getClass();
+		Class<?> aaa=allEmployees.get(0).getClass();
+    	System.out.println(aaa);
+		
 		String fileName = null;
+		ois = new ObjectInputStream(new FileInputStream(FILE_COSTUMER));
+	
+		try{
+		    //Cuando no haya mas objetos saltara EOFException
+	        while(true){
+	        	
+	            ArrayList<Costumer> aux = (ArrayList<Costumer>)ois.readObject();
+	            allCostumers.clear();
+	            System.out.println( allCostumers.getClass());
+	            allCostumers.add(aux.get(0));
+	        }
+	    } catch(EOFException e1){
+	    	
+	    } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		try{
-			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(FILE_COSTUMER));
-            //Cuando no haya mas objetos saltara la excepcion EOFException
-            /*while(true){
-                //Empleado aux=(Empleado)ois.readObject();
-                System.out.println("");
-            }*/
-        }catch(EOFException e){
-        }
+			//Costumers
+			try{
+			    //Cuando no haya mas objetos saltara EOFException
+	            while(true){
+	                ArrayList<Costumer> aux = (ArrayList<Costumer>)ois.readObject();
+	                allCostumers.clear();
+	                allCostumers.add(aux.get(0));
+	            }
+	        } catch(EOFException e1){ } 
+			
+			//Employee
+			try{		  
+				ois = new ObjectInputStream(new FileInputStream(FILE_EMPLOYEE));
+	            while(true){
+	                ArrayList<Employee> auxx = (ArrayList<Employee>) ois.readObject();
+	                allEmployees.clear();
+	                allEmployees.add(auxx.get(0));
+	            }
+	        } catch(EOFException e1){ }
+			
+			
+		} catch (ClassNotFoundException i) {
+			i.printStackTrace();
+		}
 		switch (st){
 			case "employee": fileName = "docs/Emp-Lists.csv";
 			break;
@@ -162,14 +229,14 @@ public class RestaurantManager {
 			break;
 			case "orders":fileName = "docs/Ordenes.csv";
 			break;
-			default: System.out.println("X");;
+			default: System.out.println("ERROR with the Path");;
 		}
 		fileName = "docs/Ordenes.csv";
 		FileWriter fw = new FileWriter(fileName);
 		BufferedWriter bw = new BufferedWriter(fw);
 		
 		try{
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_ORDER));
+			ois = new ObjectInputStream(new FileInputStream(FILE_ORDER));
             while(true){
                 ArrayList<Order> aux = (ArrayList<Order>) ois.readObject();
                 bw.write(aux.get(0).toString());
