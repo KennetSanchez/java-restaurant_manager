@@ -1,5 +1,6 @@
 package ui;
 	
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Application;
@@ -15,7 +16,7 @@ public class Main extends Application {
 	
 	RestaurantManagerGUI restaurantManagerGUI;
 	
-	public Main() throws FileNotFoundException{
+	public Main() throws FileNotFoundException, EOFException{
 		try {
 			restaurantManagerGUI = new RestaurantManagerGUI();
 		} catch (IOException e) {
@@ -23,6 +24,8 @@ public class Main extends Application {
 		} catch (NumberFormatException i) {
 			System.out.println("Numero no valido");
 			i.printStackTrace();
+		} catch (ClassNotFoundException o) {
+			o.printStackTrace();
 		}
 	}
 	

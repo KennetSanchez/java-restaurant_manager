@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -36,7 +37,7 @@ public class RestaurantManagerGUI {
 
 	RestaurantManager rm;
 
-	public RestaurantManagerGUI() throws IOException, FileNotFoundException {
+	public RestaurantManagerGUI() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
 		rm = new RestaurantManager();
 
 	}

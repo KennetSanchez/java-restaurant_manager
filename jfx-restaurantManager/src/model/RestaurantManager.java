@@ -70,7 +70,7 @@ public class RestaurantManager {
 	//ArrayList for test the order.
 	ArrayList<Meal> newMealArray = new ArrayList<Meal>();
 	
-	public RestaurantManager() throws IOException, FileNotFoundException {
+	public RestaurantManager() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
 		// br = new BufferedReader(new InputStreamReader(System.in));
 		//fileR = new FileReader("docs/em-List.txt"); // example. That isn't the name
 		//br = new BufferedReader(fileR);
@@ -102,10 +102,7 @@ public class RestaurantManager {
 		
 		// TEST ------
 		toSerialize();
-		System.out.println( allCostumers.get(0).getClass().getSimpleName());
-		Object x= new Object();
-		x= allEmployees.get(0);
-    	//ArrayList<x.getClass()> a= new ArrayList<>();
+		deserialize();
 		
 		/*allCostumers.clear();
 		allEmployees.clear();
@@ -115,8 +112,7 @@ public class RestaurantManager {
 		allOrders.clear();
 		allSizes.clear();
 		allUsers.clear();*/
-		
-		//secondDeserialize("orders");
+
 	}
 	// Make the report of sells by employee and sells of each product
 
@@ -165,90 +161,44 @@ public class RestaurantManager {
 		oos.close();
     }
 	
-	/*public void principalDeserialize() throws IOException{
-		ArrayList<Costumer> arCostumer = new ArrayList<>();
-		secondDeserialize(FILE_COSTUMER,costumer, arCostumer);
-		ArrayList<Costumer> arEmployee = new ArrayList<>();
-		secondDeserialize(FILE_EMPLOYEE, employee, arEmployee);
-		name = employe.getClass().getSimpleName();
-	}*/
-	public void secondDeserialize(String st, Object x) throws IOException{
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(st));
-		Class<? extends Object> aa=allEmployees.get(0).getClass();
-		Class<?> aaa=allEmployees.get(0).getClass();
-    	System.out.println(aaa);
+	@SuppressWarnings("unchecked")
+	public void deserialize() throws IOException, ClassNotFoundException{
+		try {
+		ObjectInputStream oisC = new ObjectInputStream(new FileInputStream(FILE_COSTUMER));
+		allCostumers = (ArrayList<Costumer>)oisC.readObject();
+		oisC.close();
 		
-		String fileName = null;
-		ois = new ObjectInputStream(new FileInputStream(FILE_COSTUMER));
-	
-		try{
-		    //Cuando no haya mas objetos saltara EOFException
-	        while(true){
-	        	
-	            ArrayList<Costumer> aux = (ArrayList<Costumer>)ois.readObject();
-	            allCostumers.clear();
-	            System.out.println( allCostumers.getClass());
-	            allCostumers.add(aux.get(0));
-	        }
-	    } catch(EOFException e1){
-	    	
-	    } catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		ObjectInputStream oisE = new ObjectInputStream(new FileInputStream(FILE_EMPLOYEE));
+		allEmployees = (ArrayList<Employee>)oisE.readObject();
+		oisE.close();
+		
+		ObjectInputStream oisF = new ObjectInputStream(new FileInputStream(FILE_FOODTYPE));
+		allFoodTypes = (ArrayList<FoodType>)oisF.readObject();
+		oisF.close();
+		
+		ObjectInputStream oisI = new ObjectInputStream(new FileInputStream(FILE_INGREDIENT));
+		allIngredients = (ArrayList<Ingredient>)oisI.readObject();
+		oisI.close();
+		
+		ObjectInputStream oisM = new ObjectInputStream(new FileInputStream(FILE_MEAL));
+		allMeals = (ArrayList<Meal>)oisM.readObject();
+		oisM.close();
+		
+		ObjectInputStream oisO = new ObjectInputStream(new FileInputStream(FILE_ORDER));
+		allOrders = (ArrayList<Order>)oisO.readObject();
+		oisO.close();
+		
+		ObjectInputStream oisS = new ObjectInputStream(new FileInputStream(FILE_SIZE));
+		allSizes = (ArrayList<Size>)oisS.readObject();
+		oisS.close();
+		
+		ObjectInputStream oisU = new ObjectInputStream(new FileInputStream(FILE_USER));
+		allUsers = (ArrayList<User>)oisU.readObject();
+		oisU.close();
+		}
+		catch(EOFException e){
 			e.printStackTrace();
 		}
-		
-		try{
-			//Costumers
-			try{
-			    //Cuando no haya mas objetos saltara EOFException
-	            while(true){
-	                ArrayList<Costumer> aux = (ArrayList<Costumer>)ois.readObject();
-	                allCostumers.clear();
-	                allCostumers.add(aux.get(0));
-	            }
-	        } catch(EOFException e1){ } 
-			
-			//Employee
-			try{		  
-				ois = new ObjectInputStream(new FileInputStream(FILE_EMPLOYEE));
-	            while(true){
-	                ArrayList<Employee> auxx = (ArrayList<Employee>) ois.readObject();
-	                allEmployees.clear();
-	                allEmployees.add(auxx.get(0));
-	            }
-	        } catch(EOFException e1){ }
-			
-			
-		} catch (ClassNotFoundException i) {
-			i.printStackTrace();
-		}
-		switch (st){
-			case "employee": fileName = "docs/Emp-Lists.csv";
-			break;
-			case "products":fileName = "docs/Pr-List.csv";
-			break;
-			case "orders":fileName = "docs/Ordenes.csv";
-			break;
-			default: System.out.println("ERROR with the Path");;
-		}
-		fileName = "docs/Ordenes.csv";
-		FileWriter fw = new FileWriter(fileName);
-		BufferedWriter bw = new BufferedWriter(fw);
-		
-		try{
-			ois = new ObjectInputStream(new FileInputStream(FILE_ORDER));
-            while(true){
-                ArrayList<Order> aux = (ArrayList<Order>) ois.readObject();
-                bw.write(aux.get(0).toString());
-                bw.close();
-                System.out.println("SIII");
-                System.out.println(aux.get(0).toString());
-            }
-        }catch(ClassNotFoundException i){
-        	i.printStackTrace();
-        }catch(EOFException ee){
-        	//Cuando no haya para leer saltará EOFException, is like the while(false)
-        }
 	}
 
 	public ArrayList<String> sellsByEmployee() throws IOException {
