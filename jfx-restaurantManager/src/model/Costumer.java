@@ -90,4 +90,8 @@ public class Costumer implements Serializable{
 	public String getFullName() {
 		return name + "   " + lastname;
 	}
+
+	public void setName(String n) {
+		this.name=n;
+	}
 }

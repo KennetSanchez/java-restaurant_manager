@@ -68,7 +68,6 @@ public class RestaurantManager {
 	FileReader fileR = null;
 
 	//ArrayList for test the order.
-	ArrayList<Meal> newMealArray = new ArrayList<Meal>();
 	
 	public RestaurantManager() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
 		// br = new BufferedReader(new InputStreamReader(System.in));
@@ -83,17 +82,7 @@ public class RestaurantManager {
 		allSizes = new ArrayList<Size>();
 		allEmployees = new ArrayList<Employee>();
 		allUsers = new ArrayList<User>();
-		
-		newMealArray.add(newMealTestCase);
 
-		// Test cases.
-		allMeals.add(newMealTestCase);
-		allIngredients.add(newIngredientsTestCase);
-		allFoodTypes.add(newFoodTypeTestCase);
-		allSizes.add(newSizeTestCase);
-		allEmployees.add(newEmployeeTestCase);
-		allCostumers.add(newCostumerTestCase);
-		allOrders.add(newOrderTestCase);
 		
 		// Admin user
 		allUsers.add(adminUser);
@@ -103,22 +92,14 @@ public class RestaurantManager {
 		// TEST ------
 		toSerialize();
 		deserialize();
-		
-		/*allCostumers.clear();
-		allEmployees.clear();
-		allFoodTypes.clear();
-		allIngredients.clear();
-		allMeals.clear();
-		allOrders.clear();
-		allSizes.clear();
-		allUsers.clear();*/
-
 	}
 	// Make the report of sells by employee and sells of each product
-
-	public void reports(String fileName) throws IOException {
-		// fileName = "docs/em-List.txt";
-		// I could make two methods with the fors,
+	
+	public void toReadEmployees() throws IOException {
+		ArrayList<String> list = new ArrayList<>();
+		br = new BufferedReader(new FileReader("docs/example.csv"));
+		list.add(br.readLine());
+        br.close();
 	}
 
 	public void toSerialize() throws IOException{
@@ -157,7 +138,7 @@ public class RestaurantManager {
 		oos.close();
 		
 		oos = new ObjectOutputStream(new FileOutputStream(FILE_SELLS_PRODUCT));
-		//oos.writeObject(sellsByEmployee());
+		oos.writeObject(sellsByProduct());
 		oos.close();
     }
 	
@@ -197,7 +178,6 @@ public class RestaurantManager {
 		oisU.close();
 		}
 		catch(EOFException e){
-			e.printStackTrace();
 		}
 	}
 
@@ -211,7 +191,7 @@ public class RestaurantManager {
 		
 		for (int i = 0; i < allEmployees.size() && !allEmployees.isEmpty(); i++) {
 
-			if (allEmployees.get(0).getMeals() != null) {
+			if (allEmployees.get(i).getMeals() != null) {
 
 				for (int j = 0; j < allEmployees.get(i).getMeals().size(); j++) {
 					cost += allEmployees.get(i).getMeals().get(j).getPrice();
@@ -228,14 +208,48 @@ public class RestaurantManager {
 		return stList;
 	}
 
-	public void sellsByProduct() throws IOException {
-		String fileName = "docs/Pr-List.csv";
-		fileW = new FileWriter(fileName);
-		bw = new BufferedWriter(fileW);
-		bw.write("Producto,N° Ordenes,Valor\n");
-		bw.write("\nTotal:," + "" + ",");
-		bw.close();
+	public ArrayList<String> sellsByProduct() throws IOException {
+		ArrayList<String> stList= new ArrayList<>(); 
+		
+		double cost = 0;
+		double totalValue = 0;
+		int totalOrders = 0;
+		
+		for (int i = 0; i < allMeals.size() && !allMeals.isEmpty(); i++) {
+
+			if (allMeals.get(i).getPrice() != 0) {
+
+				for (int j = 0; j < allMeals.size(); j++) {
+					cost += allMeals.get(i).getPrice();
+				}
+			}
+			stList.add(allEmployees.get(i).getName() + "," +allEmployees.get(i).getLastname()
+					+ allEmployees.get(i).getOrdersToday() + "," + cost + "\n");
+			totalValue += cost;
+			cost = 0;
+		}
+		stList.add("Producto,N° Ordenes,Valor\n");
+		stList.add("\nTotal:,"+ "" +","+totalValue);
+
+		return stList;
 	}
+	
+	/*public void sortAlg(){
+		   ArrayList<Costumer> aux = allCostumers;
+		   
+			for(int i = 0; i<aux.size();i++){
+			   String min = aux.get(i).getName();
+
+			    for(int j=i+1; j<aux.size(); j++){
+				if(aux.get(j).getName().compareToIgnoreCase(min)<0){
+					String temp = aux.get(j).getName();
+					aux.set(j,allmin);
+					min = temp;
+				}		
+		            }
+				aux.get(i).setName(min);
+			}
+		}*/
 
 	// Enable /Disable objects methods.
 
@@ -552,7 +566,6 @@ public class RestaurantManager {
 		} else {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled);
 		}
-
 		allCostumers.add(newCostumer);
 	}
 
@@ -813,17 +826,6 @@ public class RestaurantManager {
 
 	}
 
-	// Test cases.
-	Meal newMealTestCase = new Meal("Coca-cola", "Big", "10000", "Drink", "Doesn't apply", "Sí");
-	FoodType newFoodTypeTestCase = new FoodType("Principal dish");
-	Ingredient newIngredientsTestCase = new Ingredient("Nuts", true, "Sí");
-	Size newSizeTestCase = new Size("Family");
-	Costumer newCostumerTestCase = new Costumer("Name 1", "Lastname1", "Street 21, Career 15", "None", 3005539864L,	"Sí", 1006229463L);
-	Employee newEmployeeTestCase = new Employee("Employee1", "Lastname1", 1006229432L, "Sí");
-	Order newOrderTestCase = new Order("Solicitado", "Sin observaciones", newCostumerTestCase,newEmployeeTestCase, newMealArray , "Sí");
-
-
-	
 	// Admin user, used as a basic user.
 	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
 

@@ -89,9 +89,6 @@ public class RestaurantManagerGUI {
 	// Main items.
 
 	@FXML
-	private Label companyLogo;
-
-	@FXML
 	private Label date;
 
 	@FXML
