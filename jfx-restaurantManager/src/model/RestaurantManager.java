@@ -23,21 +23,21 @@ import java.util.List;
 //import java.util.Objects;
 
 public class RestaurantManager {
+
+	private final static String FILE_COSTUMER = "docs/sCostumer.txt";
+	private final static String FILE_EMPLOYEE = "docs/sEmployee.txt";
+	private final static String FILE_FOODTYPE = "docs/sFoodType.txt";
+	private final static String FILE_INGREDIENT = "docs/sIngredient.txt";
+	private final static String FILE_MEAL = "docs/sMeal.txt";
+	private final static String FILE_ORDER = "docs/sOrder.txt";
+	private final static String FILE_SIZE= "docs/sSize.txt";
+	private final static String FILE_USER = "docs/sUser.txt";
 	
-	private final static String FILE_ORDERS = "docs/sOrders.txt";
+	//Reports
 	private final static String FILE_SELLS_PRODUCT = "docs/sSellsProduct.txt";
 	private final static String FILE_SELLS_EMPLOYEE = "docs/sSellsEmployee.txt";
 
 	String name;
-
-	Costumer costumer;
-	Employee employee;
-	FoodType foodType;
-	Ingredient ingredient;
-	Meal meal;
-	Order order;
-	Size size;
-	User user;
 	
 	// ArrayLists with the data. Without persistence.
 	ArrayList<Meal> allMeals;
@@ -104,11 +104,36 @@ public class RestaurantManager {
 	}
 
 	public void toSerialize() throws IOException{
-    	
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_ORDERS));
+		
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_COSTUMER));
+		oos.writeObject(allCostumers);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_EMPLOYEE));
+		oos.writeObject(allEmployees);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_FOODTYPE));
+		oos.writeObject(allFoodTypes);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_INGREDIENT));
+		oos.writeObject(allIngredients);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_MEAL));
+		oos.writeObject(allMeals);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_ORDER));
 		oos.writeObject(allOrders);
 		oos.close();
 		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_SIZE));
+		oos.writeObject(allUsers);
+		oos.close();
+		
+		//Reports
 		oos = new ObjectOutputStream(new FileOutputStream(FILE_SELLS_EMPLOYEE));
 		oos.writeObject(sellsByEmployee());
 		oos.close();
@@ -121,6 +146,15 @@ public class RestaurantManager {
 	public void toDeserialize(String st) throws IOException{
 		String fileName = null;
 		
+		try{
+			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(FILE_COSTUMER));
+            //Cuando no haya mas objetos saltara la excepcion EOFException
+            /*while(true){
+                //Empleado aux=(Empleado)ois.readObject();
+                System.out.println("");
+            }*/
+        }catch(EOFException e){
+        }
 		switch (st){
 			case "employee": fileName = "docs/Emp-Lists.csv";
 			break;
@@ -135,7 +169,7 @@ public class RestaurantManager {
 		BufferedWriter bw = new BufferedWriter(fw);
 		
 		try{
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_ORDERS));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_ORDER));
             while(true){
                 ArrayList<Order> aux = (ArrayList<Order>) ois.readObject();
                 bw.write(aux.get(0).toString());
@@ -145,7 +179,7 @@ public class RestaurantManager {
             }
         }catch(ClassNotFoundException i){
         	i.printStackTrace();
-        }catch(EOFException e){
+        }catch(EOFException ee){
         	//Cuando no haya para leer saltará EOFException, is like the while(false)
         }
 	}
@@ -541,11 +575,11 @@ public class RestaurantManager {
 	}
 
 	// DataList
-	public List<String> createDataList(String opt) {
+	/*public List<String> createDataList(String opt) {
 		String txt = null;
 		switch (opt) {
 		case "costumer":
-			txt = costumer.toString();
+			txt = allCostumers;
 			break;
 		case "employee":
 			txt = employee.toString();
@@ -573,13 +607,24 @@ public class RestaurantManager {
 		}
 
 		String[] stArray = null;
+		List<String> list = new ArrayList<String>();
 		if (txt != null) {
-			stArray = txt.split(txt);
+			Collections.addAll(list, stArray);
+		}
+		
+		if(list!=null) {
+			
 		}
 
-		List<String> list = new ArrayList<String>();
-		Collections.addAll(list, stArray);
 		return list;
+	}*/
+	
+	public void createDataCostumer() {
+		if(!allCostumers.isEmpty()) {
+			for(int i=0; i < allCostumers.size() ;i++) {
+				allCostumers.get(i).toString();	
+			}
+		}
 	}
 
 	// Get the arrays only with the enabled items.
