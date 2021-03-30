@@ -82,4 +82,12 @@ public class Costumer implements Serializable{
 	public void setState(String newState) {
 		enabled = newState;
 	}
+
+	public String getNameAndPhone() {
+		return name + "-" + phone;
+	}
+
+	public String getFullName() {
+		return name + "   " + lastname;
+	}
 }

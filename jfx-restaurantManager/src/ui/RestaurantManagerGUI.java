@@ -36,7 +36,8 @@ import model.*;
 public class RestaurantManagerGUI {
 
 	RestaurantManager rm;
-
+	Employee currentEmployee;
+	
 	public RestaurantManagerGUI() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
 		rm = new RestaurantManager();
 
@@ -247,7 +248,9 @@ public class RestaurantManagerGUI {
 		String name = userText.getText();
 		String password = passwordText.getText();
 
-		String user = rm.login(name, password).getName() + " " + rm.login(name, password).getLastname();
+		currentEmployee = rm.login(name, password); 
+		String user = currentEmployee.getName() + " " + currentEmployee.getLastname();
+		
 		if (user != "") {
 			userActive.setText(user);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -738,22 +741,19 @@ public class RestaurantManagerGUI {
 	void addMealToOrder(ActionEvent event) {
 		Meal meal = tvOrderFoodAvaible.getSelectionModel().getSelectedItem();
 		rm.addMealToOrder(meal);
-
+		
 		ObservableList<Meal> tvOrder = FXCollections.observableArrayList(rm.getOrderFood());
-		if (meal == null) {
-			System.out.println("Nulo comida.");
-		} else {
-			System.out.println("Sí hay comida.");
-		}
+		
 		tvOrderFoodRequested.setItems(tvOrder);
-		initializeTableViewsOrderWindow();
+		tcOrderFoodRequested.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+		tcOrderFoodRequestedSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
+		tcOrderFoodRequestedPrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
 	}
 
 	@FXML
 	void chooseCostumer(ActionEvent event) {
 		int index = tvOrderCostumers.getSelectionModel().getSelectedIndex();
-		orderCostumerInfo.setText(
-				rm.getCostumersEnabled().get(index).getName() + " - " + rm.getCostumers().get(index).getPhone());
+		orderCostumerInfo.setText(rm.getCostumersEnabled().get(index).getNameAndPhone());
 	}
 
 	@FXML
@@ -762,15 +762,16 @@ public class RestaurantManagerGUI {
 		ObservableList<Meal> orderFood = tvOrderFoodRequested.getItems();
 		List<Meal> meals = orderFood;
 
-		String costumerName = orderCostumerInfo.getText();
-		Costumer costumer = rm.getCostumerObject(costumerName);
-
-		String employeeName = userActive.getText();
-		Employee employee = rm.getEmployeeObject(employeeName);
+		String costumerNameAndPhone = orderCostumerInfo.getText();
+		Costumer costumer = rm.getCostumerObject(costumerNameAndPhone);
 
 		String observations = orderObservations.getText();
 
-		if (orderFood.size() != 0 && costumerName != "") {
+		if(observations.equals("") || observations.equals(" ")) {
+			observations = "Sin observaciones";
+		}
+		
+		if (orderFood.size() != 0 && costumerNameAndPhone != "") {
 			// rm.sellsByEmployee();
 			// Serializar luego **
 			initializeTableViewsOrderWindow();
@@ -779,7 +780,7 @@ public class RestaurantManagerGUI {
 			alert.setTitle("Hecho.");
 			alert.setContentText("La orden ha sido añadido exitosamente.");
 			alert.showAndWait();
-			rm.addOrder("Solicitado", observations, costumer, employee, meals);
+			rm.addOrder("Solicitado", observations, costumer, currentEmployee, meals);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);

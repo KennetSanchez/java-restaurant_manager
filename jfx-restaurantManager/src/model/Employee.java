@@ -69,4 +69,8 @@ public class Employee implements Serializable{
 	public void setState(String newState) {
 		enabled = newState;
 	}
+
+	public String getFullName() {
+		return name + "   " + lastname;
+	}
 }

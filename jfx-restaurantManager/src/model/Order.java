@@ -112,11 +112,11 @@ public class Order implements Serializable{
 	}
 	
 	public String getOwner() {
-		return null;
+		return owner.getFullName();
 	}
 	
 	public String getEmployeeInCharge() {
-		return null;
+		return employeeInCharge.getFullName();
 	}
 	
 	public List<Meal> getMeals() {

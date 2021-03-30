@@ -77,5 +77,6 @@ public class Meal implements Serializable{
 	public String getEnabled() {
 		return enabled;
 	}
+	
 }
 

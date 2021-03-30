@@ -564,7 +564,6 @@ public class RestaurantManager {
 			mealTest = getMealsEnabled().get(i);
 			if(meal == getMealsEnabled().get(i)) {
 				enabledMeal = mealTest;
-				System.out.println("Comida coincide.");
 			}
 		}
 		
@@ -765,14 +764,12 @@ public class RestaurantManager {
 		return allUsers;
 	}
 
-	public Costumer getCostumerObject(String name) {
+	public Costumer getCostumerObject(String nameAndPhone) {
 		Costumer costumer = null;
 		boolean founded = false;
-		String[] fullName = name.split(" ");
 
 		for (int i = 0; i < allCostumers.size() && !founded; i++) {
-			if (allCostumers.get(i).getName().equals(fullName[0])
-					&& allCostumers.get(i).getName().equals(fullName[1])) {
+			if (allCostumers.get(i).getNameAndPhone().equals(nameAndPhone)) {
 				costumer = allCostumers.get(i);
 				founded = true;
 			}
