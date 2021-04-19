@@ -18,17 +18,7 @@ public class Costumer implements Serializable{
 	
 	//Optional.
 	long id;
-	
-	//Constructor whitout id.
-	public Costumer(String name, String lastname, String address, String observations, long phone, ObjectState enabled) {
-		this.name = name;
-		this.lastname = lastname;
-		this.address = address;
-		this.observations = observations;
-		this.phone = phone;
-		this.enabled = enabled;
-	}
-	
+
 	//Constructor with id.
 	public Costumer(String name, String lastname, String address, String observations, long phone, ObjectState enabled, long id) {
 		this.name = name;
@@ -37,6 +27,15 @@ public class Costumer implements Serializable{
 		this.observations = observations;
 		this.phone = phone;
 		this.id = id;
+		this.enabled = enabled;
+	}
+	//Constructor whitout id.
+	public Costumer(String name, String lastname, String address, String observations, long phone, ObjectState enabled) {
+		this.name = name;
+		this.lastname = lastname;
+		this.address = address;
+		this.observations = observations;
+		this.phone = phone;
 		this.enabled = enabled;
 	}
 

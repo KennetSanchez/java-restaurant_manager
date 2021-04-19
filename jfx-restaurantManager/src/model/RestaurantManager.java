@@ -9,15 +9,15 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
+//import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+//import java.io.OutputStreamWriter;
+//import java.io.Writer;
 //import java.io.InputStreamReader;
 //import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.List;
 
 //import java.util.Objects;
@@ -93,8 +93,8 @@ public class RestaurantManager {
 			toSerialize();
 		}
 		
+		//toSerialize();
 		deserialize();
-		toSerialize();
 	}
 	
 	public void changeIngredientName(int index, String newName) throws IOException {
@@ -140,6 +140,10 @@ public class RestaurantManager {
 		oos.close();
 		
 		oos = new ObjectOutputStream(new FileOutputStream(FILE_SIZE));
+		oos.writeObject(allSizes);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream(FILE_USER));
 		oos.writeObject(allUsers);
 		oos.close();
 		
@@ -224,7 +228,7 @@ public class RestaurantManager {
 		
 		double cost = 0;
 		double totalValue = 0;
-		int totalOrders = 0;
+		//int totalOrders = 0;
 		
 		for (int i = 0; i < allMeals.size() && !allMeals.isEmpty(); i++) {
 
@@ -387,7 +391,6 @@ public class RestaurantManager {
 		
 		if (posible) {
 			allCostumers.get(index).setState(state);
-			;
 			toSerialize();
 			founded = true;
 		}

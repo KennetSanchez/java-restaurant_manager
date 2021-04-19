@@ -411,16 +411,6 @@ public class RestaurantManagerGUI {
 	// Create code.
 
 	// Create Report Code
-	
-    @FXML
-    private CheckBox employeeCB;
-
-    @FXML
-    private CheckBox productCB;
-	
-	private void initializeGenerateReportWindow() {
-	 
-	}
 
 	// Ingredients code.
 
@@ -443,7 +433,7 @@ public class RestaurantManagerGUI {
 	void createIngredient(ActionEvent event) throws IOException {
 		String name = txtIngredient.getText();
 		boolean allergen = allergenCheckBox.isSelected();
-		if (name != "") {
+		if (!name.isEmpty()) {
 			rm.addIngredients(name, allergen);
 			initializeTableViewsIngredientWindow();
 			txtIngredient.clear();
@@ -497,7 +487,7 @@ public class RestaurantManagerGUI {
 	@FXML
 	void createSize(ActionEvent event) throws IOException {
 		String name = txtSizeCreation.getText();
-		if (name != "") {
+		if (!name.isEmpty()) {
 			rm.addSize(name);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -536,7 +526,7 @@ public class RestaurantManagerGUI {
 	@FXML
 	void createType(ActionEvent event) throws IOException {
 		String name = txtTypeCreation.getText();
-		if (name != "") {
+		if (!name.isEmpty()) {
 			rm.addFoodType(name);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -616,7 +606,7 @@ public class RestaurantManagerGUI {
 		ingredients = areaIngredients.getText().split(",");
 		String ingredientsTxt = ingredients.toString();
 
-		if (name != " " && type != "" && price != "" && size != "" && ingredientsTxt != "") {
+		if (!name.isEmpty() && !type.isEmpty() && !price.isEmpty() && !size.isEmpty() && !ingredientsTxt.isEmpty()) {
 			rm.addMeal(name, size, price, type, ingredientsTxt);
 			txtMeal.clear();
 			txtType.clear();
@@ -685,15 +675,15 @@ public class RestaurantManagerGUI {
 		String lastname = costumerLastnames.getText();
 		String observations = costumerObservationsArea.getText();
 		String address = costumerAddress.getText();
-
+		
 		long costumerPhoneLong = 0L;
 		long costumerIdLong = 0L;
 
 		if (!costumerPhone.getText().equals("")) {
-			costumerPhoneLong = Long.parseLong(costumerPhone.getText());
+			costumerPhoneLong = Long.parseLong(costumerPhone.getText());;
 		} else if (!costumerId.getText().equals("")) {
 			costumerIdLong = Long.parseLong(costumerId.getText());
-		} else if (!costumerPhone.getText().equals("")) {
+		} else if (costumerPhone.getText().equals("")) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setTitle("Error");
@@ -701,12 +691,12 @@ public class RestaurantManagerGUI {
 			alert.showAndWait();
 		}
 
-		if (name != "" && lastname != "" && address != "" && costumerPhoneLong != 0L) {
+		if (!name.isEmpty() && !lastname.isEmpty() && !address.isEmpty() && costumerPhoneLong != 0L) {
 			rm.addCostumer(name, lastname, address, observations, costumerPhoneLong, costumerIdLong);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
 			alert.setTitle("Hecho.");
-			alert.setContentText("El cliente ha sido añadida exitosamente.");
+			alert.setContentText("El cliente ha sido añadido exitosamente.");
 			alert.showAndWait();
 			try {
 				showCreateCostumerWindow();
@@ -851,7 +841,7 @@ public class RestaurantManagerGUI {
 		long employeeId = Long.parseLong(createEmployeeId.getText());
 		String employeeLastname = createEmployeeLastname.getText();
 
-		if (employeeName != "" && createEmployeeId.getText() != "" && employeeLastname != "") {
+		if (!employeeName.isEmpty() && !createEmployeeId.getText().isEmpty() && !employeeLastname.isEmpty()) {
 			rm.addEmployee(employeeName, employeeLastname, employeeId);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -895,7 +885,7 @@ public class RestaurantManagerGUI {
 		String name = userTxtName.getText();
 		String lastName = userTxtLastname.getText();
 
-		if (userName != "" && userPass != "" && name != "" && lastName != "" && userTxtId.getText() != "") {
+		if (!userName.isEmpty() && !userPass.isEmpty() && !name.isEmpty() && !lastName.isEmpty() && !userTxtId.getText().isEmpty()) {
 			rm.addUser(userName, userPass, name, lastName, userId);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText(null);
@@ -1919,14 +1909,5 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(manageOrders);
 		initializeManagerTypesWindow();
 	}
-
-	// show report window
-	/*private void showGenerateReport() throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenerateReport.fxml"));
-		fxmlLoader.setController(this);
-		Parent createReport = fxmlLoader.load();
-		mainPane.getChildren().setAll(createReport);
-		//initializeGenerateReportWindow();
-	}*/
 	
 }
