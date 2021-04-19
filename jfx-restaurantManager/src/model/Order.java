@@ -19,20 +19,21 @@ public class Order implements Serializable{
 	User lastModifier;
 	
 	//Attributes
-	String code, status, observations;
+	String code, observations;
+	OrderState status;
 	Costumer owner;	
 	Employee employeeInCharge;
 	List<Meal> meals;
 	String sep=","; //separator
 	String date;
-	String enabled;
+	ObjectState enabled;
 	int statusNum;
 	
 	ArrayList<String> causes;
 	String temporal;
 	
 	//Code and date are not include. The program should generate the code, and take the date from the pc.
-	public Order(String status, String observations, Costumer owner, Employee employeeInCharge, List<Meal> meals, String enabled) {
+	public Order(OrderState status, String observations, Costumer owner, Employee employeeInCharge, List<Meal> meals, ObjectState enabled) {
 		this.status = status;
 		this.observations = observations;
 		this.owner = owner;
@@ -45,12 +46,6 @@ public class Order implements Serializable{
 		//addMealsToEmp();		
 	}
 	
-	//This constructor it's only for testing.
-	public Order(String status, String observations, String enabled) {
-		this.status = status;
-		this.observations = observations;
-		this.enabled = enabled;
-	}
 	
 	public String takeDate() {
 		FormatStyle timeStyle = FormatStyle.MEDIUM;		
@@ -103,7 +98,7 @@ public class Order implements Serializable{
 		return code;
 	}
 	
-	public String getStatus() {
+	public OrderState getStatus() {
 		return status;
 	}
 	
@@ -127,7 +122,7 @@ public class Order implements Serializable{
 		return date.toString();
 	}
 	
-	public String getEnabled() {
+	public ObjectState getEnabled() {
 		return enabled;
 	}
 	
@@ -135,7 +130,7 @@ public class Order implements Serializable{
 		return code +sep+ status +sep+ observations +sep+ owner +sep+ employeeInCharge +sep+ meals +sep+ date;
 	}
 	
-	public void setStatus(String newStatus) {
+	public void setStatus(OrderState newStatus) {
 		status = newStatus;
 	}
 	
@@ -143,7 +138,7 @@ public class Order implements Serializable{
 		statusNum = newStatus;
 	}
 	
-	public void setState(String newState) {
+	public void setState(ObjectState newState) {
 		enabled = newState;
 	}
 }

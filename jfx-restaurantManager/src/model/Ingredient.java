@@ -11,14 +11,15 @@ public class Ingredient implements Serializable{
 	User lastModifier;
 	
 	//Attributes
-	String name, enabled;
+	String name;
+	ObjectState enabled;
 	String sep = ","; // separator
 
 	// This is an extra. The 8 most common are: milk, eggs, tree nuts,
 	// peanuts, shellfish, wheat, soy, fish.
 	boolean allergen;
 
-	public Ingredient(String name, boolean allergen, String enabled) {
+	public Ingredient(String name, boolean allergen, ObjectState enabled) {
 		this.name = name;
 		this.allergen = allergen;
 		this.enabled = enabled;
@@ -38,7 +39,7 @@ public class Ingredient implements Serializable{
 		return allergen + "";
 	}
 	
-	public String getEnabled() {
+	public ObjectState getEnabled() {
 		return enabled;
 	}
 
@@ -46,7 +47,7 @@ public class Ingredient implements Serializable{
 		return name + sep + allergen;
 	}
 	
-	public void setState(String newState) {
+	public void setState(ObjectState newState) {
 		enabled = newState;
 	}
 	

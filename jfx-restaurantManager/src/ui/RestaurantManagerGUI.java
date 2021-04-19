@@ -19,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.control.cell.TextFieldListCellBuilder;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 
@@ -499,8 +500,8 @@ public class RestaurantManagerGUI {
 	}
 
 	private void initializeCreationSize() {
-		ObservableList<Size> tvMealObservableList = FXCollections.observableArrayList(rm.getSizesEnabled());
-		tvSizeCreated.setItems(tvMealObservableList);
+		ObservableList<Size> tvSizesObservableList = FXCollections.observableArrayList(rm.getSizesEnabled());
+		tvSizeCreated.setItems(tvSizesObservableList);
 		tcSizeCreated.setCellValueFactory(new PropertyValueFactory<Size, String>("name"));
 	}
 
@@ -538,8 +539,8 @@ public class RestaurantManagerGUI {
 	}
 
 	private void initializeCreationType() {
-		ObservableList<FoodType> tvMealObservableList = FXCollections.observableArrayList(rm.getFoodTypesEnabled());
-		tvTypeCreated.setItems(tvMealObservableList);
+		ObservableList<FoodType> tvTypeCreatedObservableList = FXCollections.observableArrayList(rm.getFoodTypesEnabled());
+		tvTypeCreated.setItems(tvTypeCreatedObservableList);
 		tcTypeCreated.setCellValueFactory(new PropertyValueFactory<FoodType, String>("name"));
 	}
 
@@ -595,7 +596,7 @@ public class RestaurantManagerGUI {
 		ingredients = areaIngredients.getText().split(",");
 		String ingredientsTxt = ingredients.toString();
 
-		if (name != "" && type != "" && price != "" && size != "" && ingredientsTxt != "") {
+		if (name != " " && type != "" && price != "" && size != "" && ingredientsTxt != "") {
 			rm.addMeal(name, size, price, type, ingredientsTxt);
 			txtMeal.clear();
 			txtType.clear();
@@ -791,7 +792,7 @@ public class RestaurantManagerGUI {
 			alert.setTitle("Hecho.");
 			alert.setContentText("La orden ha sido añadido exitosamente.");
 			alert.showAndWait();
-			rm.addOrder("Solicitado", observations, costumer, currentEmployee, meals);
+			rm.addOrder(observations, costumer, currentEmployee, meals);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -812,6 +813,8 @@ public class RestaurantManagerGUI {
 		tcOrderFoodAvaible.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
 		tcOrderFoodAvaibleSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
 		tcOrderFoodAvaiblePrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
+		
+		tcOrderFoodAvaible.setEditable(true);
 	}
 
 	// Create employees code.
@@ -947,7 +950,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableCostumer(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageCostumers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateCostumer(index, state);
@@ -970,7 +973,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableCostumer(ActionEvent event) throws IOException {
-		String state = "Sí";
+		int state = 1;
 
 		int index = tvManageCostumers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateCostumer(index, state);
@@ -1044,7 +1047,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableEmployee(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageEmployees.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateEmployee(index, state);
@@ -1067,7 +1070,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableEmployee(ActionEvent event) throws IOException {
-		String state = "Sí";
+		int state = 1;
 
 		int index = tvManageEmployees.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateEmployee(index, state);
@@ -1131,7 +1134,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableType(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageType.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateType(index, state);
@@ -1154,7 +1157,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableType(ActionEvent event) throws IOException {
-		String state = "Sí";
+		int state = 1;
 
 		int index = tvManageType.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateType(index, state);
@@ -1216,7 +1219,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableSize(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageSize.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateSize(index, state);
@@ -1239,7 +1242,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableSize(ActionEvent event) throws IOException {
-		String state = "Sí";
+		int state = 1;
 
 		int index = tvManageSize.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateSize(index, state);
@@ -1305,7 +1308,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableIngredient(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateIngredient(index, state);
@@ -1328,7 +1331,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableIngredient(ActionEvent event) throws IOException {
-		String state = "Sí";
+		int state = 1;
 
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateIngredient(index, state);
@@ -1416,7 +1419,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableUser(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageUsers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateUsert(index, state);
@@ -1439,7 +1442,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableUser(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 1;
 
 		int index = tvManageUsers.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateUsert(index, state);
@@ -1525,7 +1528,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableOrder(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageOrders.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateOrder(index, state);
@@ -1548,7 +1551,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableOrder(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 1;
 
 		int index = tvManageIngredients.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateOrder(index, state);
@@ -1722,7 +1725,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void disableMeal(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 2;
 
 		int index = tvManageMeals.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateMeal(index, state);
@@ -1745,7 +1748,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void enableMeal(ActionEvent event) throws IOException {
-		String state = "No";
+		int state = 1;
 
 		int index = tvManageMeals.getSelectionModel().getSelectedIndex();
 		boolean founded = rm.changeStateMeal(index, state);
@@ -1806,7 +1809,7 @@ public class RestaurantManagerGUI {
 		mainPane.getChildren().setAll(addEmployee);
 	}
 
-	private void showLoginWindow() throws IOException {
+	public void showLoginWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
 		fxmlLoader.setController(this);
 		Parent addMain = fxmlLoader.load();

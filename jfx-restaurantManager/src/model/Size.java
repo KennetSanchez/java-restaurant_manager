@@ -11,22 +11,23 @@ public class Size implements Serializable{
 	User lastModifier;
 	
 	//Attributes
-	String name = "", enabled = "";
+	String name = "";
+	ObjectState enabled;
 	
-	public Size(String newSize) {
+	public Size(String newSize, ObjectState enabled) {
 		name = newSize;
-		enabled = "Sí";
+		this.enabled = enabled;
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
-	public String getState() {
+	public ObjectState getState() {
 		return enabled;
 	}
 	
-	public void setState(String newStatus) {
-		enabled = newStatus;
+	public void setState(ObjectState newState) {
+		enabled = newState;
 	}
 }

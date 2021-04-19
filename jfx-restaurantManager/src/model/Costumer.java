@@ -11,7 +11,8 @@ public class Costumer implements Serializable{
 	User lastModifier;
 	
 	//Attributes
-	String name, lastname, address, observations, enabled;
+	String name, lastname, address, observations;
+	ObjectState enabled;
 	long phone;
 	String sep = ","; //separator
 	
@@ -19,7 +20,7 @@ public class Costumer implements Serializable{
 	long id;
 	
 	//Constructor whitout id.
-	public Costumer(String name, String lastname, String address, String observations, long phone, String enabled) {
+	public Costumer(String name, String lastname, String address, String observations, long phone, ObjectState enabled) {
 		this.name = name;
 		this.lastname = lastname;
 		this.address = address;
@@ -29,7 +30,7 @@ public class Costumer implements Serializable{
 	}
 	
 	//Constructor with id.
-	public Costumer(String name, String lastname, String address, String observations, long phone, String enabled, long id) {
+	public Costumer(String name, String lastname, String address, String observations, long phone, ObjectState enabled, long id) {
 		this.name = name;
 		this.lastname = lastname;
 		this.address = address;
@@ -47,7 +48,7 @@ public class Costumer implements Serializable{
 		return name +sep+ lastname +sep+ address +sep+ observations +sep+ phone;
 	}
 	
-	public void setEnabled(String newValue) {
+	public void setEnabled(ObjectState newValue) {
 		enabled = newValue;
 	}
 
@@ -63,7 +64,7 @@ public class Costumer implements Serializable{
 		return observations;
 	}
 
-	public String getEnabled() {
+	public ObjectState getEnabled() {
 		return enabled;
 	}
 
@@ -79,7 +80,7 @@ public class Costumer implements Serializable{
 		return id;
 	}
 	
-	public void setState(String newState) {
+	public void setState(ObjectState newState) {
 		enabled = newState;
 	}
 

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 public class User extends Employee{
 	
+
 	//User varaiables.
-	String userName, password, enabledU;
+	String userName, password;
+
+	ObjectState enabledU;
 	
 	//Employee variables.
 	String name, lastname, enabledE;
@@ -14,7 +17,7 @@ public class User extends Employee{
 	int ordersToday = 0;
 	String sep = ","; //separator
 	
-	public User(String userName, String password, String name, String lastname, long id, String enabledE, String enabledU) {
+	public User(String userName, String password, String name, String lastname, long id, ObjectState enabledE, ObjectState enabledU) {
 		super(name, lastname, id, enabledE);
 		this.userName = userName;
 		this.password = password;
@@ -30,11 +33,11 @@ public class User extends Employee{
 	}
 	
 	@Override
-	public String getEnabledE() {
+	public ObjectState getEnabledE() {
 		return super.getEnabledE();
 	}
 	
-	public String getEnabledU() {
+	public ObjectState getEnabledU() {
 		return enabledU;
 	}
 	
@@ -60,7 +63,7 @@ public class User extends Employee{
 		return name +sep+ lastname +sep+ id +sep+ userName +sep+ password;
 	}
 	
-	public void setState(String newState) {
+	public void setState(ObjectState newState) {
 		enabledU = newState;
 	}
 }

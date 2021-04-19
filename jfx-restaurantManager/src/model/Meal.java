@@ -18,7 +18,7 @@ public class Meal implements Serializable{
 	String ingredientsTxt;
 	String price;
 	String sep=","; //separator
-	String enabled;
+	ObjectState enabled;
 	//ArrayList<Ingredient> ingredients;
 	
 	
@@ -27,7 +27,7 @@ public class Meal implements Serializable{
 	String causes;
 	
 	//Dentro de RestaurantManager un array con los tipos principales para usarlos como "constantes".
-	public Meal(String name, String size, String price, String type, String ingredients, String enabled) {
+	public Meal(String name, String size, String price, String type, String ingredients, ObjectState enabled) {
 		this.name = name;
 		this.size = size;
 		this.price = price;
@@ -70,11 +70,11 @@ public class Meal implements Serializable{
 		return name +sep+ size +sep+ price +sep+ type +sep+ ingredientsTxt +sep+ causes;
 	}
 	
-	public void setState(String newState) {
+	public void setState(ObjectState newState) {
 		enabled = newState;
 	}
 	
-	public String getEnabled() {
+	public ObjectState getEnabled() {
 		return enabled;
 	}
 	

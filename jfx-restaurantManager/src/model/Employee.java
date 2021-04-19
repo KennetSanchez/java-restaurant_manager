@@ -13,13 +13,14 @@ public class Employee implements Serializable{
 	User lastModifier;
 	
 	//Attributes
-	String name, lastname, enabled;
+	String name, lastname;
+	ObjectState enabled;
 	long id;
 	ArrayList<Meal> mealsOrdered;
 	int ordersToday;
 	String sep = ","; //separator
 	
-	public Employee(String name, String lastname, long id, String enabled) {
+	public Employee(String name, String lastname, long id, ObjectState enabled) {
 		this.name = name;
 		this.lastname = lastname;
 		this.id = id;
@@ -58,7 +59,7 @@ public class Employee implements Serializable{
 		return mealsOrdered;
 	}
 	
-	public String getEnabledE() {
+	public ObjectState getEnabledE() {
 		return enabled;
 	}
 	
@@ -66,7 +67,7 @@ public class Employee implements Serializable{
 		return name +sep+ lastname +sep+ id;
 	}
 	
-	public void setState(String newState) {
+	public void setState(ObjectState newState) {
 		enabled = newState;
 	}
 

@@ -274,7 +274,7 @@ public class RestaurantManager {
 	}  
 	// Enable /Disable objects methods.
 
-	public boolean changeStateIngredient(int index, String newState) throws IOException {
+	public boolean changeStateIngredient(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -282,9 +282,18 @@ public class RestaurantManager {
 			posible = true;
 		}
 
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
+		
 		if (posible) {
-			allIngredients.get(index).setState(newState);
-			;
+			allIngredients.get(index).setState(state);
 			toSerialize();
 			founded = true;
 		}
@@ -292,7 +301,7 @@ public class RestaurantManager {
 	}
 	
 	//Meals.
-	public boolean changeStateMeal(int index, String newState) throws IOException {
+	public boolean changeStateMeal(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -300,8 +309,17 @@ public class RestaurantManager {
 			posible = true;
 		}
 
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
 		if (posible) {
-			allMeals.get(index).setState(newState);
+			allMeals.get(index).setState(state);
 			toSerialize();
 			founded = true;
 		}
@@ -321,19 +339,19 @@ public class RestaurantManager {
 			
 			switch(state) {
 			
-			case 2: orderChoosed.setStatus("En preparación");
+			case 2: orderChoosed.setStatus(OrderState.PREPARÁNDOSE);
 					orderChoosed.setStatusNum(state);
 					break;
 					
-			case 3: orderChoosed.setStatus("En entrega");	
+			case 3: orderChoosed.setStatus(OrderState.ENVIADO);	
 					orderChoosed.setStatusNum(state);
 					break;
 					
-			case 4: orderChoosed.setStatus("Entregado");
+			case 4: orderChoosed.setStatus(OrderState.ENTREGADO);
 					orderChoosed.setStatusNum(state);
 					break;
 					
-			case 5: orderChoosed.setStatus("Cancelado.");
+			case 5: orderChoosed.setStatus(OrderState.CANCELADO);
 					orderChoosed.setStatusNum(state);
 					break;
 			}
@@ -343,7 +361,7 @@ public class RestaurantManager {
 	}
 	
 	
-	public boolean changeStateCostumer(int index, String newState) throws IOException {
+	public boolean changeStateCostumer(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -351,8 +369,17 @@ public class RestaurantManager {
 			posible = true;
 		}
 
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
 		if (posible) {
-			allCostumers.get(index).setState(newState);
+			allCostumers.get(index).setState(state);
 			;
 			toSerialize();
 			founded = true;
@@ -360,16 +387,25 @@ public class RestaurantManager {
 		return founded;
 	}
 
-	public boolean changeStateEmployee(int index, String newState) throws IOException {
+	public boolean changeStateEmployee(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
 		if (allEmployees.size() >= index && index >= 0) {
 			posible = true;
 		}
+		
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
 
 		if (posible) {
-			allEmployees.get(index).setState(newState);
+			allEmployees.get(index).setState(state);
 			;
 			toSerialize();
 			founded = true;
@@ -377,7 +413,7 @@ public class RestaurantManager {
 		return founded;
 	}
 
-	public boolean changeStateOrder(int index, String newState) throws IOException {
+	public boolean changeStateOrder(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -385,8 +421,18 @@ public class RestaurantManager {
 			posible = true;
 		}
 
+		
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
 		if (posible) {
-			allOrders.get(index).setState(newState);
+			allOrders.get(index).setState(state);
 			;
 			toSerialize();
 			founded = true;
@@ -394,7 +440,7 @@ public class RestaurantManager {
 		return founded;
 	}
 
-	public boolean changeStateUsert(int index, String newState) throws IOException {
+	public boolean changeStateUsert(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -402,8 +448,17 @@ public class RestaurantManager {
 			posible = true;
 		}
 
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
 		if (posible) {
-			allUsers.get(index).setState(newState);
+			allUsers.get(index).setState(state);
 			;
 			toSerialize();
 			founded = true;
@@ -411,16 +466,25 @@ public class RestaurantManager {
 		return founded;
 	}
 	
-	public boolean changeStateSize(int index, String newState) throws IOException {
+	public boolean changeStateSize(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
 		if (allSizes.size() >= index && index >= 0) {
 			posible = true;
 		}
-
+		
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
 		if (posible) {
-			allSizes.get(index).setState(newState);
+			allSizes.get(index).setState(state);
 			;
 			toSerialize();
 			founded = true;
@@ -428,7 +492,7 @@ public class RestaurantManager {
 		return founded;
 	}
 	
-	public boolean changeStateType(int index, String newState) throws IOException {
+	public boolean changeStateType(int index, int option) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -436,8 +500,17 @@ public class RestaurantManager {
 			posible = true;
 		}
 
+		ObjectState state = null;
+		switch(option) {
+			case 1: state = ObjectState.HABILITADO;
+					break;
+		
+			case 2: state = ObjectState.DESHABILITADO;
+					break;
+		}
+		
 		if (posible) {
-			allFoodTypes.get(index).setState(newState);
+			allFoodTypes.get(index).setState(state);
 			founded = true;
 			;
 			toSerialize();
@@ -584,33 +657,36 @@ public class RestaurantManager {
 
 	// In the next versions this will be with the classes type, not Strings.
 	public void addMeal(String name, String size, String value, String type, String ingredients) throws IOException {
-		Meal newMeal = new Meal(name, size, value, type, ingredients, "Sí");
+		ObjectState enabled = ObjectState.HABILITADO;
+		Meal newMeal = new Meal(name, size, value, type, ingredients, enabled);
 		allMeals.add(newMeal);
 		toSerialize();
 	}
 
 	public void addEmployee(String name, String lastname, long id) throws IOException {
-		String enabled = "Sí";
+		ObjectState enabled = ObjectState.HABILITADO;
 		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
 		toSerialize();
 	}
 
 	public void addIngredients(String name, boolean allergen) throws IOException {
-		String enabled = "Sí";
+		ObjectState enabled = ObjectState.HABILITADO;
 		Ingredient newIngredient = new Ingredient(name, allergen, enabled);
 		allIngredients.add(newIngredient);
 		toSerialize();
 	}
 
 	public void addFoodType(String name) throws IOException {
-		FoodType newFoodType = new FoodType(name);
+		ObjectState enabled = ObjectState.HABILITADO;
+		FoodType newFoodType = new FoodType(name, enabled);
 		allFoodTypes.add(newFoodType);
 		toSerialize();
 	}
 
 	public void addSize(String name) throws IOException {
-		Size newSize = new Size(name);
+		ObjectState enabled = ObjectState.HABILITADO;
+		Size newSize = new Size(name, enabled);
 		allSizes.add(newSize);
 		toSerialize();
 	}
@@ -618,7 +694,7 @@ public class RestaurantManager {
 	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) throws IOException {
 
 		Costumer newCostumer = null;
-		String enabled = "Sí";
+		ObjectState enabled = ObjectState.HABILITADO;
 
 		if (id != 0L) {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled, id);
@@ -653,15 +729,17 @@ public class RestaurantManager {
 		orderFood.clear();
 		toSerialize();
 	}
-	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) throws IOException {
-		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals, "Sí");
+	public void addOrder(String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) throws IOException {
+		ObjectState enabled = ObjectState.HABILITADO;
+		
+		Order newOrder = new Order(OrderState.SOLICITADO, observations, owner, employeeInCharge, meals, enabled);
 		allOrders.add(newOrder);
 		toSerialize();
 	}
 
 	public void addUser(String userName, String userPass, String name, String lastName, long userId) throws IOException {
-		String enabledE = "Sí";
-		String enabledU = "Sí";
+		ObjectState enabledE = ObjectState.HABILITADO;
+		ObjectState enabledU = ObjectState.HABILITADO;
 
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
@@ -731,7 +809,7 @@ public class RestaurantManager {
 		ArrayList<Ingredient> enabledArray = new ArrayList<Ingredient>();
 
 		for (int i = 0; i < allIngredients.size(); i++) {
-			if (allIngredients.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+			if (allIngredients.get(i).getEnabled() == ObjectState.HABILITADO) {
 				enabledArray.add(allIngredients.get(i));
 			}
 		}
@@ -744,7 +822,7 @@ public class RestaurantManager {
 		ArrayList<Costumer> enabledArray = new ArrayList<Costumer>();
 
 		for (int i = 0; i < allCostumers.size(); i++) {
-			if (allCostumers.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+			if (allCostumers.get(i).getEnabled() == ObjectState.HABILITADO) {
 				enabledArray.add(allCostumers.get(i));
 			}
 		}
@@ -757,7 +835,7 @@ public class RestaurantManager {
 		ArrayList<Order> enabledArray = new ArrayList<Order>();
 
 		for (int i = 0; i < allOrders.size(); i++) {
-			if (allOrders.get(i).getEnabled().equalsIgnoreCase("Sí")) {
+			if (allOrders.get(i).getEnabled() == ObjectState.HABILITADO) {
 				enabledArray.add(allOrders.get(i));
 			}
 		}
@@ -770,7 +848,7 @@ public class RestaurantManager {
 		ArrayList<FoodType> enabledArray = new ArrayList<FoodType>();
 
 		for (int i = 0; i < allFoodTypes.size(); i++) {
-			if (allFoodTypes.get(i).getState().equalsIgnoreCase("Sí")) {
+			if (allFoodTypes.get(i).getState() == ObjectState.HABILITADO) {
 				enabledArray.add(allFoodTypes.get(i));
 				
 			}
@@ -788,7 +866,7 @@ public class RestaurantManager {
 		ArrayList<Employee> enabledArray = new ArrayList<Employee>();
 
 		for (int i = 0; i < allEmployees.size(); i++) {
-			if (allEmployees.get(i).getEnabledE().equalsIgnoreCase("Sí")) {
+			if (allEmployees.get(i).getEnabledE() == ObjectState.HABILITADO) {
 				enabledArray.add(allEmployees.get(i));
 			}
 		}
@@ -801,7 +879,7 @@ public class RestaurantManager {
 		ArrayList<User> enabledArray = new ArrayList<User>();
 
 		for (int i = 0; i < allUsers.size(); i++) {
-			if (allUsers.get(i).getEnabledU().equalsIgnoreCase("Sí")) {
+			if (allUsers.get(i).getEnabledU() == ObjectState.HABILITADO) {
 				enabledArray.add(allUsers.get(i));
 			}
 		}
@@ -892,6 +970,6 @@ public class RestaurantManager {
 	}
 
 	// Admin user, used as a basic user.
-	User adminUser = new User("admin", "root", "manager", "owner", 000L, "Sí", "Sí");
+	User adminUser = new User("admin", "root", "manager", "owner", 000L, ObjectState.HABILITADO, ObjectState.HABILITADO);
 
 }
