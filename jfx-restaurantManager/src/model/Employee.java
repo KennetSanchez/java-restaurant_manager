@@ -63,6 +63,9 @@ public class Employee implements Serializable{
 		return enabled;
 	}
 	
+	public long getSerial() {
+		return serialVersionUID;
+	}
 	public String toString() {
 		return name +sep+ lastname +sep+ id;
 	}

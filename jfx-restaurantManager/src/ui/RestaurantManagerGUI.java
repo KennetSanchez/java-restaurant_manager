@@ -245,9 +245,12 @@ public class RestaurantManagerGUI {
 	void login(ActionEvent event) {
 		String name = userText.getText();
 		String password = passwordText.getText();
+		String user="";
 
 		currentEmployee = rm.login(name, password);
-		String user = currentEmployee.getName() + " " + currentEmployee.getLastname();
+		if(currentEmployee!=null) { 
+			user = currentEmployee.getName() + " " + currentEmployee.getLastname();
+		}
 
 		if (user != "") {
 			userActive.setText(user);
@@ -358,55 +361,66 @@ public class RestaurantManagerGUI {
 	void changeUser(ActionEvent event) throws IOException {
 		showLoginWindow();
 	}
-
-	/*
-	 * @FXML void generateReport(ActionEvent event)throws IOException{ if
-	 * (userActive.getText() != "") { showGenerateReport(); } else { Alert alert =
-	 * new Alert(Alert.AlertType.ERROR); alert.setHeaderText(null);
-	 * alert.setTitle("Error.");
-	 * alert.setContentText("Debe iniciar sesión con un usuario primero.");
-	 * alert.showAndWait(); } }
-	 */
+	
+	@FXML
+	void generateReport(ActionEvent event)throws IOException{
+		if(userActive.getText() != "") {
+			//showGenerateReport();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR); alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait(); 
+		}
+	}
+	 
 
 	@FXML
 	void sellsByEm(ActionEvent event) throws IOException {
 		rm.sellsByEmployee();
-		/*
-		 * if(userActive.getText() != ""){ rm.sellsByEmployee(); Alert alert = new
-		 * Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
-		 * alert.setTitle("Reporte");
-		 * alert.setContentText("Reporte de Empleados creado en el archivo.");
-		 * alert.showAndWait(); }else { Alert alert = new Alert(Alert.AlertType.ERROR);
-		 * alert.setHeaderText(null); alert.setTitle("Error.");
-		 * alert.setContentText("Debe iniciar sesión con un usuario primero.");
-		 * alert.showAndWait(); }
-		 */
+		if(userActive.getText() != "") {
+			rm.sellsByEmployee(); Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
+			alert.setTitle("Reporte");
+			alert.setContentText("Reporte de Empleados creado en el archivo.");
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
 	void sellsByPr(ActionEvent event) throws IOException {
 		rm.sellsByProduct();
-		/*
-		 * if(userActive.getText() != ""){ rm.sellsByProduct(); Alert alert = new
-		 * Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
-		 * alert.setTitle("Reporte");
-		 * alert.setContentText("Reporte de ventas por Producto creado.");
-		 * alert.showAndWait(); }else { Alert alert = new Alert(Alert.AlertType.ERROR);
-		 * alert.setHeaderText(null); alert.setTitle("Error.");
-		 * alert.setContentText("Debe iniciar sesión con un usuario primero.");
-		 * alert.showAndWait(); }
-		 */
+		if(userActive.getText() != "") {
+			rm.sellsByProduct(); Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
+			alert.setTitle("Reporte");
+			alert.setContentText("Reporte de ventas por Producto creado.");
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null); alert.setTitle("Error.");
+			alert.setContentText("Debe iniciar sesión con un usuario primero.");
+			alert.showAndWait();
+		}
 	}
 
 	// Create code.
 
 	// Create Report Code
+	
+    @FXML
+    private CheckBox employeeCB;
 
-	/*
-	 * private void initializeGenerateReportWindow() {
-	 * 
-	 * }
-	 */
+    @FXML
+    private CheckBox productCB;
+	
+	private void initializeGenerateReportWindow() {
+	 
+	}
 
 	// Ingredients code.
 
@@ -543,6 +557,12 @@ public class RestaurantManagerGUI {
 		tvTypeCreated.setItems(tvTypeCreatedObservableList);
 		tcTypeCreated.setCellValueFactory(new PropertyValueFactory<FoodType, String>("name"));
 	}
+	
+	/*
+	 * @FXML void showDataList(ActionEvent event) { String opc; opc =
+	 * txtOpc.getOpc(); rm.createDataList(opc); }
+	 */
+	// jd
 
 	// Create meal code.
 
@@ -616,12 +636,6 @@ public class RestaurantManagerGUI {
 		}
 
 	}
-
-	/*
-	 * @FXML void showDataList(ActionEvent event) { String opc; opc =
-	 * txtOpc.getOpc(); rm.createDataList(opc); }
-	 */
-	// jd
 
 	private void initializeTableViewsMealWindow() {
 		ObservableList<Meal> tvMealObservableList = FXCollections.observableArrayList(rm.getMealsEnabled());
@@ -1907,12 +1921,12 @@ public class RestaurantManagerGUI {
 	}
 
 	// show report window
-	/*
-	 * private void showGenerateReport() throws IOException { FXMLLoader fxmlLoader
-	 * = new FXMLLoader(getClass().getResource("GenerateReport.fxml"));
-	 * fxmlLoader.setController(this); Parent manageOrders = fxmlLoader.load();
-	 * mainPane.getChildren().setAll(manageOrders);
-	 * initializeGenerateReportWindow(); }
-	 */
-
+	/*private void showGenerateReport() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenerateReport.fxml"));
+		fxmlLoader.setController(this);
+		Parent createReport = fxmlLoader.load();
+		mainPane.getChildren().setAll(createReport);
+		//initializeGenerateReportWindow();
+	}*/
+	
 }

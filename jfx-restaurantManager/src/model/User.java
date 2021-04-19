@@ -59,6 +59,10 @@ public class User extends Employee{
 	}
 	
 	@Override
+	public long getSerial(){
+		return super.getSerial();
+	}
+	@Override
 	public String toString() {
 		return name +sep+ lastname +sep+ id +sep+ userName +sep+ password;
 	}

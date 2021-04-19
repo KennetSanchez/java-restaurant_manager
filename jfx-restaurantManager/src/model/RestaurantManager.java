@@ -87,7 +87,14 @@ public class RestaurantManager {
 
 		orderFood = new ArrayList<Meal>();
 		
+		//TEST
+		if(adminUser.getSerial()!=1) {
+			//    System.out.println(adminUser.getSerial());
+			toSerialize();
+		}
+		
 		deserialize();
+		toSerialize();
 	}
 	
 	public void changeIngredientName(int index, String newName) throws IOException {
