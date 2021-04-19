@@ -49,4 +49,8 @@ public class Ingredient implements Serializable{
 	public void setState(String newState) {
 		enabled = newState;
 	}
+	
+	public void setName(String newName) {
+		name = newName;
+	}
 }

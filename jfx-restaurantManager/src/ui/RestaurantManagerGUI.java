@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,23 +13,22 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
@@ -37,7 +37,7 @@ public class RestaurantManagerGUI {
 
 	RestaurantManager rm;
 	Employee currentEmployee;
-	
+
 	public RestaurantManagerGUI() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
 		rm = new RestaurantManager();
 
@@ -245,9 +245,9 @@ public class RestaurantManagerGUI {
 		String name = userText.getText();
 		String password = passwordText.getText();
 
-		currentEmployee = rm.login(name, password); 
+		currentEmployee = rm.login(name, password);
 		String user = currentEmployee.getName() + " " + currentEmployee.getLastname();
-		
+
 		if (user != "") {
 			userActive.setText(user);
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -396,6 +396,9 @@ public class RestaurantManagerGUI {
 		 * alert.showAndWait(); }
 		 */
 	}
+
+	// Create code.
+
 	// Create Report Code
 
 	/*
@@ -445,11 +448,22 @@ public class RestaurantManagerGUI {
 	}
 
 	private void initializeTableViewsIngredientWindow() {
-		ObservableList<Ingredient> tvIngredientObservableList = FXCollections
-				.observableArrayList(rm.getIngredientsEnabled());
+		ObservableList<Ingredient> tvIngredientObservableList = FXCollections.observableArrayList(rm.getIngredientsEnabled());
+			
 		tvIngredientsCreated.setItems(tvIngredientObservableList);
-		tcIngredientsCreated.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
+		tcIngredientsCreated.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));		
+		
+		tvIngredientsCreated.setEditable(true);
+		tcIngredientsCreated.setEditable(true);
+		
 	}
+
+	@FXML
+	void sortIngredients(Event event) {
+		System.out.println("Acomodando ingredientes.");
+	}
+
+	
 
 	// Create size code.
 
@@ -738,9 +752,9 @@ public class RestaurantManagerGUI {
 	void addMealToOrder(ActionEvent event) {
 		Meal meal = tvOrderFoodAvaible.getSelectionModel().getSelectedItem();
 		rm.addMealToOrder(meal);
-		
+
 		ObservableList<Meal> tvOrder = FXCollections.observableArrayList(rm.getOrderFood());
-		
+
 		tvOrderFoodRequested.setItems(tvOrder);
 		tcOrderFoodRequested.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
 		tcOrderFoodRequestedSize.setCellValueFactory(new PropertyValueFactory<Meal, String>("size"));
@@ -764,10 +778,10 @@ public class RestaurantManagerGUI {
 
 		String observations = orderObservations.getText();
 
-		if(observations.equals("") || observations.equals(" ")) {
+		if (observations.equals("") || observations.equals(" ")) {
 			observations = "Sin observaciones";
 		}
-		
+
 		if (orderFood.size() != 0 && costumerNameAndPhone != "") {
 			// rm.sellsByEmployee();
 			// Serializar luego **
@@ -1083,85 +1097,84 @@ public class RestaurantManagerGUI {
 		tcManageEmployeesEnabled.setCellValueFactory(new PropertyValueFactory<Employee, String>("enabledE"));
 	}
 
-	
-	//Manage types windows code.
-	
-	 	@FXML
-	    private TableView<FoodType> tvManageType;
+	// Manage types windows code.
 
-	    @FXML
-	    private TableColumn<FoodType, String> tcManageTypeName;
+	@FXML
+	private TableView<FoodType> tvManageType;
 
-	    @FXML
-	    private TableColumn<FoodType, String> tcManageTypeEnabled;
+	@FXML
+	private TableColumn<FoodType, String> tcManageTypeName;
 
-	    @FXML
-	    void deleteType(ActionEvent event) throws IOException {
-	    	int index = tvManageType.getSelectionModel().getSelectedIndex();
-			boolean founded = rm.deleteType(index);
+	@FXML
+	private TableColumn<FoodType, String> tcManageTypeEnabled;
 
-			if (founded) {
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setTitle("Realizado");
-				alert.setContentText("El tipo de producto ha sido eliminado exitosamente.");
-				showManageTypes();
-				alert.showAndWait();
-			} else {
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setTitle("Error");
-				alert.setContentText("El tipo de producto no ha sido eliminado. Seleccione uno e intente de nuevo.");
-				alert.showAndWait();
-			}
-	    }
+	@FXML
+	void deleteType(ActionEvent event) throws IOException {
+		int index = tvManageType.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.deleteType(index);
 
-	    @FXML
-	    void disableType(ActionEvent event) throws IOException {
-	    	String state = "No";
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El tipo de producto ha sido eliminado exitosamente.");
+			showManageTypes();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El tipo de producto no ha sido eliminado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
+	}
 
-			int index = tvManageType.getSelectionModel().getSelectedIndex();
-			boolean founded = rm.changeStateType(index, state);
+	@FXML
+	void disableType(ActionEvent event) throws IOException {
+		String state = "No";
 
-			if (founded) {
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setTitle("Realizado");
-				alert.setContentText("El tipo de producto ha sido deshabilitado exitosamente.");
-				showManageTypes();
-				alert.showAndWait();
-			} else {
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setTitle("Error");
-				alert.setContentText("El tipo de producto no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
-				alert.showAndWait();
-			}
-	    }
+		int index = tvManageType.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.changeStateType(index, state);
 
-	    @FXML
-	    void enableType(ActionEvent event) throws IOException {
-	    	String state = "Sí";
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El tipo de producto ha sido deshabilitado exitosamente.");
+			showManageTypes();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El tipo de producto no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
+	}
 
-			int index = tvManageType.getSelectionModel().getSelectedIndex();
-			boolean founded = rm.changeStateType(index, state);
+	@FXML
+	void enableType(ActionEvent event) throws IOException {
+		String state = "Sí";
 
-			if (founded) {
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText(null);
-				alert.setTitle("Realizado");
-				alert.setContentText("El tipo de producto ha sido deshabilitado exitosamente.");
-				showManageTypes();
-				alert.showAndWait();
-			} else {
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setTitle("Error");
-				alert.setContentText("El tipo de producto no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
-				alert.showAndWait();
-			}
-	    }
-	
+		int index = tvManageType.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.changeStateType(index, state);
+
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("El tipo de producto ha sido deshabilitado exitosamente.");
+			showManageTypes();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("El tipo de producto no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
+	}
+
 	private void initializeManagerTypesWindow() {
 
 		ObservableList<FoodType> tvTypeObservableList = FXCollections.observableArrayList(rm.getFoodTypes());
@@ -1169,7 +1182,7 @@ public class RestaurantManagerGUI {
 		tcManageTypeName.setCellValueFactory(new PropertyValueFactory<FoodType, String>("name"));
 		tcManageTypeEnabled.setCellValueFactory(new PropertyValueFactory<FoodType, String>("state"));
 	}
-	
+
 	// Manage size windows code.
 	@FXML
 	private TableView<Size> tvManageSize;
@@ -1342,6 +1355,8 @@ public class RestaurantManagerGUI {
 		tcManageIngredientsName.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("name"));
 		tcManageIngredientsAllergen.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("allergen"));
 		tcManageIngredientsEnabled.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("enabled"));
+		
+		
 	}
 
 	// Manage users code.
@@ -1706,13 +1721,49 @@ public class RestaurantManagerGUI {
 	}
 
 	@FXML
-	void disableMeal(ActionEvent event) {
+	void disableMeal(ActionEvent event) throws IOException {
+		String state = "No";
 
+		int index = tvManageMeals.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.changeStateMeal(index, state);
+
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("Este plato ha sido deshabilitado exitosamente.");
+			showManageMeals();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Este plato no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
-	void enableMeal(ActionEvent event) {
+	void enableMeal(ActionEvent event) throws IOException {
+		String state = "No";
 
+		int index = tvManageMeals.getSelectionModel().getSelectedIndex();
+		boolean founded = rm.changeStateMeal(index, state);
+
+		if (founded) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Realizado");
+			alert.setContentText("Este plato ha sido deshabilitado exitosamente.");
+			showManageMeals();
+			alert.showAndWait();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setHeaderText(null);
+			alert.setTitle("Error");
+			alert.setContentText("Este plato no ha sido deshabilitado. Seleccione uno e intente de nuevo.");
+			alert.showAndWait();
+		}
 	}
 
 	// Show addition windows code.

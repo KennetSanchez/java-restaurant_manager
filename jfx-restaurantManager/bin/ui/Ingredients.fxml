@@ -37,7 +37,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="tvIngredientsCreated" layoutX="415.0" layoutY="23.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="tvIngredientsCreated" editable="true" layoutX="415.0" layoutY="23.0" prefHeight="200.0" prefWidth="227.0">
         <columns>
           <TableColumn fx:id="tcIngredientsCreated" prefWidth="226.0" text="Ingrediente" />
         </columns>

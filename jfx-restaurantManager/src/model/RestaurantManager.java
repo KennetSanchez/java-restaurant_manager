@@ -93,6 +93,12 @@ public class RestaurantManager {
 		toSerialize();
 		deserialize();
 	}
+	
+	public void changeIngredientName(int index, String newName) {
+		ArrayList<Ingredient> ingredients = getIngredientsEnabled();
+		ingredients.get(index).setName(newName);			
+	}
+	
 	// Make the report of sells by employee and sells of each product
 	
 	public void toReadEmployees() throws IOException {
@@ -264,6 +270,22 @@ public class RestaurantManager {
 		if (posible) {
 			allIngredients.get(index).setState(newState);
 			;
+			founded = true;
+		}
+		return founded;
+	}
+	
+	//Meals.
+	public boolean changeStateMeal(int index, String newState) {
+		boolean founded = false;
+		boolean posible = false;
+
+		if (allMeals.size() >= index && index >= 0) {
+			posible = true;
+		}
+
+		if (posible) {
+			allMeals.get(index).setState(newState);
 			founded = true;
 		}
 		return founded;

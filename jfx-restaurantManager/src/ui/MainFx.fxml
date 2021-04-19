@@ -7,9 +7,9 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="861.0" prefWidth="1381.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="957.0" prefWidth="1507.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="57.0" prefWidth="1381.0">
+      <MenuBar layoutY="2.0" prefHeight="57.0" prefWidth="1514.0">
         <menus>
           <Menu mnemonicParsing="false" text="Añadir">
             <items>
@@ -56,12 +56,10 @@
             </Menu>
         </menus>
       </MenuBar>
-      <Pane fx:id="mainPane" layoutX="-2.0" layoutY="59.0" prefHeight="803.0" prefWidth="1324.0">
-         <children>
-            <Label layoutX="1038.0" layoutY="781.0" text="Fecha y hora:" />
-            <Label fx:id="date" layoutX="1124.0" layoutY="781.0" prefHeight="17.0" prefWidth="239.0" text="**Date/hour**" />
-            <Label layoutX="62.0" layoutY="773.0" prefHeight="17.0" prefWidth="54.0" text="Usuario:" />
-            <Label fx:id="userActive" layoutX="128.0" layoutY="771.0" prefHeight="17.0" prefWidth="223.0" />
-         </children></Pane>
+      <Pane fx:id="mainPane" layoutX="-2.0" layoutY="59.0" prefHeight="854.0" prefWidth="1514.0" />
+      <Label fx:id="date" layoutX="1316.0" layoutY="923.0" prefHeight="17.0" prefWidth="239.0" text="**Date/hour**" />
+      <Label layoutX="1231.0" layoutY="924.0" text="Fecha y hora:" />
+      <Label fx:id="userActive" layoutX="92.0" layoutY="928.0" prefHeight="17.0" prefWidth="223.0" />
+      <Label layoutX="23.0" layoutY="926.0" prefHeight="17.0" prefWidth="54.0" text="Usuario:" />
    </children>
 </Pane>
