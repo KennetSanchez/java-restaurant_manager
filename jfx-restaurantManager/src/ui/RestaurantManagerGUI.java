@@ -425,7 +425,7 @@ public class RestaurantManagerGUI {
 	private TableColumn<Ingredient, String> tcIngredientsCreated;
 
 	@FXML
-	void createIngredient(ActionEvent event) {
+	void createIngredient(ActionEvent event) throws IOException {
 		String name = txtIngredient.getText();
 		boolean allergen = allergenCheckBox.isSelected();
 		if (name != "") {
@@ -480,7 +480,7 @@ public class RestaurantManagerGUI {
 	private TableColumn<Size, String> tcSizeCreated;
 
 	@FXML
-	void createSize(ActionEvent event) {
+	void createSize(ActionEvent event) throws IOException {
 		String name = txtSizeCreation.getText();
 		if (name != "") {
 			rm.addSize(name);
@@ -519,7 +519,7 @@ public class RestaurantManagerGUI {
 	private TableColumn<FoodType, String> tcTypeCreated;
 
 	@FXML
-	void createType(ActionEvent event) {
+	void createType(ActionEvent event) throws IOException {
 		String name = txtTypeCreation.getText();
 		if (name != "") {
 			rm.addFoodType(name);
@@ -585,7 +585,7 @@ public class RestaurantManagerGUI {
 	private TableColumn<Size, String> tcSize;
 
 	@FXML
-	void createMeal(ActionEvent event) {
+	void createMeal(ActionEvent event) throws IOException {
 		String name, type, price, size;
 		String[] ingredients;
 		name = txtMeal.getText();
@@ -664,7 +664,7 @@ public class RestaurantManagerGUI {
 	private TextArea costumerObservationsArea;
 
 	@FXML
-	void createCostumer(ActionEvent event) {
+	void createCostumer(ActionEvent event) throws IOException {
 
 		String name = costumerNameTxt.getText();
 		String lastname = costumerLastnames.getText();
@@ -749,7 +749,7 @@ public class RestaurantManagerGUI {
 	private TextArea orderObservations;
 
 	@FXML
-	void addMealToOrder(ActionEvent event) {
+	void addMealToOrder(ActionEvent event) throws IOException {
 		Meal meal = tvOrderFoodAvaible.getSelectionModel().getSelectedItem();
 		rm.addMealToOrder(meal);
 
@@ -829,7 +829,7 @@ public class RestaurantManagerGUI {
 	private TextField createEmployeeLastname;
 
 	@FXML
-	void createEmployee(ActionEvent event) {
+	void createEmployee(ActionEvent event) throws IOException {
 		String employeeName = createEmployeeName.getText();
 		long employeeId = Long.parseLong(createEmployeeId.getText());
 		String employeeLastname = createEmployeeLastname.getText();
@@ -871,7 +871,7 @@ public class RestaurantManagerGUI {
 	private TextField userTxtLastname;
 
 	@FXML
-	void createUser(ActionEvent event) {
+	void createUser(ActionEvent event) throws IOException {
 		String userName = userTxtUsername.getText();
 		String userPass = userTxtPassword.getText();
 		long userId = Long.parseLong(userTxtId.getText());

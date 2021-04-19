@@ -66,8 +66,6 @@ public class RestaurantManager {
 	BufferedWriter bw = null;
 	FileWriter fileW = null;
 	FileReader fileR = null;
-
-	//ArrayList for test the order.
 	
 	public RestaurantManager() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
 		// br = new BufferedReader(new InputStreamReader(System.in));
@@ -89,14 +87,13 @@ public class RestaurantManager {
 
 		orderFood = new ArrayList<Meal>();
 		
-		// TEST ------
-		toSerialize();
 		deserialize();
 	}
 	
-	public void changeIngredientName(int index, String newName) {
+	public void changeIngredientName(int index, String newName) throws IOException {
 		ArrayList<Ingredient> ingredients = getIngredientsEnabled();
-		ingredients.get(index).setName(newName);			
+		ingredients.get(index).setName(newName);		
+		toSerialize();
 	}
 	
 	// Make the report of sells by employee and sells of each product
@@ -106,6 +103,7 @@ public class RestaurantManager {
 		br = new BufferedReader(new FileReader("docs/example.csv"));
 		list.add(br.readLine());
         br.close();
+        toSerialize();
 	}
 
 	public void toSerialize() throws IOException{
@@ -240,26 +238,43 @@ public class RestaurantManager {
 		return stList;
 	}
 	
-	/*public void sortAlg(){
-		   ArrayList<Costumer> aux = allCostumers;
-		   
-			for(int i = 0; i<aux.size();i++){
-			   String min = aux.get(i).getName();
-
-			    for(int j=i+1; j<aux.size(); j++){
-				if(aux.get(j).getName().compareToIgnoreCase(min)<0){
-					String temp = aux.get(j).getName();
-					aux.set(j,allmin);
-					min = temp;
-				}		
-		            }
-				aux.get(i).setName(min);
-			}
-		}*/
-
+	//To sort arraylist
+	public void sortAlg(){
+		ArrayList<Costumer> aux = allCostumers;
+		int pos;
+		Costumer temp;  
+	    for(int i=0;i<aux.size();i++)  
+	    {  
+	        pos = smallest(aux,i);  
+	        temp = aux.get(i);  
+	        aux.set(i,aux.get(pos));  
+	        aux.set(pos, temp);  
+	    }  
+			
+	}
+	
+	public static int smallest(ArrayList <Costumer> ac, int i)  
+	{  
+	    Costumer small;
+		int pos;  
+	    small = ac.get(i);  
+	    pos = i;  
+	    
+    	for(int j=i; j<ac.size(); j++)  
+	    {  
+	        if(ac.get(j).getName().compareToIgnoreCase(small.getName())<0)  
+	        {  
+	            small = ac.get(j);  
+	            pos = j;  
+	        }  
+	    }  
+    
+	    
+	    return pos;  
+	}  
 	// Enable /Disable objects methods.
 
-	public boolean changeStateIngredient(int index, String newState) {
+	public boolean changeStateIngredient(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -270,13 +285,14 @@ public class RestaurantManager {
 		if (posible) {
 			allIngredients.get(index).setState(newState);
 			;
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 	
 	//Meals.
-	public boolean changeStateMeal(int index, String newState) {
+	public boolean changeStateMeal(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -286,13 +302,14 @@ public class RestaurantManager {
 
 		if (posible) {
 			allMeals.get(index).setState(newState);
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 
 	//Orders
-	public boolean refreshStatus(int index, int state) {
+	public boolean refreshStatus(int index, int state) throws IOException {
 		boolean made = false;
 		ArrayList<Order> orders = getOrdersEnabled();
 		
@@ -321,12 +338,12 @@ public class RestaurantManager {
 					break;
 			}
 		}
-		
+		toSerialize();
 		return made;
 	}
 	
 	
-	public boolean changeStateCostumer(int index, String newState) {
+	public boolean changeStateCostumer(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -337,12 +354,13 @@ public class RestaurantManager {
 		if (posible) {
 			allCostumers.get(index).setState(newState);
 			;
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 
-	public boolean changeStateEmployee(int index, String newState) {
+	public boolean changeStateEmployee(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -353,12 +371,13 @@ public class RestaurantManager {
 		if (posible) {
 			allEmployees.get(index).setState(newState);
 			;
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 
-	public boolean changeStateOrder(int index, String newState) {
+	public boolean changeStateOrder(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -369,12 +388,13 @@ public class RestaurantManager {
 		if (posible) {
 			allOrders.get(index).setState(newState);
 			;
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 
-	public boolean changeStateUsert(int index, String newState) {
+	public boolean changeStateUsert(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -385,12 +405,13 @@ public class RestaurantManager {
 		if (posible) {
 			allUsers.get(index).setState(newState);
 			;
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 	
-	public boolean changeStateSize(int index, String newState) {
+	public boolean changeStateSize(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -401,12 +422,13 @@ public class RestaurantManager {
 		if (posible) {
 			allSizes.get(index).setState(newState);
 			;
+			toSerialize();
 			founded = true;
 		}
 		return founded;
 	}
 	
-	public boolean changeStateType(int index, String newState) {
+	public boolean changeStateType(int index, String newState) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -416,15 +438,17 @@ public class RestaurantManager {
 
 		if (posible) {
 			allFoodTypes.get(index).setState(newState);
-			;
 			founded = true;
+			;
+			toSerialize();
 		}
+		
 		return founded;
 	}
 
 	// Delete objects methods.
 
-	public boolean deleteIngredient(int index) {
+	public boolean deleteIngredient(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -435,12 +459,13 @@ public class RestaurantManager {
 		if (posible) {
 			allIngredients.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 
-	public boolean deleteMeal(int index) {
+	public boolean deleteMeal(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -450,12 +475,13 @@ public class RestaurantManager {
 		if (posible) {
 			allMeals.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 	
-	public boolean deleteSize(int index) {
+	public boolean deleteSize(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -465,12 +491,13 @@ public class RestaurantManager {
 		if (posible) {
 			allSizes.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 	
-	public boolean deleteType(int index) {
+	public boolean deleteType(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -480,12 +507,13 @@ public class RestaurantManager {
 		if (posible) {
 			allFoodTypes.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 
-	public boolean deleteEmployee(int index) {
+	public boolean deleteEmployee(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -495,12 +523,13 @@ public class RestaurantManager {
 		if (posible) {
 			allEmployees.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 
-	public boolean deleteUser(int index) {
+	public boolean deleteUser(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -511,12 +540,13 @@ public class RestaurantManager {
 		if (posible) {
 			allUsers.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 
-	public boolean deleteCostumer(int index) {
+	public boolean deleteCostumer(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -527,12 +557,13 @@ public class RestaurantManager {
 		if (posible) {
 			allCostumers.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 
-	public boolean deleteOrder(int index) {
+	public boolean deleteOrder(int index) throws IOException {
 		boolean founded = false;
 		boolean posible = false;
 
@@ -543,42 +574,48 @@ public class RestaurantManager {
 		if (posible) {
 			allOrders.remove(index);
 			founded = true;
+			toSerialize();
 		}
-
+		
 		return founded;
 	}
 
 	// Addition to the arrays from RestaurantManagerGUI:
 
 	// In the next versions this will be with the classes type, not Strings.
-	public void addMeal(String name, String size, String value, String type, String ingredients) {
+	public void addMeal(String name, String size, String value, String type, String ingredients) throws IOException {
 		Meal newMeal = new Meal(name, size, value, type, ingredients, "Sí");
 		allMeals.add(newMeal);
+		toSerialize();
 	}
 
-	public void addEmployee(String name, String lastname, long id) {
+	public void addEmployee(String name, String lastname, long id) throws IOException {
 		String enabled = "Sí";
 		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
+		toSerialize();
 	}
 
-	public void addIngredients(String name, boolean allergen) {
+	public void addIngredients(String name, boolean allergen) throws IOException {
 		String enabled = "Sí";
 		Ingredient newIngredient = new Ingredient(name, allergen, enabled);
 		allIngredients.add(newIngredient);
+		toSerialize();
 	}
 
-	public void addFoodType(String name) {
+	public void addFoodType(String name) throws IOException {
 		FoodType newFoodType = new FoodType(name);
 		allFoodTypes.add(newFoodType);
+		toSerialize();
 	}
 
-	public void addSize(String name) {
+	public void addSize(String name) throws IOException {
 		Size newSize = new Size(name);
 		allSizes.add(newSize);
+		toSerialize();
 	}
 
-	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) {
+	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) throws IOException {
 
 		Costumer newCostumer = null;
 		String enabled = "Sí";
@@ -589,9 +626,11 @@ public class RestaurantManager {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled);
 		}
 		allCostumers.add(newCostumer);
+		sortAlg();
+		toSerialize();
 	}
 
-	public void addMealToOrder(Meal meal) {
+	public void addMealToOrder(Meal meal) throws IOException {
 		Meal enabledMeal = null;
 		Meal mealTest = null;
 				
@@ -603,26 +642,30 @@ public class RestaurantManager {
 		}
 		
 		orderFood.add(enabledMeal);
+		toSerialize();
 	}
 	
 	public ArrayList<Meal> getOrderFood(){
 		return orderFood;
 	}
 
-	public void cleanOrderFood() {
+	public void cleanOrderFood() throws IOException {
 		orderFood.clear();
+		toSerialize();
 	}
-	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) {
+	public void addOrder(String status, String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) throws IOException {
 		Order newOrder = new Order(status, observations, owner, employeeInCharge, meals, "Sí");
 		allOrders.add(newOrder);
+		toSerialize();
 	}
 
-	public void addUser(String userName, String userPass, String name, String lastName, long userId) {
+	public void addUser(String userName, String userPass, String name, String lastName, long userId) throws IOException {
 		String enabledE = "Sí";
 		String enabledU = "Sí";
 
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
+		toSerialize();
 	}
 
 	// DataList
