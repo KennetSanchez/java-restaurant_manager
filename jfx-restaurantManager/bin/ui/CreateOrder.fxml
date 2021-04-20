@@ -5,10 +5,11 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="838.0" prefWidth="1245.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="129.0" layoutY="111.0" text="Cliente:" textFill="GOLD">
          <font>
@@ -51,13 +52,30 @@
             <Font name="Arial Bold" size="17.0" />
          </font>
       </Button>
-      <Button layoutX="544.0" layoutY="739.0" mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: a2231d;" text="Crear orden." textFill="GOLD">
+      <Button layoutX="544.0" layoutY="629.0" mnemonicParsing="false" onAction="#createOrder" style="-fx-background-color: a2231d;" text="Crear orden." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="25.0" />
          </font>
       </Button>
       <TextArea fx:id="orderObservations" layoutX="129.0" layoutY="227.0" prefHeight="99.0" prefWidth="289.0" />
       <Label layoutX="202.0" layoutY="194.0" text="Observaciones" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchCostumerName" layoutX="1289.0" layoutY="473.0" prefHeight="25.0" prefWidth="230.0" />
+      <TextArea fx:id="searchCostumerResult" editable="false" layoutX="1295.0" layoutY="540.0" prefHeight="97.0" prefWidth="230.0" />
+      <Button layoutX="1304.0" layoutY="653.0" mnemonicParsing="false" onAction="#searchCostumer" style="-fx-background-color: a2231d;" text="Buscar cliente." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="25.0" />
+         </font>
+      </Button>
+      <Label layoutX="1289.0" layoutY="440.0" text="Nombre a buscar:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="1304.0" layoutY="515.0" text="Resultado:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
