@@ -85,7 +85,7 @@ public class RestaurantManager {
 			toSerialize();
 		}
 		
-		//toSerialize();
+		toSerialize();
 		deserialize();
 	}
 	
@@ -737,7 +737,7 @@ public class RestaurantManager {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Meal newMeal = new Meal(name, size, value, type, ingredients, enabled);
 		allMeals.add(newMeal);
-		//toSerialize();
+		toSerialize();
 	}
 	
 	//If the user chooses the ingredients from the table.
@@ -745,35 +745,35 @@ public class RestaurantManager {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Meal newMeal = new Meal(name, size, value, type, ingredients, enabled);
 		allMeals.add(newMeal);
-		//toSerialize();
+		toSerialize();
 	}
 	public void addEmployee(String name, String lastname, long id) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
 		//InsertionSort();
-		//toSerialize();
+		toSerialize();
 	}
 
 	public void addIngredients(String name, boolean allergen) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Ingredient newIngredient = new Ingredient(name, allergen, enabled);
 		allIngredients.add(newIngredient);
-		//toSerialize();
+		toSerialize();
 	}
 
 	public void addFoodType(String name) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		FoodType newFoodType = new FoodType(name, enabled);
 		allFoodTypes.add(newFoodType);
-		//toSerialize();
+		toSerialize();
 	}
 
 	public void addSize(String name) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Size newSize = new Size(name, enabled);
 		allSizes.add(newSize);
-		//toSerialize();
+		toSerialize();
 	}
 
 	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) throws IOException {
@@ -781,29 +781,69 @@ public class RestaurantManager {
 		Costumer newCostumer = null;
 		ObjectState enabled = ObjectState.HABILITADO;
 
+		int minimum = 0;
+		boolean done = false;
+		int comparation = 0;
+
+		int min = 0;
+		int max = allCostumers.size() - 1;
+		int mid = max / 2;
+
+		String foundedName = "";
+
+		while (min <= max && !done) {
+			mid = (max + min) / 2;
+			foundedName = allCostumers.get(mid).getName();
+
+			comparation = name.compareToIgnoreCase(foundedName);
+			System.out.println(comparation);
+			System.out.println(foundedName + " buscando " + name);
+
+			if (comparation == 0) {
+				allCostumers.add(mid + 1, newCostumer);
+				done = true;
+
+			} else if (comparation < 0) {
+				max = mid - 1;
+				System.out.println("Mínimo: " + min + "maximo " + max);
+			} else {
+				min = mid + 1;
+				System.out.println("Mínimo: " + min + "maximo " + max);
+			}
+
+			// Choosing the minimum difference. We multiply them to make both positive.
+
+			if ((comparation * comparation) < (minimum * minimum)) {
+				minimum = comparation;
+			}
+		}
+
 		if (id != 0L) {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled, id);
 		} else {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled);
 		}
-		allCostumers.add(newCostumer);
-		selectionSort();
-		//toSerialize();
+				
+		if(allCostumers.size() > mid+1) {
+			allCostumers.add(mid+1, newCostumer);
+		}else {
+			allCostumers.add(mid, newCostumer);
+		}
 	}
-
+	
 	public void addMealToOrder(Meal meal) throws IOException {
 		Meal enabledMeal = null;
 		Meal mealTest = null;
-				
-		for(int i = 0; i < getMealsEnabled().size() ; i++) {
+
+		for (int i = 0; i < getMealsEnabled().size(); i++) {
 			mealTest = getMealsEnabled().get(i);
-			if(meal == getMealsEnabled().get(i)) {
+			if (meal == getMealsEnabled().get(i)) {
 				enabledMeal = mealTest;
 			}
 		}
-		
+
 		orderFood.add(enabledMeal);
-		//toSerialize();
+		 toSerialize();
 	}
 	
 	public ArrayList<Meal> getOrderFood(){
@@ -812,14 +852,14 @@ public class RestaurantManager {
 
 	public void cleanOrderFood() throws IOException {
 		orderFood.clear();
-		//toSerialize();
+		toSerialize();
 	}
 	public void addOrder(String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		
 		Order newOrder = new Order(OrderState.SOLICITADO, observations, owner, employeeInCharge, meals, enabled);
 		allOrders.add(newOrder);
-		//toSerialize();
+		toSerialize();
 	}
 
 	public void addUser(String userName, String userPass, String name, String lastName, long userId) throws IOException {
@@ -828,7 +868,7 @@ public class RestaurantManager {
 
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
-		//toSerialize();
+		toSerialize();
 	}
 	
 	public void createDataCostumer() {
@@ -1015,6 +1055,10 @@ public class RestaurantManager {
 	public void addIngredientToMeal(Ingredient choosedIngredient, int choosedMeal) {
 		ArrayList<Meal> meals = getMealsEnabled();
 		meals.get(choosedMeal);
+	}
+
+	public static String getSellsEmployee() {
+		return SELLS_EMPLOYEE;
 	}
 
 }
