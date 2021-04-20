@@ -44,7 +44,7 @@ public class Costumer implements Serializable{
 	}
 	
 	public String toString() {
-		return name +sep+ lastname +sep+ address +sep+ observations +sep+ phone;
+		return name +sep+ lastname +sep+ id +sep+ phone +sep+ address;
 	}
 	
 	public void setEnabled(ObjectState newValue) {

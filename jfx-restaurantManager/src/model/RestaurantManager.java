@@ -12,15 +12,8 @@ import java.io.IOException;
 //import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.io.OutputStreamWriter;
-//import java.io.Writer;
-//import java.io.InputStreamReader;
-//import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-//import java.util.Collections;
 import java.util.List;
-
-//import java.util.Objects;
 
 public class RestaurantManager {
 
@@ -39,7 +32,7 @@ public class RestaurantManager {
 	
 	//Reports csv
 	private final static String SELLS_PRODUCT = "docs/Pr-List.csv";
-//	private final static String SELLS_EMPLOYEE = "docs/Emp-list.csv";
+	private final static String SELLS_EMPLOYEE = "docs/Emp-list.csv";
 
 	String name;
 	
@@ -72,10 +65,6 @@ public class RestaurantManager {
 	FileReader fileR = null;
 	
 	public RestaurantManager() throws IOException, FileNotFoundException, ClassNotFoundException, EOFException {
-		// br = new BufferedReader(new InputStreamReader(System.in));
-		//fileR = new FileReader("docs/em-List.txt"); // example. That isn't the name
-		//br = new BufferedReader(fileR);
-
 		allMeals = new ArrayList<Meal>();
 		allCostumers = new ArrayList<Costumer>();
 		allFoodTypes = new ArrayList<FoodType>();
@@ -93,7 +82,6 @@ public class RestaurantManager {
 		
 		//TEST
 		if(adminUser.getSerial()!=1) {
-			//    System.out.println(adminUser.getSerial());
 			toSerialize();
 		}
 		
@@ -264,7 +252,55 @@ public class RestaurantManager {
 		toSerialize();
 	}
 	
-	//To sort arraylist
+	//To sort arraylist. Selection
+	public void selectionSort(){
+		ArrayList<Costumer> aux = allCostumers;
+		int pos;
+		Costumer temp;  
+	    for(int i=0;i<aux.size();i++)  
+	    {  
+	        pos = smallest(aux,i);  
+	        temp = aux.get(i);  
+	        aux.set(i,aux.get(pos));  
+	        aux.set(pos, temp);  
+	    }
+	}
+	
+	public static int smallest(ArrayList <Costumer> ac, int i) {  
+	    Costumer small;
+		int pos;  
+	    small = ac.get(i);  
+	    pos = i;  
+	    
+    	for(int j=i; j<ac.size(); j++)  
+	    {  
+	        if(ac.get(j).getName().compareToIgnoreCase(small.getName())<0)  
+	        {  
+	            small = ac.get(j);  
+	            pos = j;  
+	        }  
+	    }
+    	
+	    return pos;  
+	}  
+	
+	//To sort. Insertion
+	public void InsertionSort() {  
+	    ArrayList<Employee> ar = allEmployees;
+	    
+	    for(int i=1; i<ar.size(); i++)   
+	    {  
+	        Employee temp = ar.get(i);  
+	        int j=i-1;
+	        for(j=i-1; j>=0 && temp.getName().compareToIgnoreCase(ar.get(j).getName())<0; j--) {  
+	            ar.set(j+1, ar.get(j));  
+	        }
+	        ar.set(j+1, temp);
+	    }
+	    allEmployees = ar;
+	}  
+	
+	//Search
 	public String searchCostumer(String name){
 		ArrayList<Costumer> aux = allCostumers;
 	   
@@ -314,23 +350,6 @@ public class RestaurantManager {
 		return courrier;
 	}
 	
-	public static int smallest(ArrayList <Costumer> ac, int i) {  
-	    Costumer small;
-		int pos;  
-	    small = ac.get(i);  
-	    pos = i;  
-	    
-    	for(int j=i; j<ac.size(); j++)  
-	    {  
-	        if(ac.get(j).getName().compareToIgnoreCase(small.getName())<0)  
-	        {  
-	            small = ac.get(j);  
-	            pos = j;  
-	        }  
-	    }
-    	
-	    return pos;  
-	}  
 	// Enable /Disable objects methods.
 
 	public boolean changeStateIngredient(int index, int option) throws IOException {
@@ -732,6 +751,7 @@ public class RestaurantManager {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
+		//InsertionSort();
 		//toSerialize();
 	}
 
@@ -767,7 +787,7 @@ public class RestaurantManager {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled);
 		}
 		allCostumers.add(newCostumer);
-		//sortAlg();
+		selectionSort();
 		//toSerialize();
 	}
 
@@ -810,51 +830,6 @@ public class RestaurantManager {
 		allUsers.add(newUser);
 		//toSerialize();
 	}
-
-	// DataList
-	/*public List<String> createDataList(String opt) {
-		String txt = null;
-		switch (opt) {
-		case "costumer":
-			txt = allCostumers;
-			break;
-		case "employee":
-			txt = employee.toString();
-			break;
-		case "foodType":
-			txt = foodType.getName();
-			break;
-		case "ingredient":
-			txt = ingredient.toString();
-			break;
-		case "meal":
-			txt = meal.toString();
-			break;
-		case "order":
-			txt = order.toString();
-			break;
-		case "size":
-			txt = size.getName();
-			break;
-		case "user":
-			txt = user.toString();
-			break;
-		default:
-			System.out.println("There is an error"); // msg to the developers. Is for a while
-		}
-
-		String[] stArray = null;
-		List<String> list = new ArrayList<String>();
-		if (txt != null) {
-			Collections.addAll(list, stArray);
-		}
-		
-		if(list!=null) {
-			
-		}
-
-		return list;
-	}*/
 	
 	public void createDataCostumer() {
 		if(!allCostumers.isEmpty()) {
