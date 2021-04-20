@@ -39,7 +39,7 @@ public class RestaurantManager {
 	
 	//Reports csv
 	private final static String SELLS_PRODUCT = "docs/Pr-List.csv";
-	private final static String SELLS_EMPLOYEE = "docs/Emp-list.csv";
+//	private final static String SELLS_EMPLOYEE = "docs/Emp-list.csv";
 
 	String name;
 	
@@ -265,18 +265,53 @@ public class RestaurantManager {
 	}
 	
 	//To sort arraylist
-	public void sortAlg(){
+	public String searchCostumer(String name){
 		ArrayList<Costumer> aux = allCostumers;
-		int pos;
-		Costumer temp;  
-	    for(int i=0;i<aux.size();i++)  
-	    {  
-	        pos = smallest(aux,i);  
-	        temp = aux.get(i);  
-	        aux.set(i,aux.get(pos));  
-	        aux.set(pos, temp);  
-	    }  
+	   
+		String courrier = "";
+	   
+		int min, max, mid;
+		max= aux.size()-1;
+		min = 0;
+		mid = (max+min)/2;
+		
+		String costumerName = name;
+		String foundedName = "";
+		
+		long start = System.currentTimeMillis();
+		long end;
+		long time;
+		
+		int comparation = 0;
+		boolean founded = false;
+		
+		while(min <= max && !founded) {		
+			mid = (max+min)/2;
+			foundedName = aux.get(mid).getFullName();
 			
+			comparation = costumerName.compareToIgnoreCase(foundedName);
+			System.out.println(comparation);
+			System.out.println(foundedName + " buscando " + costumerName);
+			
+			if(comparation == 0) {
+				end = System.currentTimeMillis();
+				time = (end-start);
+				courrier = foundedName + " tardó: " + time + " milisegundos en ser encontrado. \n";
+				founded = true;
+			
+				start = System.currentTimeMillis();
+			}else if(comparation < 0){
+				max = mid-1;
+				System.out.println("Mínimo: " + min + "maximo " + max);
+			}else {
+				min = mid+1;
+				System.out.println("Mínimo: " + min + "maximo " + max);
+			}
+			System.out.println(mid);
+			mid = (max+min)/2;
+			System.out.println(mid);
+		}
+		return courrier;
 	}
 	
 	public static int smallest(ArrayList <Costumer> ac, int i) {  
@@ -732,7 +767,7 @@ public class RestaurantManager {
 			newCostumer = new Costumer(name, lastname, address, observations, phone, enabled);
 		}
 		allCostumers.add(newCostumer);
-		sortAlg();
+		//sortAlg();
 		//toSerialize();
 	}
 

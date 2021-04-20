@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class User extends Employee{
 	
 

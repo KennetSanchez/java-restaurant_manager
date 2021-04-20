@@ -88,7 +88,7 @@ public class Costumer implements Serializable{
 	}
 
 	public String getFullName() {
-		return name + "   " + lastname;
+		return name + " " + lastname;
 	}
 
 	public void setName(String n) {

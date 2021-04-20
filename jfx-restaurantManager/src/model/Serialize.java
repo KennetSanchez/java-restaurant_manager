@@ -16,7 +16,6 @@ public class Serialize {
     
     public void toSerialize(String xx) {
     	fileName="docs/Pedidos.csv";
-    	String x="2";
     	FileOutputStream file;
 		try {
 			file = new FileOutputStream(fileName);

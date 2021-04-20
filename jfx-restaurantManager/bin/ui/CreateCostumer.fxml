@@ -24,7 +24,7 @@
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="545.0" layoutY="445.0" text="Campo de observaciones:" textFill="GOLD">
+      <Label layoutX="31.0" layoutY="554.0" text="Observaciones:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
@@ -49,11 +49,28 @@
       <TextField fx:id="costumerId" layoutX="204.0" layoutY="288.0" prefHeight="25.0" prefWidth="230.0" promptText="Opcional" />
       <TextField fx:id="costumerPhone" layoutX="822.0" layoutY="288.0" prefHeight="25.0" prefWidth="230.0" />
       <TextField fx:id="costumerAddress" layoutX="204.0" layoutY="444.0" prefHeight="25.0" prefWidth="230.0" />
-      <TextArea fx:id="costumerObservationsArea" layoutX="815.0" layoutY="445.0" prefHeight="97.0" prefWidth="319.0" promptText="Alergias, u otra información." />
-      <Button layoutX="523.0" layoutY="626.0" mnemonicParsing="false" onAction="#createCostumer" style="-fx-background-color: a2231d;" text="Añadir cliente" textFill="GOLD">
+      <TextArea fx:id="costumerObservationsArea" layoutX="204.0" layoutY="554.0" prefHeight="97.0" prefWidth="230.0" promptText="Alergias, u otra información." />
+      <Button layoutX="523.0" layoutY="750.0" mnemonicParsing="false" onAction="#createCostumer" style="-fx-background-color: a2231d;" text="Añadir cliente" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="25.0" />
          </font>
       </Button>
+      <Label layoutX="766.0" layoutY="445.0" text="Nombre a buscar:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchCostumerName" layoutX="970.0" layoutY="444.0" prefHeight="25.0" prefWidth="230.0" />
+      <Label layoutX="832.0" layoutY="493.0" text="Resultado:" textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="970.0" layoutY="603.0" mnemonicParsing="false" onAction="#searchCostumer" style="-fx-background-color: a2231d;" text="Buscar cliente." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="25.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="searchCostumerResult" editable="false" layoutX="970.0" layoutY="493.0" prefHeight="97.0" prefWidth="230.0" />
    </children>
 </Pane>

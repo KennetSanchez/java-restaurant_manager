@@ -13,14 +13,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.control.cell.TextFieldListCellBuilder;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
 
 import java.io.EOFException;
@@ -32,8 +28,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.sound.sampled.LineEvent.Type;
 
 import model.*;
 
@@ -717,6 +711,30 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	private TextArea costumerObservationsArea;
+	
+	@FXML
+    private TextField searchCostumerName;
+
+	@FXML
+    private TextArea searchCostumerResult;
+    
+    @FXML
+    void searchCostumer(ActionEvent event) {
+    	String name = searchCostumerName.getText();
+    	String msg = "";
+    	System.out.println("Método");
+    	if(!name.equals("")) {
+    		msg = rm.searchCostumer(name);
+    		System.out.println("!= nulo");
+    	}
+    	
+    	if(!msg.equals("")){
+    		searchCostumerResult.setText(msg);
+    		System.out.println("Encontrado");
+    	}else {
+    		searchCostumerResult.setText("No se ha encontrado ningún cliente con ese nombre.");
+    	}
+    }
 
 	@FXML
 	void createCostumer(ActionEvent event) throws IOException {
