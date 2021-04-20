@@ -751,7 +751,7 @@ public class RestaurantManager {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
-		//InsertionSort();
+		InsertionSort();
 		toSerialize();
 	}
 
