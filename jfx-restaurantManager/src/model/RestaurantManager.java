@@ -36,6 +36,10 @@ public class RestaurantManager {
 	//Reports
 	private final static String FILE_SELLS_PRODUCT = "docs/sSellsProduct.txt";
 	private final static String FILE_SELLS_EMPLOYEE = "docs/sSellsEmployee.txt";
+	
+	//Reports csv
+	private final static String SELLS_PRODUCT = "docs/Pr-List.csv";
+	private final static String SELLS_EMPLOYEE = "docs/Emp-list.csv";
 
 	String name;
 	
@@ -94,7 +98,7 @@ public class RestaurantManager {
 		}
 		
 		//toSerialize();
-		//deserialize();
+		deserialize();
 	}
 	
 	public void changeIngredientName(int index, String newName) throws IOException {
@@ -191,6 +195,7 @@ public class RestaurantManager {
 		ObjectInputStream oisU = new ObjectInputStream(new FileInputStream(FILE_USER));
 		allUsers = (ArrayList<User>)oisU.readObject();
 		oisU.close();
+		
 		}
 		catch(EOFException e){
 		}
@@ -249,6 +254,16 @@ public class RestaurantManager {
 		return stList;
 	}
 	
+	//Create Reports
+	public void createReportbyP() throws IOException, EOFException {
+		ArrayList<String> al = sellsByProduct();
+		bw = new BufferedWriter (new FileWriter(SELLS_PRODUCT));
+		for(int i=0; i<sellsByProduct().size(); i++) {
+			bw.write(al.get(i));
+		}
+		toSerialize();
+	}
+	
 	//To sort arraylist
 	public void sortAlg(){
 		ArrayList<Costumer> aux = allCostumers;
@@ -264,8 +279,7 @@ public class RestaurantManager {
 			
 	}
 	
-	public static int smallest(ArrayList <Costumer> ac, int i)  
-	{  
+	public static int smallest(ArrayList <Costumer> ac, int i) {  
 	    Costumer small;
 		int pos;  
 	    small = ac.get(i);  
@@ -278,9 +292,8 @@ public class RestaurantManager {
 	            small = ac.get(j);  
 	            pos = j;  
 	        }  
-	    }  
-    
-	    
+	    }
+    	
 	    return pos;  
 	}  
 	// Enable /Disable objects methods.

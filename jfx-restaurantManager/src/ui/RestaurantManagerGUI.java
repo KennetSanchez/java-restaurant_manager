@@ -397,7 +397,7 @@ public class RestaurantManagerGUI {
 
 	@FXML
 	void sellsByPr(ActionEvent event) throws IOException {
-		rm.sellsByProduct();
+		rm.createReportbyP();
 		if(userActive.getText() != "") {
 			rm.sellsByProduct(); Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setHeaderText(null);
 			alert.setTitle("Reporte");
