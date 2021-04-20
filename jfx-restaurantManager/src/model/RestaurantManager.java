@@ -94,7 +94,7 @@ public class RestaurantManager {
 		}
 		
 		//toSerialize();
-		deserialize();
+		//deserialize();
 	}
 	
 	public void changeIngredientName(int index, String newName) throws IOException {
@@ -367,7 +367,7 @@ public class RestaurantManager {
 					break;
 			}
 		}
-		toSerialize();
+		//toSerialize();
 		return made;
 	}
 	
@@ -665,40 +665,47 @@ public class RestaurantManager {
 
 	// Addition to the arrays from RestaurantManagerGUI:
 
-	// In the next versions this will be with the classes type, not Strings.
+	// If the user write the ingredients instead of choosing them.
 	public void addMeal(String name, String size, String value, String type, String ingredients) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Meal newMeal = new Meal(name, size, value, type, ingredients, enabled);
 		allMeals.add(newMeal);
-		toSerialize();
+		//toSerialize();
 	}
-
+	
+	//If the user chooses the ingredients from the table.
+	public void addMeal(String name, String size, String value, String type, ArrayList<Ingredient> ingredients) throws IOException {
+		ObjectState enabled = ObjectState.HABILITADO;
+		Meal newMeal = new Meal(name, size, value, type, ingredients, enabled);
+		allMeals.add(newMeal);
+		//toSerialize();
+	}
 	public void addEmployee(String name, String lastname, long id) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Employee newEmployee = new Employee(name, lastname, id, enabled);
 		allEmployees.add(newEmployee);
-		toSerialize();
+		//toSerialize();
 	}
 
 	public void addIngredients(String name, boolean allergen) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Ingredient newIngredient = new Ingredient(name, allergen, enabled);
 		allIngredients.add(newIngredient);
-		toSerialize();
+		//toSerialize();
 	}
 
 	public void addFoodType(String name) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		FoodType newFoodType = new FoodType(name, enabled);
 		allFoodTypes.add(newFoodType);
-		toSerialize();
+		//toSerialize();
 	}
 
 	public void addSize(String name) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		Size newSize = new Size(name, enabled);
 		allSizes.add(newSize);
-		toSerialize();
+		//toSerialize();
 	}
 
 	public void addCostumer(String name, String lastname, String address, String observations, long phone, long id) throws IOException {
@@ -713,7 +720,7 @@ public class RestaurantManager {
 		}
 		allCostumers.add(newCostumer);
 		sortAlg();
-		toSerialize();
+		//toSerialize();
 	}
 
 	public void addMealToOrder(Meal meal) throws IOException {
@@ -728,7 +735,7 @@ public class RestaurantManager {
 		}
 		
 		orderFood.add(enabledMeal);
-		toSerialize();
+		//toSerialize();
 	}
 	
 	public ArrayList<Meal> getOrderFood(){
@@ -737,14 +744,14 @@ public class RestaurantManager {
 
 	public void cleanOrderFood() throws IOException {
 		orderFood.clear();
-		toSerialize();
+		//toSerialize();
 	}
 	public void addOrder(String observations, Costumer owner, Employee employeeInCharge,	List<Meal> meals) throws IOException {
 		ObjectState enabled = ObjectState.HABILITADO;
 		
 		Order newOrder = new Order(OrderState.SOLICITADO, observations, owner, employeeInCharge, meals, enabled);
 		allOrders.add(newOrder);
-		toSerialize();
+		//toSerialize();
 	}
 
 	public void addUser(String userName, String userPass, String name, String lastName, long userId) throws IOException {
@@ -753,7 +760,7 @@ public class RestaurantManager {
 
 		User newUser = new User(userName, userPass, name, lastName, userId, enabledE, enabledU);
 		allUsers.add(newUser);
-		toSerialize();
+		//toSerialize();
 	}
 
 	// DataList
@@ -981,5 +988,10 @@ public class RestaurantManager {
 
 	// Admin user, used as a basic user.
 	User adminUser = new User("admin", "root", "manager", "owner", 000L, ObjectState.HABILITADO, ObjectState.HABILITADO);
+
+	public void addIngredientToMeal(Ingredient choosedIngredient, int choosedMeal) {
+		ArrayList<Meal> meals = getMealsEnabled();
+		meals.get(choosedMeal);
+	}
 
 }

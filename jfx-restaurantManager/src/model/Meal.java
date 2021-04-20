@@ -1,8 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-//import java.util.ArrayList;
 
 public class Meal implements Serializable{
 	
@@ -19,14 +19,14 @@ public class Meal implements Serializable{
 	String price;
 	String sep=","; //separator
 	ObjectState enabled;
-	//ArrayList<Ingredient> ingredients;
+	ArrayList<Ingredient> ingredients;
 	
 	
 	//This variables are for alert if the food may cause allergies 
 	boolean allergen;
 	String causes;
 	
-	//Dentro de RestaurantManager un array con los tipos principales para usarlos como "constantes".
+	//Constructor if the user write the ingredients instead of choosing them from the table.
 	public Meal(String name, String size, String price, String type, String ingredients, ObjectState enabled) {
 		this.name = name;
 		this.size = size;
@@ -34,12 +34,32 @@ public class Meal implements Serializable{
 		this.type = type;
 		this.ingredientsTxt = ingredients;
 		this.enabled = enabled;
+	}
+	
+	public Meal(String name, String size, String price, String type, ArrayList<Ingredient> ingredients, ObjectState enabled) {
+		this.name = name;
+		this.size = size;
+		this.price = price;
+		this.type = type;
+		this.ingredients = ingredients;
+		this.enabled = enabled;
+	}
+	
+	private String checkCauses() {
+		String msg = "";
+		int founded = 0;
 		
-		//We are going to work with it as a String for a while.
-		//this.ingredients = ingredients;
+		for(int i = 0; i < ingredients.size() ; i++) {
+			if(ingredients.get(i).getAllergenB() == true) {
+				msg += ingredients.get(i).getName() + ", ";				
+			}
+		}
 		
+		if(founded == 0) {
+			msg = "No tiene alérgenos.";
+		}
 		
-		//There will be a method to check if the food has an allergen ingredient and alert, or if isn't necessary.
+		return msg;
 	}
 	
 	public String getName() {
@@ -63,6 +83,7 @@ public class Meal implements Serializable{
 	}
 	
 	public String getCauses() {
+		causes = checkCauses();
 		return causes;
 	}
 	

@@ -30,7 +30,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.LineEvent.Type;
 
 import model.*;
 
@@ -494,6 +497,7 @@ public class RestaurantManagerGUI {
 			alert.setTitle("Realizado");
 			alert.setContentText("Tamaño añadido.");
 			alert.showAndWait();
+			initializeCreationSize();
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -533,6 +537,7 @@ public class RestaurantManagerGUI {
 			alert.setTitle("Realizado");
 			alert.setContentText("Tamaño añadido.");
 			alert.showAndWait();
+			initializeCreationType();
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -556,7 +561,12 @@ public class RestaurantManagerGUI {
 
 	// Create meal code.
 
-	@FXML
+	//This helps us to save the ingredients of each order. And show the user when he adds an ingredient.
+	
+	ArrayList<Ingredient> ingredientsArray = new ArrayList<Ingredient>();
+	String msg = "";
+	
+	@FXML	
 	private TextField txtMeal;
 
 	@FXML
@@ -596,6 +606,34 @@ public class RestaurantManagerGUI {
 	private TableColumn<Size, String> tcSize;
 
 	@FXML
+    void chooseIngredientMealCreation(ActionEvent event) {
+		Ingredient ingredientChoosed = tvIngredients.getSelectionModel().getSelectedItem();
+		ingredientsArray.add(ingredientChoosed);
+
+		
+		if(msg.equals("")) {
+			msg = ingredientChoosed.getName() + ", ";
+		}else {
+			msg += ingredientChoosed.getName() + ", ";		
+		}
+	
+		areaIngredients.setText(msg);
+		initializeTableViewsMealWindow();
+    }
+
+    @FXML
+    void chooseSizeMealCreation(ActionEvent event) {
+    	Size sizeChoosed = tvSize.getSelectionModel().getSelectedItem();
+    	txtSize.setText(sizeChoosed.getName());
+    }
+
+    @FXML
+    void chooseTypeMealCreation(ActionEvent event) {
+    	FoodType typeChoosed = tvType.getSelectionModel().getSelectedItem();
+    	txtType.setText(typeChoosed.getName());
+    }
+    
+	@FXML
 	void createMeal(ActionEvent event) throws IOException {
 		String name, type, price, size;
 		String[] ingredients;
@@ -607,16 +645,28 @@ public class RestaurantManagerGUI {
 		String ingredientsTxt = ingredients.toString();
 
 		if (!name.isEmpty() && !type.isEmpty() && !price.isEmpty() && !size.isEmpty() && !ingredientsTxt.isEmpty()) {
-			rm.addMeal(name, size, price, type, ingredientsTxt);
+			
 			txtMeal.clear();
 			txtType.clear();
 			txtPrice.clear();
 			txtSize.clear();
 			areaIngredients.clear();
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			
+			//This validates if the user choosed the ingredients, or if he write them.
+			if(ingredientsArray.size() > 0) {
+				rm.addMeal(name, size, price, type, ingredientsArray);
+			}else {
+				rm.addMeal(name, size, price, type, ingredientsTxt);
+			}
+			
+			
 			alert.setTitle("Creación completada.");
 			alert.setContentText("El producto ha sido añadido exitosamente.");
 			alert.showAndWait();
+			
+			//Dudoso.
+			ingredientsArray = null;
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText(null);
@@ -638,7 +688,7 @@ public class RestaurantManagerGUI {
 
 		ObservableList<FoodType> tvFoodTypeObservableList = FXCollections.observableArrayList(rm.getFoodTypes());
 		tvType.setItems(tvFoodTypeObservableList);
-		tcType.setCellValueFactory(new PropertyValueFactory<FoodType, String>("type"));
+		tcType.setCellValueFactory(new PropertyValueFactory<FoodType, String>("name"));
 
 		ObservableList<Size> tvSizeObservableList = FXCollections.observableArrayList(rm.getSizes());
 		tvSize.setItems(tvSizeObservableList);
@@ -1702,7 +1752,7 @@ public class RestaurantManagerGUI {
 		tcManageMealsPrice.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
 		tcManageMealsType.setCellValueFactory(new PropertyValueFactory<Meal, String>("type"));
 		tcManageMealsIngredients.setCellValueFactory(new PropertyValueFactory<Meal, String>("ingredientsTxt"));
-		tcManageMealsAllergens.setCellValueFactory(new PropertyValueFactory<Meal, String>("allergensTxt"));
+		tcManageMealsAllergens.setCellValueFactory(new PropertyValueFactory<Meal, String>("causes"));
 		tcManageMealsEnabled.setCellValueFactory(new PropertyValueFactory<Meal, String>("enabled"));
 	}
 

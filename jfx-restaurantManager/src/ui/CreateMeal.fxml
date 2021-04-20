@@ -38,9 +38,11 @@
          </font>
       </Label>
       <TextField fx:id="txtMeal" layoutX="200.0" layoutY="115.0" promptText="Nombre" />
+      <TextArea fx:id="areaIngredients" layoutX="200.0" layoutY="183.0" prefHeight="123.0" prefWidth="149.0" promptText="Ingredientes." wrapText="true" />
       <TextField fx:id="txtType" layoutX="200.0" layoutY="346.0" promptText="Plato principal, bebida, etc." />
+      <TextField fx:id="txtSize" layoutX="200.0" layoutY="395.0" promptText="Personal, familiar, etc." />
       <TextField fx:id="txtPrice" layoutX="222.0" layoutY="459.0" prefHeight="25.0" prefWidth="123.0" />
-      <Button layoutX="541.0" layoutY="703.0" mnemonicParsing="false" onAction="#createMeal" style="-fx-background-color: a2231d;" text="Añadir producto." textFill="GOLD">
+      <Button layoutX="541.0" layoutY="732.0" mnemonicParsing="false" onAction="#createMeal" style="-fx-background-color: a2231d;" text="Añadir producto." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -50,13 +52,11 @@
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSize" layoutX="200.0" layoutY="395.0" promptText="Personal, familiar, etc." />
       <TableView fx:id="tvSize" layoutX="824.0" layoutY="408.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="tcSize" prefWidth="199.0" text="Tamaño" />
         </columns>
       </TableView>
-      <TextArea fx:id="areaIngredients" layoutX="200.0" layoutY="183.0" prefHeight="123.0" prefWidth="149.0" promptText="Ingredientes." />
       <Label layoutX="33.0" layoutY="183.0" prefHeight="37.0" prefWidth="131.0" text="Ingredientes:" textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="20.0" />
@@ -71,6 +71,26 @@
       <Label layoutX="441.0" layoutY="14.0" prefHeight="37.0" prefWidth="363.0" text="Creación de productos." textFill="GOLD">
          <font>
             <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="1038.0" layoutY="183.0" mnemonicParsing="false" onAction="#chooseIngredientMealCreation" style="-fx-background-color: a2231d;" text="Seleccionar ingrediente." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="849.0" layoutY="636.0" mnemonicParsing="false" onAction="#chooseSizeMealCreation" style="-fx-background-color: a2231d;" text="Seleccionar tamaño." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="541.0" layoutY="636.0" mnemonicParsing="false" onAction="#chooseTypeMealCreation" style="-fx-background-color: a2231d;" text="Seleccionar tipo." textFill="GOLD">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="111.0" layoutY="582.0" prefHeight="141.0" prefWidth="273.0" text="Se recomienda escoger los elementos desde las tablas usando los botones respectivos, en lugar de escribirlos." textFill="GOLD" wrapText="true">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
    </children>
